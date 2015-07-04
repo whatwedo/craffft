@@ -1,7 +1,7 @@
 {
-  "name": "gulp-wp-theme",
-  "version": "1.0.0",
-  "description": "WordPress Theme Project Templates for Gulp ",
+  "name": "web-build-kit",
+  "version": "0.0.1",
+  "description": "Black box system for building future proof web applications and sites",
   "author": "whatwedo <welove@whatwedo.ch",
   "contributors": [
     {
@@ -14,18 +14,18 @@
     }
   ],
   "keywords": [
-    "wordpress",
-    "gulp",
-    "themes",
+    "web",
+    "css",
+    "es6",
     "browserify",
-    "wp"
+    "wordpress"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/whatwedo/gulp-wp-theme.git"
+    "url": "https://dev.whatwedo.ch/wwd-internal/web-build-kit.git"
   },
   "bugs": {
-    "url": "https://github.com/whatwedo/gulp-wp-theme/issues"
+    "url": "https://dev.whatwedo.ch/wwd-internal/web-build-kit/issues"
   },
   "license": "MIT",
   "main": "index.js",
@@ -74,6 +74,5 @@
     "yargs": "^3.8.0"
   },
   "devDependencies": {
-    "bower": "^1.4.1"
   }
 }
