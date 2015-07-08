@@ -7,6 +7,7 @@
 module.exports = function(gulp, config){
   gulp.task('watch', ['watchify', 'browserSync'], function() {
     gulp.watch(config.stylus.src, ['stylus']);
+    gulp.watch(config.postcss.src, ['postcss']);
     gulp.watch(config.changelog.src, ['changelog']);
     gulp.watch(config.images.src, ['images']);
     gulp.watch(config.svg.src, ['svg']);

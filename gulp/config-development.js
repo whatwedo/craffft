@@ -1,24 +1,28 @@
-var fs           = require('fs');
 var packageConfig = require('../package.json');
 
 var dest = './dist/wp-content/themes/' + packageConfig.name;
 var src = './src';
 
-var bower_components = './src/bower_components';
-var node_modules = './node_modules';
+var bowerComponents = './bower_components';
+var nodeModules = './node_modules';
 
 module.exports = {
+  src: src,
   options: {
     version: packageConfig.version
   },
-  autoprefixer: [
-    'last 2 version',
-    'safari 5',
-    'ie 9',
-    'opera 12.1',
-    'ios 6',
-    'android 4'
-  ],
+  autoprefixer: {
+    options: {
+      browsers: [
+      'last 2 version',
+      'safari 5',
+      'ie 9',
+      'opera 12.1',
+      'ios 6',
+      'android 4'
+      ]
+    }
+  },
   browserSync: {
     server: {
       // We're serving the src folder as well
@@ -27,43 +31,61 @@ module.exports = {
     },
     open: false,
     files: [
-      dest + "/**",
+      dest + '/**',
       // Exclude Map files
-      "!" + dest + "/**.map"
+      '!' + dest + '/**.map'
+    ]
+  },
+  postcss: {
+    src: src + '/**/*.css',
+    dest: dest,
+    processors: [
+      'autoprefixer',
+      'css-mqpacker',
+      'postcss-import'    // Combines media queries
+      // 'csswring'       // Minifies CSS
     ]
   },
   stylus: {
-    src: src + "/resources/stylus/**", // files which are watched for changes, but not compiled directly
-    main: src + "/resources/stylus/*.{styl, stylus}", // files which are compiled with all their decendants
+    src: [
+      src + '/**/*.{stylus,styl}',
+      src + '/**/!(_*.styl|_*.stylus)'
+    ],
     dest: dest,
     options: {
       compress: false,
       include: [
-        bower_components + '/../', // Shortcut references possible everywhere, e.g. @import 'bower_components/bla'
-        node_modules + '/../'      // Shortcut references possible everywhere, e.g. @import 'node_modules/bla'
+        bowerComponents + '/../', // Shortcut references possible everywhere, e.g. @import 'bower_components/bla'
+        nodeModules + '/../'      // Shortcut references possible everywhere, e.g. @import 'node_modules/bla'
       ]
     }
   },
+  // See: https://github.com/sindresorhus/gulp-imagemin
   images: {
-    src: src + "/resources/images/**",
-    dest: dest + "/resources/images"
-  },
-  svg: {
-    src: src + "/resources/svg/**",
-    dest: dest + "/resources/svg"
+    src: src + '/resources/images/**',
+    dest: dest + '/resources/images',
+    options: {
+      optimizationLevel: 3, // (png) 0 - 7 trials
+      progressive: true,    // (jpg) Lossless conversion to progressive
+      interlaced: true,     // (gif) Interlace gif for progressive rendering
+      multipass: false,     // (svg) Optimize svg multiple times until it's fully optimized.
+      svgoPlugins: [],      // (svg) Plugins
+      use: [                // Additional Plugins
+        'imagemin-pngquant'
+      ]
+    }
   },
   markup: {
-    src: src + '/templates/**/*.php',
+    src: [
+      src + '/**/*.{php,html}'
+    ],
     dest: dest
   },
   copy: {
     src: [
-      src + '/*.*' // Meta files e.g. Screenshot for WordPress Theme Selector
+      src + '/**/*(*.json|!(*.jpg|*.gif|*.png|*.css|*.html|*.css|CHANGELOG.md|*.js))' // Meta files e.g. Screenshot for WordPress Theme Selector
     ],
-    dest: dest,
-    options: {
-      base: src // ensure that all copy tasks keep folder structure
-    }
+    dest: dest
   },
   bump: {
     unreleasedPlaceholder: /## unreleased/ig, // To be replaced in documents with version number

@@ -30,10 +30,10 @@ module.exports = function(gulp, config){
   require('./gulp/tasks/copy')(gulp, config);
   require('./gulp/tasks/images')(gulp, config);
   require('./gulp/tasks/markup')(gulp, config);
-  require('./gulp/tasks/svg')(gulp, config);
   require('./gulp/tasks/watch')(gulp, config);
   require('./gulp/tasks/watchify')(gulp, config);
   require('./gulp/tasks/styles/stylus')(gulp, config);
+  require('./gulp/tasks/styles/postcss')(gulp, config);
 
   //gutil.log(gulp);
   return gulp;

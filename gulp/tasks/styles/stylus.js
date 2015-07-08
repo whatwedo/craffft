@@ -20,7 +20,7 @@ module.exports = function(gulp, config){
     .pipe(plumber())
     .pipe(stylus(config.stylus.options))
     .pipe(gulp.dest(config.stylus.dest))
-    .pipe(autoprefixer(config.autoprefixer))
+    .pipe(autoprefixer(config.autoprefixer.options))
     //.pipe(gulpif(argv.prod, minifycss(minifyOptions.prod)))
     //.pipe(sourcemaps.init({loadMaps: true }))
     //.pipe(sourcemaps.write('.', { includeConent: false,  sourceRoot: '.' }))

@@ -5,9 +5,8 @@ module.exports = function(gulp, config){
 	gulp.task('copy-all', function() {
 		var src = config.copy.src;
 		var dest = config.copy.dest;
-		var options = config.copy.options;
 
-		return gulp.src(src, options)
+		return gulp.src(src, {base: config.src})
 		.pipe(gulp.dest(dest))
 		.on('error', handleErrors);
 	});
