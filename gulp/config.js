@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * This file checks for different configs and merges them in correct order.
  * There are following configs
@@ -9,50 +7,81 @@
  *                     environment. Don't add this to the repository. It's for you, not your team!
  *
  *  Config overrides: config-production > config-user > config-development
+ *  Adds: config.srcAbsolute, config.destAbsolute
  */
 
-var args = require('yargs').argv;
-var _ = require('lodash');
+var args  = require('yargs').argv;
+var path  = require('path');
+var _     = require('lodash');
 
-var defaultConfigDev = require('./config-development');
+var defaultConfigDev  = require('./config-development');
 var defaultConfigProd = require('./config-production');
-var isProductionEnv = args.env === 'production' || args.env === 'prod';
+var isProductionEnv   = args.env === 'production' || args.env === 'prod';
 
-module.exports = function(config){
-  var mergedConfig;
+function configure(config){
+  'use strict';
 
-  // Create empty configuration container for defaults if no config submitted
-  if(!config){
-    config = {
-      dev: null,
-      prod: null,
-      user: null
-    };
+  // Final, merged and validated config
+  var runConfig;
+
+  runConfig = mergeConfigs(config);
+  runConfig = setPaths(runConfig);
+
+  return runConfig;
+
+  /**
+   * Merges together development, production and user configs
+   * @param  {object} config Configuration object
+   * @return {object}        Final config
+   */
+  function mergeConfigs(config){
+    var mergedConfig;
+
+    // Create empty configuration container for defaults if no config submitted
+    if(!config){
+      config = {
+        dev: null,
+        prod: null,
+        user: null
+      };
+    }
+
+    // Merge submitted configs where needed with defaults
+    if(config.dev){
+      config.dev = _.merge(defaultConfigDev, config.dev);
+    } else {
+      config.dev = defaultConfigDev;
+    }
+
+    if(config.prod){
+      config.prod = _.merge(defaultConfigProd, config.prod);
+    } else {
+      config.prod = defaultConfigProd;
+    }
+
+    // Create concrete config for compilation
+    // Take Development Config as a base, start with user config
+    mergedConfig = config.dev;
+    if(config.user) {
+      mergedConfig = _.merge(mergedConfig, config.user);
+    }
+
+    if(isProductionEnv) {
+      mergedConfig = _.merge(mergedConfig, config.user);
+    }
+
+    return mergedConfig;
   }
 
-  // Merge submitted configs where needed with defaults
-  if(config.dev){
-    config.dev = _.merge(defaultConfigDev, config.dev);
-  } else {
-    config.dev = defaultConfigDev;
+  /**
+   * Fills the configs with aggregated paths e.g. abolute project path
+   * @param {object} config web-build-kit config
+   */
+  function setPaths(config){
+    config.srcAbsolute = path.join(process.env.PWD, config.src);
+    config.destAbsolute = path.join(process.env.PWD, config.dest);
+    return config;
   }
+}
 
-  if(config.prod){
-    config.prod = _.merge(defaultConfigProd, config.prod);
-  } else {
-    config.prod = defaultConfigProd;
-  }
-
-  // Create concrete config for compilation
-  // Take Development Config as a base, start with user config
-  var mergedConfig = config.dev;
-  if(config.user) {
-    mergedConfig = _.merge(mergedConfig, config.user);
-  }
-
-  if(isProductionEnv) {
-    mergedConfig = _.merge(mergedConfig, config.user);
-  }
-
-  return mergedConfig;
-};
+module.exports = configure;

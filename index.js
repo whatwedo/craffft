@@ -23,7 +23,7 @@ module.exports = function(gulp, config){
 
   require('./gulp/tasks/build')(gulp, config);
   require('./gulp/tasks/default')(gulp, config);
-  require('./gulp/tasks/browserify')(gulp, config);
+  require('./gulp/tasks/javascript')(gulp, config);
   require('./gulp/tasks/browserSync.js')(gulp, config);
   require('./gulp/tasks/bump')(gulp, config);
   require('./gulp/tasks/changelog')(gulp, config);

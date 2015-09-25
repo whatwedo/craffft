@@ -1,6 +1,6 @@
 var packageConfig = require('../package.json');
 
-var dest = './dist/wp-content/themes/' + packageConfig.name;
+var dest = './dist';
 var src = './src';
 
 var bowerComponents = './bower_components';
@@ -8,6 +8,9 @@ var nodeModules = './node_modules';
 
 module.exports = {
   src: src,
+  srcAbsolute: false, // Will be set by script based on src
+  dest: dest,
+  destAbsolute: false, // Will be set by script base on dest
   options: {
     version: packageConfig.version
   },
@@ -98,24 +101,10 @@ module.exports = {
     src: './CHANGELOG.md',
     dest: dest
   },
-  browserify: {
-    // Enable source maps
-    debug: true,
-    transforms: {
-      uglifyify: false
+  javascript: {
+    src: {
+      scripts: './index'
     },
-    // Additional file extentions to make optional
-    extensions: ['.coffee', '.hbs'],
-    // A separate bundle will be generated for each
-    // bundle config in the list below
-    bundleConfigs: [{
-      entries: src + '/resources/javascripts/index.js',
-      dest: dest,
-      outputName: 'app.js'
-    }/*, {
-      entries: './src/javascript/head.coffee',
-      dest: dest,
-      outputName: 'head.js'
-    }*/]
+    dest: dest
   }
 };
