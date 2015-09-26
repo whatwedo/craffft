@@ -5,8 +5,8 @@ var prodConfig = require('./config-development');
 // We recommend to access properties directly as shown below and
 // not assigning whole objects.
 
-prodConfig.stylus.options.cache = false;
-prodConfig.stylus.options.compress = true;
-prodConfig.stylus.options.sourcemap = false;
+prodConfig.styles.options.stylus.cache = false;
+prodConfig.styles.options.stylus.compress = true;
+prodConfig.styles.options.stylus.sourcemap = false;
 
 module.exports = prodConfig;

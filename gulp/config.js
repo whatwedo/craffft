@@ -13,6 +13,7 @@
 var args  = require('yargs').argv;
 var path  = require('path');
 var _     = require('lodash');
+var gutil = require('gulp-util');
 
 var defaultConfigDev  = require('./config-development');
 var defaultConfigProd = require('./config-production');
@@ -20,6 +21,8 @@ var isProductionEnv   = args.env === 'production' || args.env === 'prod';
 
 function configure(config){
   'use strict';
+
+  gutil.log('Run on ' + isProductionEnv ? 'production' : 'development' + ' config.');
 
   // Final, merged and validated config
   var runConfig;

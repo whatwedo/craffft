@@ -1,9 +1,10 @@
 The MIT License (MIT)
 
-gulp-starter Copyright (c) 2014 Daniel Tello
+Copyright (c) 2015 whatwedo
+origin code based on gulp-starter Copyright (c) 2015 Daniel Tello
 
 All additions and transformations not submitted via gulp-starter commits
-Copyright (c) 2015 whatwedo
+are in Copyright (c) 2015 whatwedo if not mentioned differently in the file.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

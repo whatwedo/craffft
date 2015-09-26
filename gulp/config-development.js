@@ -8,59 +8,73 @@ var nodeModules = './node_modules';
 
 module.exports = {
   src: src,
-  srcAbsolute: false, // Will be set by script based on src
+  srcAbsolute: false,                                                           // Will be set by script based on src
   dest: dest,
-  destAbsolute: false, // Will be set by script base on dest
+  destAbsolute: false,                                                          // Will be set by script based on dest
   options: {
-    version: packageConfig.version
+    version: packageConfig.version,                                             // Your project version, default from package.json
+    tmpDir: './web-build-kit-tmp'                                              // Temporary folder used to process multiple files
   },
-  autoprefixer: {
+  server: {
+    baseDir: [
+      dest
+    ],
+    plugins: [
+      'browserSync'
+    ],
     options: {
-      browsers: [
-      'last 2 version',
-      'safari 5',
-      'ie 9',
-      'opera 12.1',
-      'ios 6',
-      'android 4'
-      ]
+      browserSync: {
+        open: false,
+        files: [
+          dest + '/**',
+          // Exclude Map files
+          '!' + dest + '/**.map'
+        ]
+      }
     }
   },
-  browserSync: {
-    server: {
-      // We're serving the src folder as well
-      // for sass sourcemap linking
-      baseDir: [dest]
-    },
-    open: false,
-    files: [
-      dest + '/**',
-      // Exclude Map files
-      '!' + dest + '/**.map'
-    ]
-  },
-  postcss: {
-    src: src + '/**/*.css',
-    dest: dest,
-    processors: [
-      'autoprefixer',
-      'css-mqpacker',
-      'postcss-import'    // Combines media queries
-      // 'csswring'       // Minifies CSS
-    ]
-  },
-  stylus: {
-    src: [
-      src + '/**/*.{stylus,styl}',
-      src + '/**/!(_*.styl|_*.stylus)'
-    ],
-    dest: dest,
-    options: {
-      compress: false,
-      include: [
-        bowerComponents + '/../', // Shortcut references possible everywhere, e.g. @import 'bower_components/bla'
-        nodeModules + '/../'      // Shortcut references possible everywhere, e.g. @import 'node_modules/bla'
+  styles: {
+    src: {                                                                      // Where to search for styles
+      styles: [
+        src + '/**/*.css'
       ]
+    },
+    dest: dest,                                                                 // Where to put them in, recursively
+    preprocessors: [                                                            // Supported preprocessors
+      'postcss',
+      'stylus'
+    ],
+    options: {                                                                  // Configure compilation and preprocessors
+      postcss: {
+        processors: [                                                           // postcss plugins
+          'autoprefixer',
+          'css-mqpacker',
+          'postcss-import'                                                      // Combines media queries
+          // 'csswring'                                                         // Minifies CSS
+        ]
+      },
+      stylus: {                                                                 // Will be processed before CSS                                        // Files to watch
+        src: {
+          styles: [
+            src + '/**/*(*.stylus|*.styl|!(_*.styl|_*.stylus|*.import.styl|*.import.stylus))'
+          ]
+        },
+        compress: false,
+        include: [
+          bowerComponents + '/../',                                             // Shortcut references possible everywhere, e.g. @import 'bower_components/bla'
+          nodeModules + '/../'                                                  // Shortcut references possible everywhere, e.g. @import 'node_modules/bla'
+        ]
+      },
+      autoprefixer: {                                                           // Automatically prefix properties
+        browsers: [
+          'last 2 version',
+          'safari 5',
+          'ie 9',
+          'opera 12.1',
+          'ios 6',
+          'android 4'
+        ]
+      }
     }
   },
   // See: https://github.com/sindresorhus/gulp-imagemin
