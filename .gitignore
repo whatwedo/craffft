@@ -3,7 +3,8 @@ Desktop.ini
 
 **/node_modules
 src/bower_components
-dist/wp-content/themes/gulp-wp-theme
+dist/
+.web-build-kit-tmp/
 
 # Ignore automatically generated cruft
 *.log

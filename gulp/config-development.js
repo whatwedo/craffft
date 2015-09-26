@@ -42,9 +42,10 @@ module.exports = {
     dest: dest,                                                                 // Where to put them in, recursively
     preprocessors: [                                                            // Supported preprocessors
       'postcss',
-      'stylus'
+      'stylus',
+      'sass'
     ],
-    options: {                                                                  // Configure compilation and preprocessors
+    options: {                                                                  // Configure compilation and preprocessors                                                            // If false, build keeps folder structure
       postcss: {
         processors: [                                                           // postcss plugins
           'autoprefixer',
@@ -56,7 +57,7 @@ module.exports = {
       stylus: {                                                                 // Will be processed before CSS                                        // Files to watch
         src: {
           styles: [
-            src + '/**/*(*.stylus|*.styl|!(_*.styl|_*.stylus|*.import.styl|*.import.stylus))'
+            src + '/**/*(*.stylus|*.styl|!(_*.styl|_*.stylus|*.import.styl|*.import.stylus|*.scss))'
           ],
           webBuildKitTest: [
             src + '/**/_*.web-build-kit.styl'
@@ -67,6 +68,17 @@ module.exports = {
           bowerComponents + '/../',                                             // Shortcut references possible everywhere, e.g. @import 'bower_components/bla'
           nodeModules + '/../'                                                  // Shortcut references possible everywhere, e.g. @import 'node_modules/bla'
         ]
+      },
+      sass: {                                                                 // Will be processed before CSS                                        // Files to watch
+        src: {
+          styles: [
+            src + '/**/*(*.sass|*.scss|!(_*.sass|_*.scss|*.import.sass|*.import.scss|*.stylus|*.styl))'
+          ],
+          webBuildKitTest: [
+            src + '/test.web-build-kit.import.scss'
+          ]
+        },
+        sourceComments: 'normal'
       },
       autoprefixer: {                                                           // Automatically prefix properties
         browsers: [
