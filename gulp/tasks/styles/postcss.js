@@ -35,7 +35,7 @@ module.exports = function(gulp, config){
     var tasks = entries.map(function(bundleName){
       return gulp.src(src[bundleName])
       .pipe(postcss(processors))
-      .pipe(rename(bundleName + 'post.css'))
+      .pipe(rename(bundleName + '.post.css'))
       .pipe(gulp.dest(dest))
       .on('error', handleErrors);
     });

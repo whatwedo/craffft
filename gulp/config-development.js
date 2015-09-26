@@ -13,7 +13,7 @@ module.exports = {
   destAbsolute: false,                                                          // Will be set by script based on dest
   options: {
     version: packageConfig.version,                                             // Your project version, default from package.json
-    tmpDir: './web-build-kit-tmp'                                              // Temporary folder used to process multiple files
+    tmpDir: './.web-build-kit-tmp'                                              // Temporary folder used to process multiple files
   },
   server: {
     baseDir: [
@@ -57,6 +57,9 @@ module.exports = {
         src: {
           styles: [
             src + '/**/*(*.stylus|*.styl|!(_*.styl|_*.stylus|*.import.styl|*.import.stylus))'
+          ],
+          webBuildKitTest: [
+            src + '/**/_*.web-build-kit.styl'
           ]
         },
         compress: false,

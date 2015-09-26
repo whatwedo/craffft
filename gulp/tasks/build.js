@@ -7,6 +7,7 @@ module.exports = function(gulp){
     'images',
     'markup',
     'copy',
-    'changelog'
+    'changelog',
+    'clean'
   ]);
 };
