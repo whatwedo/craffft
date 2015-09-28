@@ -1,0 +1,2 @@
+# Exclude local user config from repository
+/config-user.js
