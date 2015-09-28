@@ -8,6 +8,7 @@ module.exports = function(gulp, config){
 
   require('./stylus')(gulp, config);
   require('./sass')(gulp, config);
+  require('./less')(gulp, config);
   require('./postcss')(gulp, config);
   require('./merge')(gulp, config);
   require('../clean/tmp')(gulp, config);
@@ -22,6 +23,11 @@ module.exports = function(gulp, config){
   // Compile sass if configured
   if(config.styles.preprocessors.indexOf('sass') > -1){
     tasks.unshift('styles-sass');
+  }
+
+  // Compile less if configured
+  if(config.styles.preprocessors.indexOf('less') > -1){
+    tasks.unshift('styles-less');
   }
 
   gulp.task('styles', tasks);

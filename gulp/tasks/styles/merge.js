@@ -8,18 +8,21 @@ var handleErrors  = require('../../util/handleErrors');
 var path    = require('path');
 
 module.exports = function(gulp, config){
-  var bundles, cssBundles, stylusBundles, sassBundles, src, dest;
+  var bundles, cssBundles, stylusBundles, sassBundles, lessBundles, src, dest;
 
   src = config.options.tmpDir;
   dest = config.styles.dest;
   cssBundles = [];
   stylusBundles = [];
   sassBundles = [];
+  lessBundles = [];
 
   gulp.task(
     'styles-merge',
     [
       'styles-stylus',
+      'styles-sass',
+      'styles-less',
       'styles-postcss'
     ],
     function () {
@@ -36,19 +39,28 @@ module.exports = function(gulp, config){
           // TODO: Add a check for non-object definition e.g. string or array
           sassBundles = Object.getOwnPropertyNames(config.styles.options.sass.src);
         }
+
+        if(config.styles.preprocessors.indexOf('less') > -1){
+          // TODO: Add a check for non-object definition e.g. string or array
+          lessBundles = Object.getOwnPropertyNames(config.styles.options.less.src);
+        }
       }
 
-      bundles = _.union(cssBundles, stylusBundles, sassBundles);
+      bundles = _.union(cssBundles, stylusBundles, sassBundles, lessBundles);
 
       var tasks = bundles.map(function(name){
         var files = [];
 
-        if(stylusBundles.indexOf(name) > -1){
+        if(sassBundles.indexOf(name) > -1){
           files.push(path.join(src, name + '.sass.css'));
         }
 
         if(stylusBundles.indexOf(name) > -1){
           files.push(path.join(src, name + '.stylus.css'));
+        }
+
+        if(lessBundles.indexOf(name) > -1){
+          files.push(path.join(src, name + '.less.css'));
         }
 
         if(cssBundles.indexOf(name) > -1) {

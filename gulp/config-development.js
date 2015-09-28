@@ -43,7 +43,8 @@ module.exports = {
     preprocessors: [                                                            // Supported preprocessors
       'postcss',
       'stylus',
-      'sass'
+      'sass',
+      'less'
     ],
     options: {                                                                  // Configure compilation and preprocessors                                                            // If false, build keeps folder structure
       postcss: {
@@ -58,7 +59,8 @@ module.exports = {
         src: {
           styles: [
             src + '/**/*.{styl,stylus}',
-            '!' + src + '/**/_*.{styl,stylus}'
+            '!' + src + '/**/_*.{styl,stylus}',
+            '!' + src + '/**/*.web-build-kit.styl'
           ],
           webBuildKitTest: [
             src + '/**/_*.web-build-kit.styl'
@@ -82,6 +84,18 @@ module.exports = {
           ]
         },
         sourceComments: 'normal'
+      },
+      less: {
+        src: {
+          styles: [
+            src + '/**/*.less',
+            '!' + src + '/**/_*.less',
+            '!' + src + '/**/*.web-build-kit.less'
+          ],
+          webBuildKitTest: [
+            src + '/*.web-build-kit.less'
+          ]
+        }
       },
       autoprefixer: {                                                           // Automatically prefix properties
         browsers: [
