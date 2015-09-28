@@ -11,7 +11,7 @@ applications and web apps.
 * Supports multiple bundles and mixing of ES6, TypeScript and ES5
 
 **Styles**
-* Processes Sass, Stylus and raw CSS
+* Processes Sass, Stylus, Less and raw CSS
 * Auto prefixing for different vendors
 * Supports multiple bundles and mixing of all three languages
 
@@ -37,9 +37,9 @@ TBD
 ## Roadmap
 
 * [ ] Can be installed via npm
-* [ ] Includes precompiling for the most popular CSS syntaxes
+* [x] Includes precompiling for the most popular CSS syntaxes
   * [x] Sass > v3.3
-  * [ ] LESS
+  * [x] LESS
   * [x] Stylus
   * [x] CSS Selector Level 4 - *using postCSS*
 * [x] Includes JavaScript compiling
@@ -56,4 +56,4 @@ web-build-kit currently uses following dependencies:
   and TypeScript
 * Gulp with several addons for running tasks
 * PostCSS and Autoprefixer
-* Node-Sass and gulp-stylus for processing Sass and Stylus
+* Node-Sass, gulp-stylus and gulp-less for processing Sass and Stylus

@@ -132,7 +132,7 @@ module.exports = {
   },
   copy: {
     src: [
-      src + '/**/*(*.json|!(*.jpg|*.gif|*.png|*.css|*.html|*.css|CHANGELOG.md|*.js))' // Meta files e.g. Screenshot for WordPress Theme Selector
+      src + '/**/*.json'
     ],
     dest: dest
   },

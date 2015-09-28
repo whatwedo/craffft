@@ -33,6 +33,7 @@ module.exports = function(gulp, config){
   require('./gulp/tasks/watch')(gulp, config);
   require('./gulp/tasks/watchify')(gulp, config);
   require('./gulp/tasks/styles')(gulp, config);
+  require('./gulp/tasks/clean')(gulp, config);
 
   //gutil.log(gulp);
   return gulp;
