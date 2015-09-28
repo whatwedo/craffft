@@ -140,6 +140,9 @@ module.exports = {
         './index.js'
       ]
     },
-    dest: dest
+    dest: dest,
+    preprocessors: [
+      'typescript'
+    ]
   }
 };
