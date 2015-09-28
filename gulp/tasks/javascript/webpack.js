@@ -19,7 +19,7 @@ function gulpCompileWebpack(gulp, config){
       root: [
         path.join(process.env.PWD, 'node_modules')
       ],
-      extensions: ['', '.js']
+      extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
     },
     module: {
       loaders: [
@@ -27,6 +27,10 @@ function gulpCompileWebpack(gulp, config){
           test: /\.js$/,
           exclude: /(node_modules|bower_components)/,
           loader: 'babel-loader'
+        },
+        {
+          test: /\.ts(x?)$/,
+          loader: 'babel-loader!ts-loader'
         }
       ]
     }

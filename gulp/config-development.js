@@ -135,7 +135,10 @@ module.exports = {
   },
   javascript: {
     src: {
-      scripts: './index'
+      scripts: [
+        './typescript/app.ts',
+        './index.js'
+      ]
     },
     dest: dest
   }

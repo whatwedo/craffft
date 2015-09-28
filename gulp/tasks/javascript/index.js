@@ -6,6 +6,7 @@
 module.exports = function(gulp, config){
   'use strict';
 
+  // Compiles ES6 & TypeScript
   require('./webpack')(gulp, config);
 
   gulp.task('javascript', [

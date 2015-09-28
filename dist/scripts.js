@@ -42,11 +42,39 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(1);
+	module.exports = __webpack_require__(3);
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var greeter = __webpack_require__(2);
+	greeter("World");
+
+/***/ },
+/* 2 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	console.log('Javascript is running!');
+	function greet(name) {
+	    return 'Hello ' + name;
+	}
+	module.exports = greet;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	console.log('Javascript is running.');
 
 /***/ }
 /******/ ]);
