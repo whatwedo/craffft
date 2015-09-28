@@ -12,7 +12,7 @@ module.exports = function(gulp, config){
   require('./merge')(gulp, config);
   require('../clean/tmp')(gulp, config);
 
-  var tasks = ['styles-postcss', 'styles-merge'];
+  var tasks = ['styles-postcss', 'styles-merge', 'clean-temporary'];
 
   // Compile stylus if configured
   if(config.styles.preprocessors.indexOf('stylus') > -1){

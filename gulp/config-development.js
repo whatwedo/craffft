@@ -57,7 +57,8 @@ module.exports = {
       stylus: {                                                                 // Will be processed before CSS                                        // Files to watch
         src: {
           styles: [
-            src + '/**/*(*.stylus|*.styl|!(_*.styl|_*.stylus|*.import.styl|*.import.stylus|*.scss))'
+            src + '/**/*.{styl,stylus}',
+            '!' + src + '/**/_*.{styl,stylus}'
           ],
           webBuildKitTest: [
             src + '/**/_*.web-build-kit.styl'
@@ -72,10 +73,12 @@ module.exports = {
       sass: {                                                                 // Will be processed before CSS                                        // Files to watch
         src: {
           styles: [
-            src + '/**/*(*.sass|*.scss|!(_*.sass|_*.scss|*.import.sass|*.import.scss|*.stylus|*.styl))'
+            src + '/**/*.{scss,sass}',
+            '!' + src + '/**/_*.{scss,sass}',
+            '!' + src + '/**/*.web-build-kit.scss'
           ],
           webBuildKitTest: [
-            src + '/test.web-build-kit.import.scss'
+            src + '/*.web-build-kit.scss'
           ]
         },
         sourceComments: 'normal'
