@@ -16,9 +16,7 @@ module.exports = {
     tmpDir: './.web-build-kit-tmp'                                              // Temporary folder used to process multiple files
   },
   server: {
-    baseDir: [
-      dest
-    ],
+    src: dest
     plugins: [
       'browserSync'
     ],
