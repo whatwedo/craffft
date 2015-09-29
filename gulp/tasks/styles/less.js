@@ -5,13 +5,13 @@ var less          = require('gulp-less');
 var replace       = require('gulp-replace');
 var rename        = require('gulp-rename');
 var merge         = require('merge-stream');
-var reload        = require('browser-sync').reload;
+var browserSync   = require('browser-sync').create();
 var handleErrors  = require('../../util/handleErrors');
 var helper        = require('../../util/helpers')();
 
 module.exports = function(gulp, config){
   var src, dest, entries, options;
-  src = config.styles.options.less.src;
+  src = helper.getSrcPath(config, config.styles.options.less.src);
   dest = config.options.tmpDir;
   entries = Object.getOwnPropertyNames(src);
 
@@ -26,6 +26,7 @@ module.exports = function(gulp, config){
         .pipe(less(gulpLessConfig))
         .pipe(rename(bundleName + '.less.css'))
         .pipe(gulp.dest(dest))
+        .pipe(browserSync.stream())
         // .pipe(autoprefixer(config.autoprefixer.options))                     // TODO: Add to style task
         //.pipe(gulpif(argv.prod, minifycss(minifyOptions.prod)))
         //.pipe(sourcemaps.init({loadMaps: true }))

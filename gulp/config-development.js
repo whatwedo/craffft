@@ -1,24 +1,15 @@
 var packageConfig = require('../package.json');
 
-var dest = './dist';
-var src = './src';
-
-var bowerComponents = './bower_components';
-var nodeModules = './node_modules';
-
 module.exports = {
-  src: src,
-  srcAbsolute: false,                                                           // Will be set by script based on src
-  dest: dest,
-  destAbsolute: false,                                                          // Will be set by script based on dest
+  src: './src',
+  dest: './dist',
   options: {
     version: packageConfig.version,                                             // Your project version, default from package.json
-    tmpDir: './.web-build-kit-tmp'                                              // Temporary folder used to process multiple files
+    tmpDir: './.web-build-kit-tmp',                                             // Temporary folder used to process multiple files
+    nodeModulesDir: './node_modules',
+    bowerComponentsDir: './bower_components'
   },
   server: {
-    baseDir: [
-      dest
-    ],
     plugins: [
       'browserSync'
     ],
@@ -26,9 +17,9 @@ module.exports = {
       browserSync: {
         open: false,
         files: [
-          dest + '/**',
+          '**',
           // Exclude Map files
-          '!' + dest + '/**.map'
+          '!**.map'
         ]
       }
     }
@@ -36,10 +27,9 @@ module.exports = {
   styles: {
     src: {                                                                      // Where to search for styles
       styles: [
-        src + '/**/*.css'
+        '**/*.css'
       ]
     },
-    dest: dest,                                                                 // Where to put them in, recursively
     preprocessors: [                                                            // Supported preprocessors
       'postcss',
       'stylus',
@@ -58,29 +48,29 @@ module.exports = {
       stylus: {                                                                 // Will be processed before CSS                                        // Files to watch
         src: {
           styles: [
-            src + '/**/*.{styl,stylus}',
-            '!' + src + '/**/_*.{styl,stylus}',
-            '!' + src + '/**/*.web-build-kit.styl'
+            '**/*.{styl,stylus}',
+            '!**/_*.{styl,stylus}',
+            '!**/*.web-build-kit.styl'
           ],
           webBuildKitTest: [
-            src + '/**/_*.web-build-kit.styl'
+            '**/_*.web-build-kit.styl'
           ]
         },
         compress: false,
         include: [
-          bowerComponents + '/../',                                             // Shortcut references possible everywhere, e.g. @import 'bower_components/bla'
-          nodeModules + '/../'                                                  // Shortcut references possible everywhere, e.g. @import 'node_modules/bla'
+          './node_modules/../',                                                 // Shortcut references possible everywhere, e.g. @import 'bower_components/bla'
+          './bower_components/../'                                              // Shortcut references possible everywhere, e.g. @import 'node_modules/bla'
         ]
       },
-      sass: {                                                                 // Will be processed before CSS                                        // Files to watch
+      sass: {                                                                   // Will be processed before CSS                                        // Files to watch
         src: {
           styles: [
-            src + '/**/*.{scss,sass}',
-            '!' + src + '/**/_*.{scss,sass}',
-            '!' + src + '/**/*.web-build-kit.scss'
+            '**/*.{scss,sass}',
+            '!**/_*.{scss,sass}',
+            '!**/*.web-build-kit.scss'
           ],
           webBuildKitTest: [
-            src + '/*.web-build-kit.scss'
+            '*.web-build-kit.scss'
           ]
         },
         sourceComments: 'normal'
@@ -88,12 +78,12 @@ module.exports = {
       less: {
         src: {
           styles: [
-            src + '/**/*.less',
-            '!' + src + '/**/_*.less',
-            '!' + src + '/**/*.web-build-kit.less'
+            '**/*.less',
+            '!**/_*.less',
+            '!**/*.web-build-kit.less'
           ],
           webBuildKitTest: [
-            src + '/*.web-build-kit.less'
+            '*.web-build-kit.less'
           ]
         }
       },
@@ -111,8 +101,8 @@ module.exports = {
   },
   // See: https://github.com/sindresorhus/gulp-imagemin
   images: {
-    src: src + '/resources/images/**',
-    dest: dest + '/resources/images',
+    src: 'resources/images/**',
+    dest: 'resources/images',
     options: {
       optimizationLevel: 3, // (png) 0 - 7 trials
       progressive: true,    // (jpg) Lossless conversion to progressive
@@ -126,15 +116,13 @@ module.exports = {
   },
   markup: {
     src: [
-      src + '/**/*.{php,html}'
-    ],
-    dest: dest
+      '**/*.{php,html}'
+    ]
   },
   copy: {
     src: [
-      src + '/**/*.json'
-    ],
-    dest: dest
+      '**/*.json'
+    ]
   },
   bump: {
     unreleasedPlaceholder: /## unreleased/ig, // To be replaced in documents with version number
@@ -145,16 +133,14 @@ module.exports = {
   },
   changelog: {
     src: './CHANGELOG.md',
-    dest: dest
   },
   javascript: {
     src: {
       scripts: [
-        './typescript/app.ts',
-        './index.js'
+        'typescript/app.ts',
+        'index.js'
       ]
     },
-    dest: dest,
     preprocessors: [
       'typescript'
     ]
