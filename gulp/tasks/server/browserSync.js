@@ -8,7 +8,7 @@ module.exports = function(gulp, config){
 
   if(!browserSyncConfig.proxy && !browserSyncConfig.server){
     browserSyncConfig.server = {
-      baseDir: config.server.src
+      baseDir: config.dest
     };
   }
 

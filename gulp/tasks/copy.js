@@ -1,10 +1,11 @@
 'use strict';
 var handleErrors = require('../util/handleErrors');
+var helper  = require('../util/helpers');
 
 module.exports = function(gulp, config){
+	var src = helper().getSrcPath(config, config.copy.src);
+	var dest = config.dest;
 	gulp.task('copy-all', function() {
-		var src = config.copy.src;
-		var dest = config.copy.dest;
 
 		return gulp.src(src, {base: config.src})
 		.pipe(gulp.dest(dest))

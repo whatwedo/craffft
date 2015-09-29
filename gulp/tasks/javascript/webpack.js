@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path    = require('path');
 var _       = require('lodash');
 var gutil   = require('gulp-util');
+var helper  = require('../../util/helpers')
 var logger  = require('../../util/compileLogger');
 
 function gulpCompileWebpack(gulp, config){
@@ -30,11 +31,12 @@ function gulpCompileWebpack(gulp, config){
   * @return {object}        webpack config
   */
   function getDefaults(config){
+
     return {
-      context: config.srcAbsolute,
-      entry: config.javascript.src,
+      //context: config.srcAbsolute,
+      entry: helper().getSrcPath(config, config.javascript.src),
       output: {
-        path: config.javascript.dest,
+        path: config.dest,
         filename: '[name].js'
       },
       plugins: [],

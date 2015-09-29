@@ -11,7 +11,7 @@ module.exports = function(gulp, config){
   var bundles, cssBundles, stylusBundles, sassBundles, lessBundles, src, dest;
 
   src = config.options.tmpDir;
-  dest = config.styles.dest;
+  dest = config.dest;
   cssBundles = [];
   stylusBundles = [];
   sassBundles = [];

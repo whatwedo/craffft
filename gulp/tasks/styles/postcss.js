@@ -8,7 +8,7 @@ var handleErrors  = require('../../util/handleErrors');
 
 module.exports = function(gulp, config){
   var src, dest, entries, options;
-  src = config.styles.src;
+  src = helper().getSrcPath(config, config.styles.src);
   dest = config.options.tmpDir;
   entries = Object.getOwnPropertyNames(src);
 

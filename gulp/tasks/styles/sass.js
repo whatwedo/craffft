@@ -11,7 +11,7 @@ var helper        = require('../../util/helpers')();
 
 module.exports = function(gulp, config){
   var src, dest, entries, options;
-  src = config.styles.options.sass.src;
+  src = helper.getSrcPath(config, config.styles.options.sass.src);
   dest = config.options.tmpDir;
   entries = Object.getOwnPropertyNames(src);
 
