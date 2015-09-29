@@ -2,16 +2,13 @@ build
 Desktop.ini
 
 **/node_modules
-src/bower_components
+**/bower_components
 dist/
 .web-build-kit-tmp/
 
 # Ignore automatically generated cruft
 *.log
 .sass-cache
-
-# Ignore config
-local-config.php
 
 # Operating system files
 .Spotlight-V100

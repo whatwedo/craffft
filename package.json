@@ -29,14 +29,17 @@
   },
   "license": "MIT",
   "main": "index.js",
-  "browser": {},
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
+  "bin": {
+    "web-build-kit-compile": "bin/compile.js",
+    "web-build-kit-build": "bin/build.js",
+    "web-build-kit-watch": "bin/watch.js",
+    "web-build-kit-run": "bin/watch.js"
   },
-  "browserify-shim": {
-    "jQuery": "global:jQuery"
+  "scripts": {
+    "compile": "web-build-kit-compile",
+    "build": "web-build-kit-build",
+    "watch": "web-build-kit-watch",
+    "run": "web-build-kit-run"
   },
   "dependencies": {
     "autoprefixer": "^6.0.3",
@@ -77,6 +80,7 @@
     "pretty-hrtime": "~1.0.0",
     "require-dir": "^0.3.0",
     "semver": "^5.0.3",
+    "shelljs": "^0.5.3",
     "through2": "^2.0.0",
     "ts-loader": "^0.5.5",
     "typescript": "^1.6.2",
