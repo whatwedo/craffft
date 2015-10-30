@@ -36,6 +36,8 @@ TBD
 
 ## Roadmap
 
+### Milestone v1.0.0
+
 * [ ] Can be installed via npm
 * [x] Includes precompiling for the most popular CSS syntaxes
   * [x] Sass > v3.3
@@ -47,6 +49,12 @@ TBD
   * [x] TypeScript
   * [x] ES6 - *using babel*
 * [x] Configurable copy tasks for markup files
+
+### Backlog
+
+#### CSS Testing
+
+Add CSS testing suite via [BackstopJS](https://garris.github.io/BackstopJS/).
 
 ## Dependencies
 
