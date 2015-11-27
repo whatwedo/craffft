@@ -52,7 +52,7 @@ module.exports = {
             '!**/_*.{styl,stylus}',
             '!**/*.craffft.styl'
           ],
-          webBuildKitTest: [
+          crafffttests: [
             '**/_*.craffft.styl'
           ]
         },
@@ -69,7 +69,7 @@ module.exports = {
             '!**/_*.{scss,sass}',
             '!**/*.craffft.scss'
           ],
-          webBuildKitTest: [
+          crafffttests: [
             '*.craffft.scss'
           ]
         },
@@ -82,7 +82,7 @@ module.exports = {
             '!**/_*.less',
             '!**/*.craffft.less'
           ],
-          webBuildKitTest: [
+          crafffttests: [
             '*.craffft.less'
           ]
         }
