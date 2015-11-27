@@ -50,7 +50,12 @@ function gulpCompileWebpack(gulp, config){
         loaders: [{
           test: /\.js$/,
           exclude: /(node_modules|bower_components)/,
-          loader: 'babel-loader'
+          loader: 'babel',
+          query: {
+                // https://github.com/babel/babel-loader#options
+                cacheDirectory: true,
+                presets: ['es2015']
+            }
         }]
       }
     };
