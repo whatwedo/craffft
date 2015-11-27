@@ -137,7 +137,7 @@ module.exports = {
   javascript: {
     src: {
       scripts: [
-        'typescript/app.ts',
+        //'typescript/app.ts',
         'index.js'
       ]
     },
