@@ -26,8 +26,8 @@ function gulpCompileWebpack(gulp, config){
   }
 
   /**
-  * Creates default webpack config out of web-build-kit config
-  * @param  {object} config web-build-kit config
+  * Creates default webpack config out of craffft config
+  * @param  {object} config craffft config
   * @return {object}        webpack config
   */
   function getDefaults(config){

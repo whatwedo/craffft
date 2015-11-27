@@ -78,7 +78,7 @@ function configure(config){
 
   /**
    * Fills the configs with aggregated paths e.g. abolute project path
-   * @param {object} config web-build-kit config
+   * @param {object} config craffft config
    */
   function setPaths(config){
     config.srcAbsolute = path.join(process.env.PWD, config.src);

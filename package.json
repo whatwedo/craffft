@@ -22,10 +22,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://dev.whatwedo.ch/wwd-internal/web-build-kit.git"
+    "url": "https://dev.whatwedo.ch/wwd-internal/craffft.git"
   },
   "bugs": {
-    "url": "https://dev.whatwedo.ch/wwd-internal/web-build-kit/issues"
+    "url": "https://dev.whatwedo.ch/wwd-internal/craffft/issues"
   },
   "license": "MIT",
   "main": "index.js",

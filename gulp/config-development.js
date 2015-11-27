@@ -5,7 +5,7 @@ module.exports = {
   dest: './dist',
   options: {
     version: packageConfig.version,                                             // Your project version, default from package.json
-    tmpDir: './.web-build-kit-tmp',                                             // Temporary folder used to process multiple files
+    tmpDir: './.craffft-tmp',                                             // Temporary folder used to process multiple files
     nodeModulesDir: './node_modules',
     bowerComponentsDir: './bower_components'
   },
@@ -50,10 +50,10 @@ module.exports = {
           styles: [
             '**/*.{styl,stylus}',
             '!**/_*.{styl,stylus}',
-            '!**/*.web-build-kit.styl'
+            '!**/*.craffft.styl'
           ],
           webBuildKitTest: [
-            '**/_*.web-build-kit.styl'
+            '**/_*.craffft.styl'
           ]
         },
         compress: false,
@@ -67,10 +67,10 @@ module.exports = {
           styles: [
             '**/*.{scss,sass}',
             '!**/_*.{scss,sass}',
-            '!**/*.web-build-kit.scss'
+            '!**/*.craffft.scss'
           ],
           webBuildKitTest: [
-            '*.web-build-kit.scss'
+            '*.craffft.scss'
           ]
         },
         sourceComments: 'normal'
@@ -80,10 +80,10 @@ module.exports = {
           styles: [
             '**/*.less',
             '!**/_*.less',
-            '!**/*.web-build-kit.less'
+            '!**/*.craffft.less'
           ],
           webBuildKitTest: [
-            '*.web-build-kit.less'
+            '*.craffft.less'
           ]
         }
       },
