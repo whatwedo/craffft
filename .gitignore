@@ -4,7 +4,7 @@ Desktop.ini
 **/node_modules
 **/bower_components
 dist/
-.web-build-kit-tmp/
+.craffft-tmp/
 
 # Ignore automatically generated cruft
 *.log

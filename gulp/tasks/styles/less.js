@@ -40,8 +40,8 @@ module.exports = function(gulp, config){
   });
 
   /**
-   * Creates a config for gulp-less out of web-build-kit-config
-   * @param  {object} config web-build-kit config
+   * Creates a config for gulp-less out of craffft-config
+   * @param  {object} config craffft config
    * @return {object}        gulp-less config
    */
   function createConfig(config){

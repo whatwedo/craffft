@@ -1,21 +1,51 @@
 var packageConfig = require('../package.json');
 
+// Overwrite settings by placing them into your settings file.
+// TODO: Migrate to JSON
 module.exports = {
+  
+  // Where source files are stored. Relative to root.
+  // Every processor's src is relative to this.
   src: './src',
+  
+  // Where processed files should go. Relative to root.
+  // Every processor's dest is relative to this.
   dest: './dist',
+  
+  //-------- Global Configuration --------
   options: {
-    version: packageConfig.version,                                             // Your project version, default from package.json
-    tmpDir: './.web-build-kit-tmp',                                             // Temporary folder used to process multiple files
+    
+    // Your project version, default from package.json
+    version: packageConfig.version,
+    
+    // Temporary folder used to process multiple files
+    tmpDir: './.craffft-tmp',                 
+    
+    // Node Modules Folder. Used for excludes and import references.                            
     nodeModulesDir: './node_modules',
+    
+    // Bower Components Folder. Used for excludes and import references.
     bowerComponentsDir: './bower_components'
   },
+  
+  //-------- Server Configuration --------
   server: {
+    
+    // Server Plugins
     plugins: [
       'browserSync'
     ],
+    
+    // Server options
     options: {
+      
+      // BrowserSync configuration
       browserSync: {
+        
+        // Automatically open a new browser window on server start
         open: false,
+        
+        // Files to watch and serve
         files: [
           '**',
           // Exclude Map files
@@ -24,70 +54,124 @@ module.exports = {
       }
     }
   },
+  
+  //-------- CSS Configuration --------
   styles: {
-    src: {                                                                      // Where to search for styles
+    
+    // Where to search for styles
+    // Create named bundles, e.g. styles, styles2,...
+    src: {                                                                      
       styles: [
         '**/*.css'
       ]
     },
-    preprocessors: [                                                            // Supported preprocessors
+    
+    // Supported preprocessors
+    preprocessors: [                                                            
       'postcss',
       'stylus',
       'sass',
       'less'
     ],
-    options: {                                                                  // Configure compilation and preprocessors                                                            // If false, build keeps folder structure
+    
+    // Configure compilation and preprocessors 
+    options: { 
+      
+      // postcss configuration                                                                                                                            
       postcss: {
-        processors: [                                                           // postcss plugins
+        processors: [     
+          // Automatically prefix attributes                                                   
           'autoprefixer',
+          
+          // Combine all media queries
           'css-mqpacker',
-          'postcss-import'                                                      // Combines media queries
-          // 'csswring'                                                         // Minifies CSS
+          
+          // Allow imports
+          'postcss-import'         
+          
+          // Minify CSS                                          
+          // 'csswring'                                                         
         ]
       },
-      stylus: {                                                                 // Will be processed before CSS                                        // Files to watch
+      
+      // Stylus configuration. Will be processed before CSS/PostCSS  
+      stylus: {  
+        
+        // Where to search for styles
+        // Create named bundles, e.g. styles, styles2,...
+        // Will be merged with equivalent bundles from SCSS, LESS, CSS
+        // TODO: Merge with styles.src                                                                                                   
         src: {
           styles: [
             '**/*.{styl,stylus}',
             '!**/_*.{styl,stylus}',
-            '!**/*.web-build-kit.styl'
+            '!**/*.craffft.styl'
           ],
-          webBuildKitTest: [
-            '**/_*.web-build-kit.styl'
+          
+          // Used for testing purposes only
+          crafffttests: [
+            '**/_*.craffft.styl'
           ]
         },
+        
+        // Minify
         compress: false,
+        
+        // Shortcut references
+        // Shortcut references possible everywhere, e.g. @import 'bower_components/bla'
+        // Shortcut references possible everywhere, e.g. @import 'node_modules/bla'
         include: [
-          './node_modules/../',                                                 // Shortcut references possible everywhere, e.g. @import 'bower_components/bla'
-          './bower_components/../'                                              // Shortcut references possible everywhere, e.g. @import 'node_modules/bla'
+          './node_modules/../',                                                 
+          './bower_components/../'                                              
         ]
       },
-      sass: {                                                                   // Will be processed before CSS                                        // Files to watch
+      
+      // Sass configuration. Will be processed before CSS/PostCSS  
+      sass: {    
+        
+        // Where to search for styles
+        // Create named bundles, e.g. styles, styles2,...
+        // Will be merged with equivalent bundles from Stylus, LESS, CSS
+        // TODO: Merge with styles.src                                                                                      
         src: {
           styles: [
             '**/*.{scss,sass}',
             '!**/_*.{scss,sass}',
-            '!**/*.web-build-kit.scss'
+            '!**/*.craffft.scss'
           ],
-          webBuildKitTest: [
-            '*.web-build-kit.scss'
+          crafffttests: [
+            '*.craffft.scss'
           ]
         },
+        
+        // How to handle comments
         sourceComments: 'normal'
       },
+      
+      // LESS configuration. Will be processed before CSS/PostCSS 
       less: {
+        
+        // Where to search for styles
+        // Create named bundles, e.g. styles, styles2,...
+        // Will be merged with equivalent bundles from Stylus, Scss, CSS
+        // TODO: Merge with styles.src    
         src: {
           styles: [
             '**/*.less',
             '!**/_*.less',
-            '!**/*.web-build-kit.less'
+            '!**/*.craffft.less'
           ],
-          webBuildKitTest: [
-            '*.web-build-kit.less'
+          crafffttests: [
+            '*.craffft.less'
           ]
         }
       },
-      autoprefixer: {                                                           // Automatically prefix properties
+      
+      // Autoprefixing configuration.
+      // Only affects output when styles.options.postcss.processors contains 'autoprefixer'
+      autoprefixer: {  
+        
+        // For which browsers to prefix                                                         
         browsers: [
           'last 2 version',
           'safari 5',
@@ -99,50 +183,86 @@ module.exports = {
       }
     }
   },
+  
+  //-------- Images Configuration --------
   // See: https://github.com/sindresorhus/gulp-imagemin
-  images: {
+  images: {                                                                    
     src: 'resources/images/**',
     dest: 'resources/images',
     options: {
-      optimizationLevel: 3, // (png) 0 - 7 trials
-      progressive: true,    // (jpg) Lossless conversion to progressive
-      interlaced: true,     // (gif) Interlace gif for progressive rendering
-      multipass: false,     // (svg) Optimize svg multiple times until it's fully optimized.
-      svgoPlugins: [],      // (svg) Plugins
-      use: [                // Additional Plugins
+      // (png) 0 - 7 trials
+      optimizationLevel: 3, 
+      
+      // (jpg) Lossless conversion to progressive
+      progressive: true, 
+      
+      // (gif) Interlace gif for progressive rendering   
+      interlaced: true,  
+      
+      // (svg) Optimize svg multiple times until it's fully optimized.   
+      multipass: false,  
+      
+      // (svg) Plugins   
+      svgoPlugins: [], 
+      
+      // Additional Plugins     
+      use: [                
         'imagemin-pngquant'
       ]
     }
   },
+  
+  //-------- Images Configuration --------
   markup: {
     src: [
       '**/*.{php,html}'
     ]
   },
+  
+  //-------- Copy Configuration --------
   copy: {
     src: [
       '**/*.json'
     ]
   },
+  
+  //-------- Versioning Configuration --------
   bump: {
-    unreleasedPlaceholder: /## unreleased/ig, // To be replaced in documents with version number
-    prereleaseChangelogs: false, // If true, changelog update with prerelease bump
+    
+    // Placeholder to replace with current version number
+    unreleasedPlaceholder: /## unreleased/ig, 
+    
+    // If true, changelog update with prerelease bump
+    prereleaseChangelogs: false, 
+    
     options: {
-      preid : 'beta' // Set the prerelase tag to use
+      // What to add for prereleases, e.g. "beta" is going to be v1.0.0-beta.1
+      preid : 'beta' 
     }
   },
+  
+  //-------- Changelog Configuration --------
+  // TODO: Migrate with bump
   changelog: {
     src: './CHANGELOG.md',
   },
+  
+  //-------- JavaScript Configuration --------
   javascript: {
-    src: {
-      scripts: [
-        'typescript/app.ts',
-        'index.js'
-      ]
-    },
+    
+    // Source files. Process all JavaScript files except partials prefixed with a dash.
+    src: [
+      '**/*.js',
+      '!**/_*.js'
+    ],
     preprocessors: [
       'typescript'
-    ]
+    ],
+    options: {
+      
+      // If true, all files will be written to root folder. Default is to keep
+      // file structure from src folder.
+      flatten: false                                                              
+    }
   }
 };

@@ -7,6 +7,6 @@ module.exports = function(gulp, config){
   gulp.task('markup', function() {
     return gulp.src(src, {base: config.src})
     .pipe(replace(/{PKG_VERSION}/g, config.options.version))
-    .pipe(gulp.dest(config.markup.dest));
+    .pipe(gulp.dest(config.dest));
   });
 };
