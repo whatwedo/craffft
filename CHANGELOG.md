@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.4.0 - 2015-11-30
+### Changes
+* JavaScript config now takes an array with glob patterns including negotations. 
+  It then automatically makes bundles and keeps file structure as is in src folder.
+
 ## v0.1.0 - 2015-09-28
 ### Added
 * **Javascript**
