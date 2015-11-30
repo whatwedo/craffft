@@ -68,11 +68,16 @@ function helpers(){
       var bundles = copyLiteral(src);
       var bundleNames = Object.getOwnPropertyNames(bundles);
       bundleNames.forEach(function(name){
-        var validEntries = [];
-        bundles[name].forEach(function(srcPath){
-          validEntries.push(path.resolve(root, srcPath));
-        });
-        bundles[name] = validEntries;
+        
+        if (Array.isArray(bundles[name])) {
+          var validEntries = [];
+          bundles[name].forEach(function(srcPath){
+            validEntries.push(path.resolve(root, srcPath));
+          });
+          bundles[name] = validEntries;
+        } else if (typeof bundles[name] === 'string') {
+          bundles[name] = path.resolve(root, bundles[name]);
+        }
       });
 
       validSrc = bundles;

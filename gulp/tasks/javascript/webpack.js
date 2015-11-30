@@ -1,8 +1,9 @@
 var webpack = require('webpack');
 var path    = require('path');
-var _       = require('lodash');
-var gutil   = require('gulp-util');
-var helper  = require('../../util/helpers')
+var _ = require('lodash');
+var gutil = require('gulp-util');
+var glob = require('glob');
+var helper = require('../../util/helpers');
 var logger  = require('../../util/compileLogger');
 
 function gulpCompileWebpack(gulp, config){
@@ -15,7 +16,7 @@ function gulpCompileWebpack(gulp, config){
   * @param  {Function} callback gulp callback function for in sync running
   * @return {void}              Nothing
   */
-  function webpackTask(callback){
+  function webpackTask(callback) {
     var addons = getLoaders(config.javascript.preprocessors);
     var webpackConfig = createConfig(config, addons);
 
@@ -24,17 +25,84 @@ function gulpCompileWebpack(gulp, config){
       callback();
     });
   }
+  
+  /**
+  * Creates webpack bundle object out of array of files
+  * @param {array}  Files
+  */
+  function createWebpackBundles(files, flat) {
+    var webpackEntries = {};
+    
+    // See https://github.com/webpack/webpack/issues/1189
+    files.forEach(function (file) {
+      /* Returns following info (example)
+      {
+          root : "/",
+          dir : "/home/user/dir",
+          base : "file.txt",
+          ext : ".txt",
+          name : "file"
+      } */
+      var fileInfo = path.parse(file);
+      var fileSrc = file;
+      var fileDest = fileInfo.dir && !flat ? path.join(fileInfo.dir, fileInfo.name) : fileInfo.name;
+      
+      webpackEntries[fileDest] = fileSrc;
+    });
+    
+    return webpackEntries;
+  }
+  
+  /**
+  * Gets list of JavaScript files from system, as defined in config
+  */
+  function getJavascriptFiles(files, root) {
+    var globOptions = {}, patterns = [], fileList = [];
+    globOptions.cwd = root;
+    
+    var isArraySrc = Array.isArray(files);
+    var isStringSrc = !isArraySrc && typeof files === 'string';
+    var isObjSrc = !isArraySrc && !isStringSrc;
+    
+    if (isStringSrc) {
+      patterns.push(files);
+    } else if (isArraySrc) {
+      patterns = files.filter(function (filePattern) {
+        return filePattern.indexOf('!') === -1;
+      });
+      
+      // Find files to exclude, marked with a ! in the file array
+      globOptions.ignore = files.filter(function (filePattern) {
+        return filePattern.indexOf('!') !== -1;
+      });
+      
+      for (var i = 0; i < globOptions.ignore.length; i++){
+        // Remove ! to add it to glob ingore
+        globOptions.ignore[i] = globOptions.ignore[i].replace('!', '');
+      }
+    } else if (isObjSrc) {
+      gutil.error('There\'s an error in the JavaScript \'src\' configuration. Object is not a valid file.');
+    }
+    
+    patterns.forEach(function (pattern) {
+      _.merge(fileList, glob.sync(pattern, globOptions));
+    });
+    
+    return fileList;
+  }
 
   /**
   * Creates default webpack config out of craffft config
   * @param  {object} config craffft config
   * @return {object}        webpack config
   */
-  function getDefaults(config){
+  function getDefaults(config) {
+    var files = getJavascriptFiles(config.javascript.src, config.src);
+    var webpackBundles = createWebpackBundles(files, config.javascript.options.flatten);
 
     return {
       //context: config.srcAbsolute,
-      entry: helper().getSrcPath(config, config.javascript.src),
+      entry: helper().getSrcPath(config, webpackBundles),
       output: {
         path: config.dest,
         filename: '[name].js'

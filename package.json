@@ -1,6 +1,6 @@
 {
   "name": "craffft",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Black box system for building future proof web applications and sites",
   "author": "whatwedo <welove@whatwedo.ch",
   "contributors": [
@@ -94,5 +94,8 @@
     "webpack": "^1.12.3",
     "yargs": "^3.29.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^1.10.2",
+    "jshint": "^2.8.0"
+  }
 }
