@@ -187,8 +187,12 @@ module.exports = {
   //-------- Images Configuration --------
   // See: https://github.com/sindresorhus/gulp-imagemin
   images: {                                                                    
-    src: 'resources/images/**',
-    dest: 'resources/images',
+    src: [
+      '**/*.jpg',
+      '**/*.png',
+      '**/*.gif',
+      '**/*.svg'
+    ],
     options: {
       // (png) 0 - 7 trials
       optimizationLevel: 3, 
@@ -221,9 +225,7 @@ module.exports = {
   
   //-------- Copy Configuration --------
   copy: {
-    src: [
-      '**/*.json'
-    ]
+    src: []
   },
   
   //-------- Versioning Configuration --------

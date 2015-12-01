@@ -1,5 +1,6 @@
 'use strict';
 
-module.exports = function(gulp) {
+module.exports = defaultTask;
+function defaultTask(gulp) {
   gulp.task('default', ['build']);
-};
+}

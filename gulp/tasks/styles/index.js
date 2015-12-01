@@ -3,7 +3,8 @@
  * include syntaxes like TypeScript, CoffeeScript, ES6, ES7 and so on.
  */
 
-module.exports = function(gulp, config){
+module.exports = styles;
+function styles(gulp, config) {
   'use strict';
 
   require('./stylus')(gulp, config);
@@ -31,4 +32,4 @@ module.exports = function(gulp, config){
   }
 
   gulp.task('styles', tasks);
-};
+}

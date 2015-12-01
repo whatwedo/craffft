@@ -4,7 +4,8 @@
    - gulp/tasks/browserSync.js watches and reloads compiled files
 */
 
-module.exports = function(gulp, config){
+module.exports = watch;
+function watch(gulp, config){
   gulp.task('watch', ['watchify', 'browserSync'], function() {
     gulp.watch(config.stylus.src, ['stylus']);
     gulp.watch(config.postcss.src, ['postcss']);
@@ -14,4 +15,4 @@ module.exports = function(gulp, config){
     gulp.watch(config.markup.src, ['markup']);
     gulp.watch(config.copy.src, ['copy']);
   });
-};
+}
