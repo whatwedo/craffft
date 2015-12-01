@@ -54,124 +54,86 @@ module.exports = {
       }
     }
   },
-  
-  //-------- CSS Configuration --------
+  // -------- CSS Configuration --------
   styles: {
-    
     // Where to search for styles
     // Create named bundles, e.g. styles, styles2,...
-    src: {                                                                      
-      styles: [
-        '**/*.css'
-      ]
-    },
-    
+    src: [
+      '**/*.css'
+    ],
     // Supported preprocessors
-    preprocessors: [                                                            
+    preprocessors: [
       'postcss',
       'stylus',
       'sass',
       'less'
     ],
-    
-    // Configure compilation and preprocessors 
-    options: { 
-      
-      // postcss configuration                                                                                                                            
+    // Configure compilation and preprocessors
+    options: {
+      // postcss configuration
       postcss: {
-        processors: [     
-          // Automatically prefix attributes                                                   
+        processors: [
+          // Automatically prefix attributes
           'autoprefixer',
-          
           // Combine all media queries
           'css-mqpacker',
-          
           // Allow imports
-          'postcss-import'         
-          
-          // Minify CSS                                          
-          // 'csswring'                                                         
+          'postcss-import'
+          // Minify CSS
+          // 'csswring'
         ]
       },
-      
-      // Stylus configuration. Will be processed before CSS/PostCSS  
-      stylus: {  
-        
+      // Stylus configuration. Will be processed before CSS/PostCSS
+      stylus: {
         // Where to search for styles
         // Create named bundles, e.g. styles, styles2,...
         // Will be merged with equivalent bundles from SCSS, LESS, CSS
-        // TODO: Merge with styles.src                                                                                                   
-        src: {
-          styles: [
-            '**/*.{styl,stylus}',
-            '!**/_*.{styl,stylus}',
-            '!**/*.craffft.styl'
-          ],
-          
-          // Used for testing purposes only
-          crafffttests: [
-            '**/_*.craffft.styl'
-          ]
-        },
-        
+        // TODO: Merge with styles.src
+        src: [
+          '**/*.{styl,stylus}',
+          '!**/_*.{styl,stylus}',
+          '!**/*.craffft.styl'
+        ],
         // Minify
         compress: false,
-        
         // Shortcut references
         // Shortcut references possible everywhere, e.g. @import 'bower_components/bla'
         // Shortcut references possible everywhere, e.g. @import 'node_modules/bla'
         include: [
-          './node_modules/../',                                                 
-          './bower_components/../'                                              
+          './node_modules/../',
+          './bower_components/../'
         ]
       },
-      
-      // Sass configuration. Will be processed before CSS/PostCSS  
-      sass: {    
-        
+      // Sass configuration. Will be processed before CSS/PostCSS
+      sass: {
         // Where to search for styles
         // Create named bundles, e.g. styles, styles2,...
         // Will be merged with equivalent bundles from Stylus, LESS, CSS
-        // TODO: Merge with styles.src                                                                                      
-        src: {
-          styles: [
-            '**/*.{scss,sass}',
-            '!**/_*.{scss,sass}',
-            '!**/*.craffft.scss'
-          ],
-          crafffttests: [
-            '*.craffft.scss'
-          ]
-        },
-        
+        // TODO: Merge with styles.src
+        src: [
+          '**/*.{scss,sass}',
+          '!**/_*.{scss,sass}',
+          '!**/*.craffft.scss'
+        ],
         // How to handle comments
         sourceComments: 'normal'
       },
-      
-      // LESS configuration. Will be processed before CSS/PostCSS 
+      // LESS configuration. Will be processed before CSS/PostCSS
       less: {
-        
         // Where to search for styles
         // Create named bundles, e.g. styles, styles2,...
         // Will be merged with equivalent bundles from Stylus, Scss, CSS
-        // TODO: Merge with styles.src    
-        src: {
-          styles: [
-            '**/*.less',
-            '!**/_*.less',
-            '!**/*.craffft.less'
-          ],
-          crafffttests: [
-            '*.craffft.less'
-          ]
-        }
+        // TODO: Merge with styles.src
+        src: [
+          '**/*.less',
+          '!**/_*.less',
+          '!**/*.craffft.less'
+        ]
       },
-      
       // Autoprefixing configuration.
       // Only affects output when styles.options.postcss.processors contains 'autoprefixer'
-      autoprefixer: {  
-        
-        // For which browsers to prefix                                                         
+      autoprefixer: {
+        // For which browsers to prefix
         browsers: [
           'last 2 version',
           'safari 5',
@@ -183,8 +145,7 @@ module.exports = {
       }
     }
   },
-  
-  //-------- Images Configuration --------
+  // -------- Images Configuration --------
   // See: https://github.com/sindresorhus/gulp-imagemin
   images: {                                                                    
     src: [
