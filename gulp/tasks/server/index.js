@@ -3,7 +3,8 @@
  * for development and testing.
  */
 
-module.exports = function(gulp, config){
+module.exports = server;
+function server(gulp, config) {
   'use strict';
 
   require('./browserSync')(gulp, config);
@@ -16,4 +17,4 @@ module.exports = function(gulp, config){
   }
 
   gulp.task('server', tasks);
-};
+}

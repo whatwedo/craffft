@@ -3,6 +3,12 @@
 Craffft is a black boxed build system for creating future proof applications 
 on web technologies and languages.
 
+## Quickstart
+
+```
+npm install git+ssh://git@dev.whatwedo.ch:wwd-internal/craffft.git
+```
+
 ## Features
 
 **Javascript**

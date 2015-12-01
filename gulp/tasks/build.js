@@ -1,13 +1,9 @@
 'use strict';
 
-module.exports = function(gulp){
+module.exports = build;
+function build(gulp, config) {
   gulp.task('build', [
-    'javascript',
-    'styles',
-    'images',
-    'markup',
-    'copy',
-    'changelog',
-    'clean'
+    config._preprocessTask,
+    'copy'
   ]);
-};
+}

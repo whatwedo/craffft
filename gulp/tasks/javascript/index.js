@@ -3,7 +3,8 @@
  * include syntaxes like TypeScript, CoffeeScript, ES6, ES7 and so on.
  */
 
-module.exports = function(gulp, config){
+module.exports = javascript;
+function javascript(gulp, config) {
   'use strict';
 
   // Compiles ES6 & TypeScript
@@ -12,4 +13,5 @@ module.exports = function(gulp, config){
   gulp.task('javascript', [
     'javascript-webpack'
   ]);
-};
+  return 'javascript';
+}

@@ -17,23 +17,47 @@ when you run `gulp`.
 //var glob = require('glob');
 
 // Require all tasks in gulp/tasks, including subfolders
-module.exports = function(gulp, config){
+module.exports = function (gulp, config) {
+  var preprocessTasks, processTasks, postprocessTasks;
   // Create final config for this build
   config = require('./gulp/config')(config);
-
-  require('./gulp/tasks/build')(gulp, config);
-  require('./gulp/tasks/default')(gulp, config);
-  require('./gulp/tasks/javascript')(gulp, config);
-  require('./gulp/tasks/server')(gulp, config);
-  require('./gulp/tasks/bump')(gulp, config);
-  require('./gulp/tasks/changelog')(gulp, config);
-  require('./gulp/tasks/copy')(gulp, config);
-  require('./gulp/tasks/images')(gulp, config);
-  require('./gulp/tasks/markup')(gulp, config);
-  require('./gulp/tasks/watch')(gulp, config);
-  require('./gulp/tasks/watchify')(gulp, config);
-  require('./gulp/tasks/styles')(gulp, config);
-  require('./gulp/tasks/clean')(gulp, config);
+  
+  config._preprocessTask = 'preprocess';
+  
+  processTasks = [
+    './gulp/tasks/preprocess',
+  ];
+  
+  preprocessTasks = [
+    './gulp/tasks/build',
+    './gulp/tasks/default',
+    './gulp/tasks/javascript',
+    './gulp/tasks/server',
+    './gulp/tasks/bump',
+    './gulp/tasks/changelog',
+    './gulp/tasks/images',
+    './gulp/tasks/markup',
+    './gulp/tasks/watch',
+    './gulp/tasks/watchify',
+    './gulp/tasks/styles',
+    './gulp/tasks/clean'
+  ];
+  
+  postprocessTasks = [
+    './gulp/tasks/copy'
+  ];
+  
+  preprocessTasks.forEach(function (task) {
+    require(task)(gulp, config);
+  });
+  
+  postprocessTasks.forEach(function (task) {
+    require(task)(gulp, config);
+  });
+  
+  processTasks.forEach(function (task) {
+    require(task)(gulp, config);
+  });
 
   //gutil.log(gulp);
   return gulp;

@@ -1,32 +1,33 @@
 'use strict';
 
-var bump         = require('gulp-bump');
+var gbump         = require('gulp-bump');
 var prompt       = require('gulp-prompt');
 var handleErrors = require('../util/handleErrors');
 var semver       = require('semver');
 var replace      = require('gulp-replace');
 var gutil        = require('gulp-util');
 
-module.exports = function(gulp, config){
-  var bumpOptions = config.bump.options;
-  gulp.task('bump', bumpDialogTask);
+module.exports = bump;
+function bump(gulp, config) {
+  var gbumpOptions = config.bump.options;
+  gulp.task('bump', gbumpDialogTask);
 
-  function bumpDialogTask(callback) {
+  function gbumpDialogTask(callback) {
     var target = './*'; // project root
 
     gulp.src(target).pipe(prompt.prompt({
       type: 'list',
-      name: 'bump',
-      message: 'What type of bump would you like to do?',
+      name: 'gbump',
+      message: 'What type of gbump would you like to do?',
       choices: ['patch', 'minor', 'major', 'prerelease']
     }, function(res){
-      var selectedChoice = res.bump;
+      var selectedChoice = res.gbump;
       var newVer = semver.inc(config.options.version, selectedChoice);
 
       if(selectedChoice === 'prerelease'){
         // Prerelease was chosen
         // Semver increment current
-        var recommendedVersion = semver.inc(config.options.version, 'pre', bumpOptions.preid);
+        var recommendedVersion = semver.inc(config.options.version, 'pre', gbumpOptions.preid);
         var prereleaseChoices = [
           'Set a new version'
         ];
@@ -47,23 +48,23 @@ module.exports = function(gulp, config){
             gulp.src(target).pipe(prompt.prompt({
               type: 'input',
               name: 'version',
-              message: 'Set a new version e.g. 1.0.0 (will be automatically suffixed with ' + bumpOptions.preid + ')',
+              message: 'Set a new version e.g. 1.0.0 (will be automatically suffixed with ' + gbumpOptions.preid + ')',
             }, function(res){
-              newVer = res.version + '-' + bumpOptions.preid + '.0';
-              bumpFiles(newVer, callback, true);
+              newVer = res.version + '-' + gbumpOptions.preid + '.0';
+              gbumpFiles(newVer, callback, true);
             }));
           } else {
             newVer = recommendedVersion;
-            bumpFiles(newVer, callback, true);
+            gbumpFiles(newVer, callback, true);
           }
         }));
       } else {
-        bumpFiles(newVer, callback);
+        gbumpFiles(newVer, callback);
       }
     }));
   }
 
-  function bumpFiles(newVer, callback, prerelease){
+  function gbumpFiles(newVer, callback, prerelease){
     var waitCounter = 0;
     var date = new Date();
     var yyyy = date.getFullYear().toString();
@@ -72,13 +73,13 @@ module.exports = function(gulp, config){
     var dateHumanReadable = yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]);
 
     gulp.src(['./bower.json', './package.json'])
-    .pipe(bump({
+    .pipe(gbump({
       version: newVer
     }))
     .pipe(gulp.dest('./'))
     .on('error', handleErrors)
     .on('end', function(){
-      afterBump(waitCounter);
+      aftergbump(waitCounter);
     });
 
     gutil.log(prerelease);
@@ -90,17 +91,17 @@ module.exports = function(gulp, config){
       .pipe(gulp.dest('./'))
       .on('error', handleErrors)
       .on('end', function(){
-        afterBump(waitCounter);
+        aftergbump(waitCounter);
       });
     }
 
     callback();
   }
 
-  function afterBump(waitCounter){
+  function aftergbump(waitCounter){
     waitCounter++;
     if (waitCounter == 2) {
       gulp.start('build');
     }
   }
-};
+}

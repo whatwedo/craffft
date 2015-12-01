@@ -39,7 +39,8 @@
     "compile": "bin/compile.js",
     "build": "bin/compile.js",
     "watch": "bin/compile.js",
-    "run": "bin/compile.js"
+    "run": "bin/compile.js",
+    "debug": "node-debug node_modules/gulp/bin/gulp.js"
   },
   "dependencies": {
     "autoprefixer": "~6.1.0",
@@ -84,6 +85,7 @@
   },
   "devDependencies": {
     "eslint": "^1.10.2",
-    "jshint": "^2.8.0"
+    "jshint": "^2.8.0",
+    "standard": "^5.4.1"
   }
 }
