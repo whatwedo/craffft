@@ -18,7 +18,10 @@ module.exports = function (gulp, config) {
           case 'autoprefixer':
             processors.push(require('autoprefixer')(config.styles.options.autoprefixer))
             break
-          case 'cssnext' || 'postcss-import':
+          case 'postcss-import':
+            processors.push(require(processor)({ glob: true }))
+            break
+          case 'cssnext':
             processors.push(require(processor)())
             break
           default:
