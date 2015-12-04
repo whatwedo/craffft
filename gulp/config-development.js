@@ -75,6 +75,8 @@ module.exports = {
         processors: [
           // Automatically prefix attributes
           'autoprefixer',
+          // Use CSS Selector Level 4
+          'cssnext',
           // Combine all media queries
           'css-mqpacker',
           // Allow imports
