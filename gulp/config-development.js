@@ -73,14 +73,14 @@ module.exports = {
       // postcss configuration
       postcss: {
         processors: [
+          // Allow imports
+          'postcss-import',
           // Automatically prefix attributes
           'autoprefixer',
           // Use CSS Selector Level 4
           'cssnext',
           // Combine all media queries
-          'css-mqpacker',
-          // Allow imports
-          'postcss-import'
+          'css-mqpacker'
           // Minify CSS
           // 'csswring'
         ]
