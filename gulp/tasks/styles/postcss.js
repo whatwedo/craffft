@@ -22,7 +22,10 @@ module.exports = function (gulp, config) {
             processors.push(require(processor)({ glob: true }))
             break
           case 'cssnext':
-            processors.push(require(processor)())
+            processors.push(require(processor)({
+              // Do not rewrite url() values
+              url: false
+            }))
             break
           default:
             processors.push(require(processor))
