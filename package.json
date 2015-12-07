@@ -70,6 +70,7 @@
     "gulp-sass": "~2.1.0",
     "gulp-stylus": "~2.1.0",
     "gulp-util": "~3.0.7",
+    "gulp-watch": "^4.3.5",
     "imagemin-pngquant": "~4.2.0",
     "lodash": "~3.10.1",
     "merge-stream": "~1.0.0",
