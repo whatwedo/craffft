@@ -10,81 +10,85 @@
  *  Adds: config.srcAbsolute, config.destAbsolute
  */
 
-var args  = require('yargs').argv;
-var path  = require('path');
-var _     = require('lodash');
-var gutil = require('gulp-util');
+var args = require('yargs').argv
+var path = require('path')
+var _ = require('lodash')
+var gutil = require('gulp-util')
 
-var defaultConfigDev  = require('./config-development');
-var defaultConfigProd = require('./config-production');
-var isProductionEnv   = args.env === 'production' || args.env === 'prod';
+var defaultConfigDev = require('./config.json')
+var defaultConfigProd = require('./config-production')
+var isProductionEnv = args.env === 'production' || args.env === 'prod'
 
-function configure(config){
-  'use strict';
+function configure (config) {
+  'use strict'
 
-  gutil.log('Run on ' + isProductionEnv ? 'production' : 'development' + ' config.');
+  gutil.log('Run on ' + isProductionEnv ? 'production' : 'development' + ' config.')
+
+  if (config.options.version === 'package.version') {
+    config.options.version = require('../package.json')
+  }
 
   // Final, merged and validated config
-  var runConfig;
+  var runConfig
 
-  runConfig = mergeConfigs(config);
-  runConfig = setPaths(runConfig);
+  runConfig = mergeConfigs(config)
+  runConfig = setPaths(runConfig)
 
-  return runConfig;
+  return runConfig
 
   /**
    * Merges together development, production and user configs
    * @param  {object} config Configuration object
    * @return {object}        Final config
    */
-  function mergeConfigs(config){
-    var mergedConfig;
+  function mergeConfigs (config) {
+    var mergedConfig
 
     // Create empty configuration container for defaults if no config submitted
-    if(!config){
+    if (!config) {
       config = {
         dev: null,
         prod: null,
         user: null
-      };
+      }
     }
 
     // Merge submitted configs where needed with defaults
-    if(config.dev){
-      config.dev = _.merge(defaultConfigDev, config.dev);
+    if (config.dev) {
+      config.dev = _.merge(defaultConfigDev, config.dev)
     } else {
-      config.dev = defaultConfigDev;
+      config.dev = defaultConfigDev
     }
 
-    if(config.prod){
-      config.prod = _.merge(defaultConfigProd, config.prod);
+    if (config.prod) {
+      config.prod = _.merge(defaultConfigProd, config.prod)
     } else {
-      config.prod = defaultConfigProd;
+      config.prod = defaultConfigProd
     }
 
     // Create concrete config for compilation
     // Take Development Config as a base, start with user config
-    mergedConfig = config.dev;
-    if(config.user) {
-      mergedConfig = _.merge(mergedConfig, config.user);
+    mergedConfig = config.dev
+    if (config.user) {
+      mergedConfig = _.merge(mergedConfig, config.user)
     }
 
-    if(isProductionEnv) {
-      mergedConfig = _.merge(mergedConfig, config.user);
+    if (isProductionEnv) {
+      mergedConfig = _.merge(mergedConfig, config.user)
     }
 
-    return mergedConfig;
+    return mergedConfig
   }
 
   /**
    * Fills the configs with aggregated paths e.g. abolute project path
    * @param {object} config craffft config
    */
-  function setPaths(config){
-    config.srcAbsolute = path.join(process.env.PWD, config.src);
-    config.destAbsolute = path.join(process.env.PWD, config.dest);
-    return config;
+  function setPaths (config) {
+    config.srcAbsolute = path.join(process.env.PWD, config.src)
+    config.destAbsolute = path.join(process.env.PWD, config.dest)
+    return config
   }
 }
 
-module.exports = configure;
+module.exports = configure
