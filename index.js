@@ -15,14 +15,31 @@ when you run `gulp`.
 //var requireDir = require('require-dir');
 //var gutil = require('gulp-util');
 //var glob = require('glob');
+var path   = require('path')
+var fs     = require('fs')
+var mkdirp = require('mkdirp')
+var gutil  = require('gulp-util')
 
 // Require all tasks in gulp/tasks, including subfolders
 module.exports = function (gulp, config) {
   var preprocessTasks, processTasks, postprocessTasks;
+  var systemFolder = '.craffft'
+  var systemPath = path.join(process.env.PWD, systemFolder)
+  gutil.log(fs.statSync(systemPath))
+  try {
+
+  } catch {
+    if(!fs.statSync(systemPath)){
+      mkdirp.sync(systemPath)
+    }
+  }
+
+
   // Create final config for this build
-  config = require('./gulp/config')(config);
-  
+  config = require('./gulp/config')();
   config._preprocessTask = 'preprocess';
+  gutil.log(JSON.stringify(config))
+  fs.writeFileSync(path.join(systemPath, 'config.json'), JSON.stringify(config), 'utf-8');
   
   processTasks = [
     './gulp/tasks/preprocess',

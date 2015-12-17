@@ -12,6 +12,7 @@
 
 var args = require('yargs').argv
 var path = require('path')
+var fs = require('fs')
 var _ = require('lodash')
 var gutil = require('gulp-util')
 
@@ -19,20 +20,30 @@ var defaultConfigDev = require('./config.json')
 var defaultConfigProd = require('./config-production')
 var isProductionEnv = args.env === 'production' || args.env === 'prod'
 
-function configure (config) {
+function configure () {
   'use strict'
+  var userConfig
+
+  var cwd = process.env.PWD
+  var userConfigFile = 'craffft.json'
+  var userConfigFullPath = path.join(cwd, userConfigFile)
+
+  if(fs.statSync(userConfigFullPath)) {
+    userConfig = require(userConfigFullPath)
+    gutil.log('User config loaded!')
+  };
 
   gutil.log('Run on ' + isProductionEnv ? 'production' : 'development' + ' config.')
-
-  if (config.options.version === 'package.version') {
-    config.options.version = require('../package.json')
-  }
 
   // Final, merged and validated config
   var runConfig
 
-  runConfig = mergeConfigs(config)
+  runConfig = mergeConfigs(userConfig)
   runConfig = setPaths(runConfig)
+
+  if (runConfig.options.version && runConfig.options.version === 'package.version') {
+    runConfig.options.version = require('../package.json').version
+  }
 
   return runConfig
 
