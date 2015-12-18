@@ -16,7 +16,9 @@ var fs = require('fs')
 var _ = require('lodash')
 var gutil = require('gulp-util')
 
-var defaultConfigDev = require('./config.json')
+var defaultConfigDev = require('./craffft.json')
+
+// TODO Replace
 var defaultConfigProd = require('./config-production')
 var isProductionEnv = args.env === 'production' || args.env === 'prod'
 
@@ -28,10 +30,13 @@ function configure () {
   var userConfigFile = 'craffft.json'
   var userConfigFullPath = path.join(cwd, userConfigFile)
 
-  if(fs.statSync(userConfigFullPath)) {
+  try {
+    var stats = fs.statSync(userConfigFullPath)
     userConfig = require(userConfigFullPath)
     gutil.log('User config loaded!')
-  };
+  } catch (e) {
+    gutil.log('No user config found!')
+  }
 
   gutil.log('Run on ' + isProductionEnv ? 'production' : 'development' + ' config.')
 
