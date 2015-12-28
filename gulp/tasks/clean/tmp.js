@@ -1,20 +1,18 @@
-var del  = require('del');
-var path = require('path');
+var gulp = require('gulp')
+var del = require('del')
+var path = require('path')
+var config = require('../../config')
 
-module.exports = function(gulp, config){
-  'use strict';
+var cleanTmpTask = function (cb) {
+  var files = []
 
-  gulp.task('clean-temporary', ['styles-merge'], function (cb) {
-    var files = [
-      config.options.tmpDir + '/**'
-    ];
+  // Don't touch node_modules or source files!
+  files.push(path.join(config._path, '/**/*'))
 
-    // Don't touch node_modules or source files!
-    files.push(path.join(config.options.tmpDir, '/**/*'));
-
-    del(files).then(function (paths) {
-      // console.log(paths)
-      cb();
-    });
-  });
-};
+  del(files).then(function (paths) {
+    // console.log(paths)
+    cb()
+  })
+}
+gulp.task('clean:temporary', cleanTmpTask)
+module.exports = cleanTmpTask

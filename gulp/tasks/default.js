@@ -1,6 +1,11 @@
-'use strict';
+var gulp = require('gulp')
+var gulpSequence = require('gulp-sequence')
+var config = require('../config')
 
-module.exports = defaultTask;
-function defaultTask(gulp) {
-  gulp.task('default', ['build']);
+var defaultTask = function (cb) {
+  var tasks = config._tasks
+  gulpSequence(tasks.preprocess, tasks.process, tasks.postprocess, cb)
 }
+
+gulp.task('default', defaultTask)
+module.exports = defaultTask
