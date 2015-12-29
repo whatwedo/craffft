@@ -23,27 +23,38 @@ var defaultConfigDev = require('./craffft.json')
 var defaultConfigProd = require('./config-production')
 var isProductionEnv = args.env === 'production' || args.env === 'prod'
 
-var configure = function () {
-  var userConfig = null // Users own config if exists
-  var runConfig = null  // The final assembled config
+var config = function () {
+  var userConfig = {} // Users own config if exists
+  var runConfig = {}  // The final assembled config
 
   var cwd = process.env.PWD
   var systemFolder = '.craffft'
-  var systemPath = path.join(process.env.PWD, systemFolder)
+  var systemPath = path.join(cwd, systemFolder)
   var userConfigFile = 'craffft.json'
   var userConfigFullPath = path.join(cwd, userConfigFile)
   var assembledConfigFullPath = path.join(systemPath, userConfigFile)
 
   // Set up build temporary folder for storing processing files
+  var isSystemFolderCreated = false
   try {
     var stats = fs.statSync(systemPath)
     if (!stats.isDirectory()) {
       // Some unknown error
       throw 'Not a folder'
+    } else {
+      isSystemFolderCreated = true
     }
   } catch (e) {
     // Folder doesn't exist yet. Create
-    mkdirp.sync(systemPath)
+  }
+
+  try {
+    if (!isSystemFolderCreated) {
+      fs.mkdirSync(systemPath)
+    }
+  } catch (e) {
+    // Folder couldn't be created
+    gutil.log('Couldn\'n create craffft temporary folder.')
   }
 
   // Returns current assembled config if there is one
@@ -53,6 +64,7 @@ var configure = function () {
       // Some unknown error
       throw 'Not a file'
     }
+
     return runConfig = require(assembledConfigFullPath)
   } catch (e) {
     // No assembled config. have to be the first task.
@@ -76,10 +88,19 @@ var configure = function () {
     runConfig.options.version = require(path.join(cwd, 'package.json')).version
   }
 
-  runConfig._path = assembledConfigFullPath
+  runConfig._path = systemPath
+  runConfig._filepath = assembledConfigFullPath
   runConfig._tasks = getTasks()
 
-  fs.writeFileSync(assembledConfigFullPath, JSON.stringify(runConfig), 'utf-8')
+  gutil.log('Write following to ' + assembledConfigFullPath)
+  gutil.log(runConfig)
+
+  try {
+    fs.writeFileSync(assembledConfigFullPath, JSON.stringify(runConfig), 'utf-8')
+  } catch (e) {
+    gutil.log(e)
+  }
+
   return runConfig
 }
 
@@ -168,4 +189,4 @@ var getTasks = function () {
   }
 }
 
-module.exports = configure
+module.exports = config()

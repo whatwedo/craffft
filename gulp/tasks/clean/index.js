@@ -3,4 +3,9 @@
  */
 var gulp = require('gulp')
 
-gulp.task('clean', ['clean:temporary'])
+var cleanTaskList = function () {
+  return ['clean:temporary']
+}
+
+gulp.task('clean', cleanTaskList())
+module.exports = cleanTaskList()

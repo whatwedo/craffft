@@ -5,4 +5,9 @@
 
 var gulp = require('gulp')
 
-gulp.task('copy', 'copy:files')
+var copyTaskList = function () {
+  return ['copy:files']
+}
+
+gulp.task('copy', copyTaskList())
+module.exports = copyTaskList()

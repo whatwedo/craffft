@@ -1,12 +1,12 @@
-'use strict'
-
+var gulp = require('gulp')
+var config = require('../../config')
 var plumber = require('gulp-plumber')
 var stylus = require('gulp-stylus')
 var browserSync = require('browser-sync').create()
 var handleErrors = require('../../util/handleErrors')
 var helper = require('../../util/helpers')()
 
-module.exports = function (gulp, config) {
+var stylusTask = function () {
   var src, dest, options
   src = helper.getSrcPath(config, config.styles.options.stylus.src)
   dest = config.dest
@@ -14,18 +14,13 @@ module.exports = function (gulp, config) {
   options = helper.copyLiteral(config.styles.options.stylus)
   delete options.src
 
-  gulp.task('styles-stylus', function () {
-    return gulp.src(src, { base: config.src })
-      .pipe(plumber())
-      .pipe(stylus(options))
-      .pipe(gulp.dest(dest))
-      .pipe(browserSync.stream())
-      // .pipe(autoprefixer(config.autoprefixer.options))                     // TODO: Add to style task
-      // .pipe(gulpif(argv.prod, minifycss(minifyOptions.prod)))
-      // .pipe(sourcemaps.init({loadMaps: true }))
-      // .pipe(sourcemaps.write('.', { includeConent: false,  sourceRoot: '.' }))
-      // .pipe(replace(/{PKG_VERSION}/g,  config.options.version))
-      // .pipe(gulp.dest(dest))
-      .on('error', handleErrors)
-  })
+  return gulp.src(src, { base: config.src })
+    .pipe(plumber())
+    .pipe(stylus(options))
+    .pipe(gulp.dest(dest))
+    .pipe(browserSync.stream())
+    .on('error', handleErrors)
 }
+
+gulp.task('styles:stylus', stylusTask)
+module.exports = stylusTask

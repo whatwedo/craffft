@@ -11,4 +11,4 @@
  when you run `gulp`.
  */
 
-require('./gulp')()
+require('./gulp')

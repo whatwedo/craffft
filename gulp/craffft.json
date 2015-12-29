@@ -74,7 +74,7 @@
           "ie 9",
           "opera 12.1",
           "ios 6",
-          "android "
+          "android >= 4"
         ]
       }
     }

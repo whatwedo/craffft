@@ -3,33 +3,29 @@
  * include syntaxes like TypeScript, CoffeeScript, ES6, ES7 and so on.
  */
 
-module.exports = styles
-function styles (gulp, config) {
-  'use strict'
+var gulp = require('gulp')
+var config = require('../../config')
 
-  require('./stylus')(gulp, config)
-  require('./sass')(gulp, config)
-  require('./less')(gulp, config)
-  require('./postcss')(gulp, config)
-  require('./merge')(gulp, config)
-  require('../clean/tmp')(gulp, config)
-
-  var tasks = ['styles-postcss', 'styles-merge', 'clean-temporary']
+var styleTaskList = function () {
+  var tasks = ['styles:postcss', 'styles:merge']
 
   // Compile stylus if configured
   if (config.styles.preprocessors.indexOf('stylus') > -1) {
-    tasks.unshift('styles-stylus')
+    tasks.unshift('styles:stylus')
   }
 
   // Compile sass if configured
   if (config.styles.preprocessors.indexOf('sass') > -1) {
-    tasks.unshift('styles-sass')
+    tasks.unshift('styles:sass')
   }
 
   // Compile less if configured
   if (config.styles.preprocessors.indexOf('less') > -1) {
-    tasks.unshift('styles-less')
+    tasks.unshift('styles:less')
   }
 
-  gulp.task('styles', tasks)
+  return tasks
 }
+
+gulp.task('styles', styleTaskList())
+module.exports = styleTaskList()

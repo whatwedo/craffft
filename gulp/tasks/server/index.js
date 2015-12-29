@@ -3,18 +3,19 @@
  * for development and testing.
  */
 
-module.exports = server;
-function server(gulp, config) {
-  'use strict';
+var gulp = require('gulp')
+var config = require('../../config')
+// var gutil = require('gulp-util')
 
-  require('./browserSync')(gulp, config);
-
-  var tasks = [];
+var serverTaskList = function () {
+  var tasks = []
 
   // Compile stylus if configured
-  if(config.server.plugins.indexOf('browserSync') > -1){
-    tasks.unshift('server-browser-sync');
+  if (config.server.plugins.indexOf('browserSync') > -1) {
+    tasks.unshift('server:browser-sync')
   }
-
-  gulp.task('server', tasks);
+  return tasks
 }
+
+gulp.task('server', serverTaskList())
+module.exports = serverTaskList()
