@@ -3,11 +3,15 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
-### Breaking changes
-* **Config is now in json format.** It's no longer submitted via gulpfile. Instead it's decoupled. To use, **convert your config to json and save it as `craffftconfig.json` in your project's root.
 
 ### Fixes
 * PostCSS does no longer throw deprecation warnings.
+
+### Changes
+* Log is supressed by default. To see full output of the building process, use `npm run log`.
+
+### Breaking changes
+* **Config is now in json format.** It's no longer submitted via a `gulpfile.js`. Instead it's decoupled. To use, **convert your config to json and save it as `craffftconfig.json` in your project's root.
 
 ## v0.4.0 - 2015-11-30
 ### Changes

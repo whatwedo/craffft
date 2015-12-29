@@ -1,4 +1,4 @@
 #! /usr/bin/env node
-var shell = require("shelljs");
+var shell = require('shelljs')
 
-shell.exec("node_modules/gulp/bin/gulp.js --env production");
+shell.exec('node_modules/gulp/bin/gulp.js --silent --env production')

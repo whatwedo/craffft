@@ -37,14 +37,16 @@
     "craffft:compile": "bin/compile.js",
     "craffft:build": "bin/build.js",
     "craffft:run": "bin/watch.js",
-    "craffft:watch": "bin/watch.js"
+    "craffft:watch": "bin/watch.js",
+    "craffft:log": "bin/log.js"
   },
   "scripts": {
     "compile": "bin/compile.js",
     "build": "bin/compile.js",
     "watch": "bin/compile.js",
     "run": "bin/compile.js",
-    "debug": "node-debug node_modules/gulp/bin/gulp.js"
+    "log": "bin/log.js",
+    "debug-build": "node-debug node_modules/gulp/bin/gulp.js"
   },
   "dependencies": {
     "autoprefixer": "~6.2.2",

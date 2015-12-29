@@ -13,7 +13,6 @@
 var args = require('yargs').argv
 var path = require('path')
 var fs = require('fs')
-var mkdirp = require('mkdirp')
 var _ = require('lodash')
 var gutil = require('gulp-util')
 
