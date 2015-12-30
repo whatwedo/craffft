@@ -69,5 +69,5 @@ var styleMergeCb = function () {
   return merge(tasks)
 }
 
-gulp.task('styles:merge', ['styles:stylus', 'styles:sass', 'styles:less', 'styles:postcss'], styleMergeCb)
+gulp.task('styles:merge', ['styles:stylus', 'styles:sass', 'styles:less', 'styles:css'], styleMergeCb)
 module.exports = styleMergeCb

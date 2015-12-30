@@ -91,9 +91,6 @@ var config = function () {
   runConfig._filepath = assembledConfigFullPath
   runConfig._tasks = getTasks()
 
-  gutil.log('Write following to ' + assembledConfigFullPath)
-  gutil.log(runConfig)
-
   try {
     fs.writeFileSync(assembledConfigFullPath, JSON.stringify(runConfig), 'utf-8')
   } catch (e) {

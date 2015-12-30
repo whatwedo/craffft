@@ -7,7 +7,7 @@ var gulp = require('gulp')
 var config = require('../../config')
 
 var styleTaskList = function () {
-  var tasks = ['styles:postcss', 'styles:merge']
+  var tasks = ['styles:css', 'styles:merge']
 
   // Compile stylus if configured
   if (config.styles.preprocessors.indexOf('stylus') > -1) {

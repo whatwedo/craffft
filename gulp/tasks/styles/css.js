@@ -39,5 +39,5 @@ var postcssTask = function () {
     .on('error', handleErrors)
 }
 
-gulp.task('styles:postcss', postcssTask)
+gulp.task('styles:css', postcssTask)
 module.exports = postcssTask

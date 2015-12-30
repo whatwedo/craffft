@@ -17,9 +17,9 @@ var args = require('yargs').argv
 var requireDir = require('require-dir')
 
 // ...
-gutil.log = gutil.noop
+// gutil.log = gutil.noop
 // or
-gutil.log = function () { return this }
+// gutil.log = function () { return this }
 
 // Require all tasks in gulp/tasks, including subfolders
 requireDir('./tasks', { recurse: true })

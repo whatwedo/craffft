@@ -43,8 +43,8 @@
   "scripts": {
     "compile": "bin/compile.js",
     "build": "bin/compile.js",
-    "watch": "bin/compile.js",
-    "run": "bin/compile.js",
+    "watch": "bin/watch.js",
+    "run": "bin/watch.js",
     "log": "bin/log.js",
     "debug-build": "node-debug node_modules/gulp/bin/gulp.js"
   },

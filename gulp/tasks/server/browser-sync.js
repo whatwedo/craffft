@@ -12,7 +12,7 @@ var browserSyncTask = function () {
     }
   }
 
-  browserSync(browserSyncConfig)
+  browserSync.init(browserSyncConfig)
 }
 
 gulp.task('server:browser-sync', browserSyncTask)

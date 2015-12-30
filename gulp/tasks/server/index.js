@@ -11,7 +11,7 @@ var serverTaskList = function () {
   var tasks = []
 
   // Compile stylus if configured
-  if (config.server.plugins.indexOf('browserSync') > -1) {
+  if (config.server.plugins.indexOf('browsersync') > -1) {
     tasks.unshift('server:browser-sync')
   }
   return tasks

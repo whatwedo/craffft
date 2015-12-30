@@ -23,7 +23,8 @@
   },
   "styles": {
     "src": [
-      "**/*.css"
+      "**/*.css",
+      "!**/*.css"
     ],
     "preprocessors": [
       "postcss",
