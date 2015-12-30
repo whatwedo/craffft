@@ -6,11 +6,12 @@
  */
 
 var gulp = require('gulp')
+var gulpSequence = require('gulp-sequence')
 // var config = require('../../config')
 // var gutil = require('gulp-util')
 
 var watchTaskList = function () {
-  return ['watch:default', 'watch:javascript']
+  return gulpSequence('clean', [ 'watch:default', 'watch:javascript' ])
 }
 
 gulp.task('watch', watchTaskList())

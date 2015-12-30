@@ -17,10 +17,6 @@ var _ = require('lodash')
 var gutil = require('gulp-util')
 var helper = require('./util/helpers')()
 
-var defaultConfigDev = require('./craffft.json')
-
-// TODO Replace
-var defaultConfigProd = require('./config-production')
 var isProductionEnv = args.env === 'production' || args.env === 'prod'
 
 var config = function () {
@@ -30,8 +26,9 @@ var config = function () {
   var cwd = process.env.PWD
   var systemFolder = '.craffft'
   var systemPath = path.join(cwd, systemFolder)
-  var userConfigFile = 'craffft.json'
+  var userConfigFile = 'craffft-config.json'
   var userConfigFullPath = path.join(cwd, userConfigFile)
+  var defaultConfig = './' + userConfigFile
   var assembledConfigFullPath = path.join(systemPath, userConfigFile)
 
   // Set up build temporary folder for storing processing files
@@ -68,12 +65,14 @@ var config = function () {
     return runConfig = require(assembledConfigFullPath)
   } catch (e) {
     // No assembled config. have to be the first task.
+    runConfig = require(defaultConfig)
   }
 
-  // Go and check if user have an own craffft.json in it's project folder
+  // Go and check if user have an own craffft-config.json in it's project folder
   try {
-    var stats = fs.statSync(userConfigFullPath)
+    fs.statSync(userConfigFullPath)
     userConfig = require(userConfigFullPath)
+    runConfig = _.merge(runConfig, userConfig)
     gutil.log('User config loaded!')
   } catch (e) {
     gutil.log('No user config found!')
@@ -81,7 +80,6 @@ var config = function () {
 
   gutil.log('Run on ' + isProductionEnv ? 'production' : 'development' + ' config.')
 
-  runConfig = mergeConfigs(userConfig)
   runConfig = setPaths(runConfig)
 
   if (runConfig.options.version && runConfig.options.version === 'package.version') {
@@ -115,55 +113,11 @@ var setPaths = function (config) {
       filePath = path.join(config.srcAbsolute, filePath)
     } else {
       for (var i = 0; i < filePath.length; i++) {
-        filePath[i] = path.join(config.srcAbsolute, filePath[i])
+        filePath[ i ] = path.join(config.srcAbsolute, filePath[ i ])
       }
     }
   })
   return config
-}
-
-/**
- * Merges together development, production and user configs
- * @param  {object} config Configuration object
- * @return {object}        Final config
- */
-var mergeConfigs = function (config) {
-  var mergedConfig
-
-  // Create empty configuration container for defaults if no config submitted
-  if (!config) {
-    config = {
-      dev: null,
-      prod: null,
-      user: null
-    }
-  }
-
-  // Merge submitted configs where needed with defaults
-  if (config.dev) {
-    config.dev = _.merge(defaultConfigDev, config.dev)
-  } else {
-    config.dev = defaultConfigDev
-  }
-
-  if (config.prod) {
-    config.prod = _.merge(defaultConfigProd, config.prod)
-  } else {
-    config.prod = defaultConfigProd
-  }
-
-  // Create concrete config for compilation
-  // Take Development Config as a base, start with user config
-  mergedConfig = config.dev
-  if (config.user) {
-    mergedConfig = _.merge(mergedConfig, config.user)
-  }
-
-  if (isProductionEnv) {
-    mergedConfig = _.merge(mergedConfig, config.user)
-  }
-
-  return mergedConfig
 }
 
 /**

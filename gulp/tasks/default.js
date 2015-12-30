@@ -3,8 +3,7 @@ var gulpSequence = require('gulp-sequence')
 var config = require('../config')
 
 var defaultTask = function (cb) {
-  var tasks = config._tasks
-  gulpSequence(tasks.preprocess, tasks.process, tasks.postprocess, cb)
+  gulpSequence('compile', 'watch', cb)
 }
 
 gulp.task('default', defaultTask)

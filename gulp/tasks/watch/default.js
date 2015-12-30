@@ -40,7 +40,6 @@ var watchTask = function () {
     }
 
     if (task) {
-      gutil.log('../' + taskName.replace(':', '/'))
       watch(task.src, function () {
         gutil.log('../' + taskName.replace(':', '/'))
         require('../' + taskName.replace(':', '/'))()
@@ -48,5 +47,5 @@ var watchTask = function () {
     }
   })
 }
-gulp.task('watch:default', [ 'server:browser-sync' ], watchTask)
+gulp.task('watch:default', [ 'server:browser-sync'], watchTask)
 module.exports = watchTask
