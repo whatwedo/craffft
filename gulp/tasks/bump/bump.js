@@ -1,14 +1,15 @@
 var gulp = require('gulp')
-var config = require('../config')
+var config = require('../../config')
 var gbump = require('gulp-bump')
 var prompt = require('gulp-prompt')
-var handleErrors = require('../util/handleErrors')
+var handleErrors = require('../../util/handleErrors')
 var semver = require('semver')
 var replace = require('gulp-replace')
 var gutil = require('gulp-util')
+var path = require('path')
 
 var bumpTask = function (cb) {
-  var target = './*' // project root
+  var target = config._cwd // project root
 
   gulp.src(target).pipe(prompt.prompt({
     type: 'list',
@@ -54,6 +55,7 @@ var bumpTask = function (cb) {
         }
       }))
     } else {
+      gutil.log(newVer)
       gbumpFiles(newVer, cb)
     }
   }))
@@ -67,7 +69,10 @@ var gbumpFiles = function (newVer, callback, prerelease) {
   var dd = date.getDate().toString()
   var dateHumanReadable = yyyy + '-' + (mm[ 1 ] ? mm : '0' + mm[ 0 ]) + '-' + (dd[ 1 ] ? dd : '0' + dd[ 0 ])
 
-  gulp.src([ './bower.json', './package.json' ])
+  gulp.src([
+      path.join(config._cwd, 'bower.json'),
+      path.join(config._cwd, 'package.json')
+    ])
     .pipe(gbump({
       version: newVer
     }))
@@ -81,9 +86,10 @@ var gbumpFiles = function (newVer, callback, prerelease) {
 
   if (!prerelease || (prerelease && config.bump.prereleaseChangelogs)) {
     // replace version in CHANGELOG
-    gulp.src([ './CHANGELOG.md' ])
+    gutil.log(replace(config.bump.unreleasedPlaceholder, '## v' + newVer + ' - ' + dateHumanReadable))
+    gulp.src([ config.changelog.src ])
       .pipe(replace(config.bump.unreleasedPlaceholder, '## v' + newVer + ' - ' + dateHumanReadable))
-      .pipe(gulp.dest('./'))
+      .pipe(gulp.dest(config._cwd))
       .on('error', handleErrors)
       .on('end', function () {
         aftergbump(waitCounter)
@@ -100,5 +106,5 @@ var aftergbump = function (waitCounter) {
   }
 }
 
-gulp.task('bump', bumpTask)
+gulp.task('bump:version', bumpTask)
 module.exports = bumpTask

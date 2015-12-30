@@ -1,9 +1,9 @@
 'use strict'
 
 var gulp = require('gulp')
-var config = require('../config')
+var config = require('../../config')
 var markdown = require('gulp-markdown')
-var handleErrors = require('../util/handleErrors')
+var handleErrors = require('../../util/handleErrors')
 
 var changelogTask = function () {
   var src = config.changelog.src
@@ -15,5 +15,5 @@ var changelogTask = function () {
     .on('error', handleErrors)
 }
 
-gulp.task('changelog', changelogTask)
+gulp.task('bump:changelog', changelogTask)
 module.exports = changelogTask
