@@ -8,7 +8,7 @@ var helper = require('../../util/helpers')()
 
 var stylusTask = function () {
   var src, dest, options
-  src = helper.getSrcPath(config, config.styles.options.stylus.src)
+  src = config.styles.options.stylus.src
   dest = config.dest
 
   options = helper.copyLiteral(config.styles.options.stylus)

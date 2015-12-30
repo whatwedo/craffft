@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Added
+* Watch: The watcher was reimplemented. Use `npm run watch` to watch for file changes.
+
 ### Fixes
 * PostCSS does no longer throw deprecation warnings.
 

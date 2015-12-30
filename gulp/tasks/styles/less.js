@@ -9,7 +9,7 @@ var helper = require('../../util/helpers')()
 
 var lessTask = function () {
   var src, dest, options
-  src = helper.getSrcPath(config, config.styles.options.less.src)
+  src = config.styles.options.less.src
   dest = config.dest
 
   options = helper.copyLiteral(config.styles.options.less)

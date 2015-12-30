@@ -1,4 +1,4 @@
-# Craffft
+# craffft
 
 Craffft is a black boxed build system for creating future proof applications 
 on web technologies and languages.
@@ -11,18 +11,24 @@ npm install git+ssh://git@dev.whatwedo.ch:wwd-internal/craffft.git
 
 ## Features
 
+Processing following languages or file formats:
+
 **Javascript**
 * Transpiles JavaScript EcmaScript 2015 to ES5
 * Processes TypeScript to JavaScript *including ES6*
 * Supports multiple bundles and mixing of ES6, TypeScript and ES5
 
 **Styles**
-* Processes Sass, Stylus, Less and raw CSS
+* Processes Sass, Stylus, Less
+* Transpile CSS Selector Level 4
 * Auto prefixing for different vendors
-* Supports multiple bundles and mixing of all three languages
+
+**Images**
+* Optimize and minimize jpg, png, gif and svg
 
 **Server**
-* Include BrowserSync, a development server for live reloading on changes
+* Mirror changes to the browser, live, via browserSync
+* Sync scrolling, typing and other interactions to all connected devices
 
 ## Why use it?
 
@@ -34,7 +40,7 @@ the same configurations, he can still rely on Sass, what ever one needs for his
 projects.
 
 The main goal is to make it work out of the box with precompilers or techniques
-are most popular. Make it “magic” working like Meteor.js.
+are most popular and make it easy to upgrade without changing configs.
 
 ## Getting started
 
@@ -276,10 +282,7 @@ TBD
 
 ## Roadmap
 
-### Milestone v1.0.0
-
-* [ ] Tested in a project
-* [ ] Migrate config to json
+* [x] Migrate config to json
 * [x] Can be installed via npm
 * [x] Includes precompiling for the most popular CSS syntaxes
   * [x] Sass > v3.3
@@ -292,11 +295,13 @@ TBD
   * [x] ES6 - *using babel*
 * [x] Configurable copy tasks for markup files
 
+
 ### Backlog
 
 #### CSS Testing
 
-Add CSS testing suite via [BackstopJS](https://garris.github.io/BackstopJS/).
+* Add CSS testing suite via [BackstopJS](https://garris.github.io/BackstopJS/).
+* Global CLI runner for project inititalization, configuration and upgrades.
 
 ## Dependencies
 

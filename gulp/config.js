@@ -15,6 +15,7 @@ var path = require('path')
 var fs = require('fs')
 var _ = require('lodash')
 var gutil = require('gulp-util')
+var helper = require('./util/helpers')()
 
 var defaultConfigDev = require('./craffft.json')
 
@@ -89,6 +90,7 @@ var config = function () {
 
   runConfig._path = systemPath
   runConfig._filepath = assembledConfigFullPath
+  runConfig._cwd = cwd
   runConfig._tasks = getTasks()
 
   try {
@@ -107,6 +109,16 @@ var config = function () {
 var setPaths = function (config) {
   config.srcAbsolute = path.join(process.env.PWD, config.src)
   config.destAbsolute = path.join(process.env.PWD, config.dest)
+  helper.recursiveFindByKeyInObj(config, 'src', function (prop, key) {
+    var filePath = prop[ key ]
+    if (typeof filePath === 'string') {
+      filePath = path.join(config.srcAbsolute, filePath)
+    } else {
+      for (var i = 0; i < filePath.length; i++) {
+        filePath[i] = path.join(config.srcAbsolute, filePath[i])
+      }
+    }
+  })
   return config
 }
 

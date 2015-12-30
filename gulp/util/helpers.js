@@ -6,6 +6,7 @@ var _ = require('lodash')
 function helpers () {
   return {
     copyLiteral: copyLiteral,
+    recursiveFindByKeyInObj: recursiveFindByKeyInObj,
     getDestPath: getDestPath,
     getSrcPath: getSrcPath,
     getWebpackLoaders: getWebpackLoaders,
@@ -24,6 +25,23 @@ function helpers () {
     })
 
     return copy
+  }
+
+  function recursiveFindByKeyInObj (obj, key, cb) {
+    for (var property in obj) {
+      if (property === key) {
+        if (cb) {
+          cb(obj, key)
+        }
+      }
+      if (obj.hasOwnProperty(property)) {
+        if (typeof obj[ property ] === 'object') {
+          recursiveFindByKeyInObj(obj[ property ], key, cb)
+        } else {
+          // console.log(property + "   " + obj[ property ])
+        }
+      }
+    }
   }
 
   function getDestPath (config, dest) {
@@ -64,7 +82,7 @@ function helpers () {
    * @param {bool} flat Flatten file structure to root directory
    * @returns {{}}
    */
-  function getWebpackBundles (files, flat) {
+  function getWebpackBundles (files, flat, base) {
     var webpackEntries = {}
 
     // See https://github.com/webpack/webpack/issues/1189
@@ -79,9 +97,9 @@ function helpers () {
        } */
       var fileInfo = path.parse(file)
       var fileSrc = file
-      var fileDest = fileInfo.dir && !flat ? path.join(fileInfo.dir, fileInfo.name) : fileInfo.name
+      var fileDest = fileInfo.dir && !flat ? path.join(path.relative(base, fileInfo.dir), fileInfo.name) : fileInfo.name
 
-      webpackEntries[ fileDest ] = fileSrc
+      webpackEntries[ fileDest ] = './' + path.relative(base, fileSrc)
     })
 
     return webpackEntries
@@ -95,11 +113,11 @@ function helpers () {
   function getWebpackTaskConfig (config) {
     var addons = getWebpackLoaders(config.javascript.preprocessors)
     var files = getJavascriptFiles(config.javascript.src, config.src)
-    var webpackBundles = getWebpackBundles(files, config.javascript.options.flatten)
+    var webpackBundles = getWebpackBundles(files, config.javascript.options.flatten, config.srcAbsolute)
 
     var webpackConfig = {
-      // context: config.srcAbsolute,
-      entry: getSrcPath(config, webpackBundles),
+      context: config.srcAbsolute,
+      entry: webpackBundles,
       output: {
         path: config.dest,
         filename: '[name].js'
@@ -135,7 +153,7 @@ function helpers () {
       }
     }
 
-    return webpackConfig
+    return webpackConfig 
   }
 
   /**

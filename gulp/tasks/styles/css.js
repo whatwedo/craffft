@@ -1,12 +1,11 @@
 var gulp = require('gulp')
 var config = require('../../config')
 var postcss = require('gulp-postcss')
-var helper = require('../../util/helpers')
 var handleErrors = require('../../util/handleErrors')
 
 var postcssTask = function () {
   var src, dest
-  src = helper().getSrcPath(config, config.styles.src)
+  src = config.styles.src
   dest = config.dest
   var processors = []
 

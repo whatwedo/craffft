@@ -8,7 +8,7 @@ var helper = require('../../util/helpers')()
 
 var sassTask = function () {
   var src, dest, options
-  src = helper.getSrcPath(config, config.styles.options.sass.src)
+  src = config.styles.options.sass.src
   dest = config.dest
 
   options = helper.copyLiteral(config.styles.options.sass)

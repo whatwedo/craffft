@@ -7,7 +7,7 @@ var config = require('../config')
 
 var imageTask = function () {
   var plugins = []
-  var src = helper().getSrcPath(config, config.images.src)
+  var src = config.images.src
   var dest = config.dest
 
   config.images.options.use.forEach(function (plugin) {

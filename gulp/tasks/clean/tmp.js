@@ -11,7 +11,6 @@ var cleanTmpTask = function (cb) {
   files.push(path.join(config._path, '/**/*'))
 
   del(files).then(function (paths) {
-    gutil.log(config._path)
     cb()
   })
 }
