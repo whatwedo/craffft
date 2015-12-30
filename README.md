@@ -1,4 +1,4 @@
-# Craffft
+# craffft
 
 Craffft is a black boxed build system for creating future proof applications 
 on web technologies and languages.
@@ -11,18 +11,24 @@ npm install git+ssh://git@dev.whatwedo.ch:wwd-internal/craffft.git
 
 ## Features
 
+Processing following languages or file formats:
+
 **Javascript**
 * Transpiles JavaScript EcmaScript 2015 to ES5
 * Processes TypeScript to JavaScript *including ES6*
 * Supports multiple bundles and mixing of ES6, TypeScript and ES5
 
 **Styles**
-* Processes Sass, Stylus, Less and raw CSS
+* Processes Sass, Stylus, Less
+* Transpile CSS Selector Level 4
 * Auto prefixing for different vendors
-* Supports multiple bundles and mixing of all three languages
+
+**Images**
+* Optimize and minimize jpg, png, gif and svg
 
 **Server**
-* Include BrowserSync, a development server for live reloading on changes
+* Mirror changes to the browser, live, via browserSync
+* Sync scrolling, typing and other interactions to all connected devices
 
 ## Why use it?
 
@@ -34,7 +40,7 @@ the same configurations, he can still rely on Sass, what ever one needs for his
 projects.
 
 The main goal is to make it work out of the box with precompilers or techniques
-are most popular. Make it “magic” working like Meteor.js.
+are most popular and make it easy to upgrade without changing configs.
 
 ## Getting started
 
@@ -42,280 +48,241 @@ TBD
 
 ## Configuration
 
-```js
+```json
 // Overwrite settings by placing them into your settings file.
 {
-  
   // Where source files are stored. Relative to root.
   // Every processor's src is relative to this.
-  src: './src',
+  "src": "./src",
   
   // Where processed files should go. Relative to root.
   // Every processor's dest is relative to this.
-  dest: './dist',
+  "dest": "./dist",
   
   //-------- Global Configuration --------
-  options: {
+  "options": {
     
     // Your project version, default from package.json
-    version: packageConfig.version,
+    "version": "",
     
     // Temporary folder used to process multiple files
-    tmpDir: './.craffft-tmp',                 
+    "tmpDir": "./.craffft-tmp",                 
     
     // Node Modules Folder. Used for excludes and import references.                            
-    nodeModulesDir: './node_modules',
+    "nodeModulesDir": "./node_modules",
     
     // Bower Components Folder. Used for excludes and import references.
-    bowerComponentsDir: './bower_components'
+    "bowerComponentsDir": "./bower_components"
   },
   
   //-------- Server Configuration --------
-  server: {
+  "server": {
     
     // Server Plugins
-    plugins: [
-      'browserSync'
+    "plugins": [
+      "browserSync"
     ],
     
     // Server options
-    options: {
+    "options": {
       
       // BrowserSync configuration
-      browserSync: {
+      "browserSync": {
         
         // Automatically open a new browser window on server start
-        open: false,
+        "open": false,
         
         // Files to watch and serve
-        files: [
-          '**',
+        "files": [
+          "**",
           // Exclude Map files
-          '!**.map'
+          "!**.map"
         ]
       }
     }
   },
-  
-  //-------- CSS Configuration --------
-  styles: {
-    
+  // -------- CSS Configuration --------
+  "styles": {
     // Where to search for styles
     // Create named bundles, e.g. styles, styles2,...
-    src: {                                                                      
-      styles: [
-        '**/*.css'
-      ]
-    },
-    
-    // Supported preprocessors
-    preprocessors: [                                                            
-      'postcss',
-      'stylus',
-      'sass',
-      'less'
+    "src": [
+      "**/*.css"
     ],
-    
-    // Configure compilation and preprocessors 
-    options: { 
-      
-      // postcss configuration                                                                                                                            
-      postcss: {
-        processors: [     
-          // Automatically prefix attributes                                                   
-          'autoprefixer',
-          
-          // Combine all media queries
-          'css-mqpacker',
-          
+    // Supported preprocessors
+    "preprocessors": [
+      "postcss",
+      "stylus",
+      "sass",
+      "less"
+    ],
+    // Configure compilation and preprocessors
+    "options": {
+      // postcss configuration
+      "postcss": {
+        "processors": [
           // Allow imports
-          'postcss-import'         
-          
-          // Minify CSS                                          
-          // 'csswring'                                                         
+          "postcss-import",
+          // Automatically prefix attributes
+          "autoprefixer",
+          // Use CSS Selector Level 4
+          "cssnext",
+          // Combine all media queries
+          "css-mqpacker"
+          // Minify CSS
+          // 'csswring'
         ]
       },
-      
-      // Stylus configuration. Will be processed before CSS/PostCSS  
-      stylus: {  
-        
+      // Stylus configuration. Will be processed before CSS/PostCSS
+      "stylus": {
         // Where to search for styles
         // Create named bundles, e.g. styles, styles2,...
         // Will be merged with equivalent bundles from SCSS, LESS, CSS
-        // TODO: Merge with styles.src                                                                                                   
-        src: {
-          styles: [
-            '**/*.{styl,stylus}',
-            '!**/_*.{styl,stylus}',
-            '!**/*.craffft.styl'
-          ],
-          
-          // Used for testing purposes only
-          crafffttests: [
-            '**/_*.craffft.styl'
-          ]
-        },
-        
+        // TODO: Merge with styles.src
+        "src": [
+          "**/*.{styl,stylus}",
+          "!**/_*.{styl,stylus}",
+          "!**/*.craffft.styl"
+        ],
         // Minify
-        compress: false,
-        
+        "compress": false,
         // Shortcut references
         // Shortcut references possible everywhere, e.g. @import 'bower_components/bla'
         // Shortcut references possible everywhere, e.g. @import 'node_modules/bla'
-        include: [
-          './node_modules/../',                                                 
-          './bower_components/../'                                              
+        "include": [
+          "./node_modules/../",
+          "./bower_components/../"
         ]
       },
-      
-      // Sass configuration. Will be processed before CSS/PostCSS  
-      sass: {    
-        
+      // Sass configuration. Will be processed before CSS/PostCSS
+      "sass": {
         // Where to search for styles
         // Create named bundles, e.g. styles, styles2,...
         // Will be merged with equivalent bundles from Stylus, LESS, CSS
-        // TODO: Merge with styles.src                                                                                      
-        src: {
-          styles: [
-            '**/*.{scss,sass}',
-            '!**/_*.{scss,sass}',
-            '!**/*.craffft.scss'
-          ],
-          crafffttests: [
-            '*.craffft.scss'
-          ]
-        },
-        
+        // TODO: Merge with styles.src
+        "src": [
+          "**/*.{scss,sass}",
+          "!**/_*.{scss,sass}",
+          "!**/*.craffft.scss"
+        ],
         // How to handle comments
-        sourceComments: 'normal'
+        "sourceComments": "normal"
       },
-      
-      // LESS configuration. Will be processed before CSS/PostCSS 
-      less: {
-        
+      // LESS configuration. Will be processed before CSS/PostCSS
+      "less": {
         // Where to search for styles
         // Create named bundles, e.g. styles, styles2,...
         // Will be merged with equivalent bundles from Stylus, Scss, CSS
-        // TODO: Merge with styles.src    
-        src: {
-          styles: [
-            '**/*.less',
-            '!**/_*.less',
-            '!**/*.craffft.less'
-          ],
-          crafffttests: [
-            '*.craffft.less'
-          ]
-        }
+        // TODO: Merge with styles.src
+        "src": [
+          "**/*.less",
+          "!**/_*.less",
+          "!**/*.craffft.less"
+        ]
       },
-      
       // Autoprefixing configuration.
       // Only affects output when styles.options.postcss.processors contains 'autoprefixer'
-      autoprefixer: {  
-        
-        // For which browsers to prefix                                                         
-        browsers: [
-          'last 2 version',
-          'safari 5',
-          'ie 9',
-          'opera 12.1',
-          'ios 6',
-          'android 4'
+      "autoprefixer": {
+        // For which browsers to prefix
+        "browsers": [
+          "last 2 version",
+          "safari 5",
+          "ie 9",
+          "opera 12.1",
+          "ios 6",
+          "android "
         ]
       }
     }
   },
-  
-  //-------- Images Configuration --------
+  // -------- Images Configuration --------
   // See: https://github.com/sindresorhus/gulp-imagemin
-  images: {                                                                    
-    src: 'resources/images/**',
-    dest: 'resources/images',
-    options: {
+  "images": {                                                                    
+    "src": [
+      "**/*.jpg",
+      "**/*.png",
+      "**/*.gif",
+      "**/*.svg"
+    ],
+    "options": {
       // (png) 0 - 7 trials
-      optimizationLevel: 3, 
+      "optimizationLevel": 3, 
       
       // (jpg) Lossless conversion to progressive
-      progressive: true, 
+      "progressive": true, 
       
       // (gif) Interlace gif for progressive rendering   
-      interlaced: true,  
+      "interlaced": true,  
       
       // (svg) Optimize svg multiple times until it's fully optimized.   
-      multipass: false,  
+      "multipass": false,  
       
       // (svg) Plugins   
-      svgoPlugins: [], 
+      "svgoPlugins": [], 
       
       // Additional Plugins     
-      use: [                
-        'imagemin-pngquant'
+      "use": [                
+        "imagemin-pngquant"
       ]
     }
   },
   
   //-------- Images Configuration --------
-  markup: {
-    src: [
-      '**/*.{php,html}'
+  "markup": {
+    "src": [
+      "**/*.{php,html}"
     ]
   },
   
   //-------- Copy Configuration --------
-  copy: {
-    src: [
-      '**/*.json'
-    ]
+  "copy": {
+    "src": []
   },
   
   //-------- Versioning Configuration --------
-  bump: {
+  "bump": {
     
     // Placeholder to replace with current version number
-    unreleasedPlaceholder: /## unreleased/ig, 
+    "unreleasedPlaceholder": "/## unreleased/ig", 
     
     // If true, changelog update with prerelease bump
-    prereleaseChangelogs: false, 
+    "prereleaseChangelogs": false, 
     
-    options: {
+    "options": {
       // What to add for prereleases, e.g. "beta" is going to be v1.0.0-beta.1
-      preid : 'beta' 
+      "preid" : "beta" 
     }
   },
   
   //-------- Changelog Configuration --------
   // TODO: Migrate with bump
-  changelog: {
-    src: './CHANGELOG.md',
+  "changelog": {
+    "src": "./CHANGELOG.md"
   },
   
   //-------- JavaScript Configuration --------
-  javascript: {
+  "javascript": {
     
     // Source files. Process all JavaScript files except partials prefixed with a dash.
-    src: [
-      '**/*.js',
-      '!**/_*.js'
+    "src": [
+      "**/*.js",
+      "!**/_*.js"
     ],
-    preprocessors: [
-      'typescript'
+    "preprocessors": [
+      "typescript"
     ],
-    options: {
+    "options": {
       
-      // If true, all files will be written to root folder. Defaults to keep
+      // If true, all files will be written to root folder. Default is to keep
       // file structure from src folder.
-      flatten: false                                                              
+      "flatten": false                                                              
     }
   }
-};
+}
 ```
 
 ## Roadmap
 
-### Milestone v1.0.0
-
-* [ ] Tested in a project
-* [ ] Migrate config to json
+* [x] Migrate config to json
 * [x] Can be installed via npm
 * [x] Includes precompiling for the most popular CSS syntaxes
   * [x] Sass > v3.3
@@ -328,11 +295,13 @@ TBD
   * [x] ES6 - *using babel*
 * [x] Configurable copy tasks for markup files
 
+
 ### Backlog
 
 #### CSS Testing
 
-Add CSS testing suite via [BackstopJS](https://garris.github.io/BackstopJS/).
+* Add CSS testing suite via [BackstopJS](https://garris.github.io/BackstopJS/).
+* Global CLI runner for project inititalization, configuration and upgrades.
 
 ## Dependencies
 

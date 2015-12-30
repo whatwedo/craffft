@@ -1,0 +1,5 @@
+{
+  "copy": {
+    "src": ["copy-this-file.md"]
+  }
+}

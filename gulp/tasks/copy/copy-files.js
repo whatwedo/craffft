@@ -1,17 +1,15 @@
-'use strict';
-var handleErrors = require('../../util/handleErrors');
-var helper = require('../../util/helpers');
-var _ = require('lodash');
+var gulp = require('gulp')
+var config = require('../../config')
+var handleErrors = require('../../util/handleErrors')
 
-module.exports = function (gulp, config) { 
-	var src = config.copy.src;
-  var dest = config.dest;
-  
-  function task() {
-    return gulp.src(src, {base: config.src})
-      .pipe(gulp.dest(dest))
-      .on('error', handleErrors);
-  }
-  
-  return task;
-};
+var copyFilesTask = function () {
+  var src = config.copy.src
+  var dest = config.dest
+
+  return gulp.src(src, {base: config.src})
+    .pipe(gulp.dest(dest))
+    .on('error', handleErrors)
+}
+
+gulp.task('copy:files', copyFilesTask)
+module.exports = copyFilesTask
