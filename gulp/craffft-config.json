@@ -112,14 +112,14 @@
     "src": []
   },
   "bump": {
-    "unreleasedPlaceholder": "/## unreleased/ig", 
+    "unreleasedPlaceholder": "/## Unreleased/ig",
     "prereleaseChangelogs": false, 
     "options": {
       "preid" : "beta" 
     }
   },
   "changelog": {
-    "src": "./CHANGELOG.md"
+    "src": "CHANGELOG.md"
   },
   "javascript": {
     "src": [
