@@ -15,8 +15,8 @@
       "browserSync": {
         "open": false,
         "files": [
-          "**",
-          "!**.map"
+          "dist/**",
+          "dist/!**.map"
         ]
       }
     }
@@ -43,8 +43,10 @@
       },
       "stylus": {
         "src": [
-          "**/*.{styl,stylus}",
-          "!**/_*.{styl,stylus}",
+          "**/*.styl",
+          "**/*.stylus",
+          "!**/_*.styl",
+          "!**/_*.stylus",
           "!**/*.craffft.styl"
         ],
         "compress": false,
@@ -55,8 +57,10 @@
       },
       "sass": {
         "src": [
-          "**/*.{scss,sass}",
-          "!**/_*.{scss,sass}",
+          "**/*.scss",
+          "**/*.sass",
+          "!**/_*.scss",
+          "!**/_*.sass",
           "!**/*.craffft.scss"
         ],
         "sourceComments": "normal"
@@ -100,7 +104,8 @@
   },
   "markup": {
     "src": [
-      "**/*.{php,html}"
+      "**/*.php",
+      "**/*.html"
     ]
   },
   "copy": {

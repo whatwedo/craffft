@@ -153,7 +153,7 @@ function helpers () {
       }
     }
 
-    return webpackConfig 
+    return webpackConfig
   }
 
   /**

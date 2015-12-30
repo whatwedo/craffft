@@ -36,12 +36,14 @@ var watchTask = function () {
         task = task.options[ branch ]
       })
     } else {
-      task = config[ taskName ]
+      task = config[ taskName.replace(':css', '') ]
     }
 
     if (task) {
+      gutil.log('../' + taskName.replace(':', '/'))
       watch(task.src, function () {
-        require('./' + taskName.replace(':', '/'))()
+        gutil.log('../' + taskName.replace(':', '/'))
+        require('../' + taskName.replace(':', '/'))()
       })
     }
   })
