@@ -1,17 +1,19 @@
-'use strict';
+'use strict'
 
-var markdown      = require('gulp-markdown');
-var handleErrors  = require('../util/handleErrors');
-var helper  = require('../util/helpers');
+var gulp = require('gulp')
+var config = require('../config')
+var markdown = require('gulp-markdown')
+var handleErrors = require('../util/handleErrors')
 
-module.exports = changelog;
-function changelog(gulp, config){
-  var src = helper().getSrcPath(config, config.changelog.src);
-  var dest = config.dest;
-  gulp.task('changelog', function() {
-    return gulp.src(src)
+var changelogTask = function () {
+  var src = config.changelog.src
+  var dest = config.dest
+
+  return gulp.src(src)
     .pipe(markdown())
     .pipe(gulp.dest(dest))
-    .on('error', handleErrors);
-  });
+    .on('error', handleErrors)
 }
+
+gulp.task('changelog', changelogTask)
+module.exports = changelogTask

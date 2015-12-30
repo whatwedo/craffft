@@ -1,4 +1,4 @@
 #! /usr/bin/env node
-var shell = require("shelljs");
+var shell = require('shelljs')
 
-shell.exec("node_modules/gulp/bin/gulp.js && node_modules/gulp/bin/gulp.js watch");
+shell.exec('node_modules/gulp/bin/gulp.js watch')
