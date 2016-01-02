@@ -36,8 +36,8 @@
       "postcss": {
         "processors": [
           "postcss-import",
+          "postcss-cssnext",
           "autoprefixer",
-          "cssnext",
           "css-mqpacker"
         ]
       },
@@ -49,7 +49,6 @@
           "!**/_*.stylus",
           "!**/*.craffft.styl"
         ],
-        "compress": false,
         "include": [
           "./node_modules/../",
           "./bower_components/../"

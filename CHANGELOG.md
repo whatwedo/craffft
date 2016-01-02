@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Added
+* Build for production with `--build` flag. Minifies Javascript and CSS.
+
+### Changes
+* Remove stylus compression option in config. It's automatically used in production builds.
+
 ## v0.11.0 - 2015-12-30
 
 ### Added
