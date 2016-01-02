@@ -5,9 +5,10 @@
 
 var gulp = require('gulp')
 var config = require('../../config')
+var gulpSequence = require('gulp-sequence')
 
 var styleTaskList = function () {
-  var tasks = ['styles:css', 'styles:merge']
+  var tasks = []
 
   // Compile stylus if configured
   if (config.styles.preprocessors.indexOf('stylus') > -1) {
@@ -24,7 +25,7 @@ var styleTaskList = function () {
     tasks.unshift('styles:less')
   }
 
-  return tasks
+  return gulpSequence(tasks, 'styles:css')
 }
 
 gulp.task('styles', styleTaskList())

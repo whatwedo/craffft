@@ -2,6 +2,7 @@ var gulp = require('gulp')
 var config = require('../../config')
 var plumber = require('gulp-plumber')
 var stylus = require('gulp-stylus')
+var nano = require('gulp-cssnano')
 var browserSync = require('browser-sync').create()
 var handleErrors = require('../../util/handleErrors')
 var helper = require('../../util/helpers')()
@@ -13,6 +14,16 @@ var stylusTask = function () {
 
   options = helper.copyLiteral(config.styles.options.stylus)
   delete options.src
+
+  if (config._isBuild) {
+    return gulp.src(src, { base: config.src })
+      .pipe(plumber())
+      .pipe(stylus(options))
+      .pipe(nano())
+      .pipe(gulp.dest(dest))
+      .pipe(browserSync.stream())
+      .on('error', handleErrors)
+  }
 
   return gulp.src(src, { base: config.src })
     .pipe(plumber())

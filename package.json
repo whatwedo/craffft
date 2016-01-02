@@ -1,6 +1,6 @@
 {
   "name": "craffft",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "Black box system for building future proof web applications and sites",
   "author": "whatwedo <welove@whatwedo.ch",
   "contributors": [
@@ -63,6 +63,7 @@
     "gulp-bump": "~1.0.0",
     "gulp-changed": "~1.3.0",
     "gulp-concat": "~2.6.0",
+    "gulp-cssnano": "^2.0.0",
     "gulp-imagemin": "~2.4.0",
     "gulp-less": "~3.0.3",
     "gulp-markdown": "~1.2.0",

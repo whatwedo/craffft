@@ -1,15 +1,3 @@
-/**
- * This file checks for different configs and merges them in correct order.
- * There are following configs
- *   - config-development.js: The default config parameters
- *   - config-production.js: Parameters of going live. Minifies and removes debug informations like source maps
- *   - config-user.js: Parameters override the default config-development.js and are for your development
- *                     environment. Don't add this to the repository. It's for you, not your team!
- *
- *  Config overrides: config-production > config-user > config-development
- *  Adds: config.srcAbsolute, config.destAbsolute
- */
-
 var args = require('yargs').argv
 var path = require('path')
 var fs = require('fs')
@@ -17,8 +5,14 @@ var _ = require('lodash')
 var gutil = require('gulp-util')
 var helper = require('./util/helpers')()
 
-var isProductionEnv = args.env === 'production' || args.env === 'prod'
+var isBuild = args.prod || args.build || args.productive
 
+/**
+ * Gathers informations about the current environment, generates the config out of defaults and user's
+ * craffft-config.json, caches the result and returns the new or cached config for the current compilation
+ * process.
+ * @returns {Object} Configuration
+ */
 var config = function () {
   var userConfig = {} // Users own config if exists
   var runConfig = {}  // The final assembled config
@@ -34,10 +28,10 @@ var config = function () {
   // Set up build temporary folder for storing processing files
   var isSystemFolderCreated = false
   try {
-    var stats = fs.statSync(systemPath)
+    let stats = fs.statSync(systemPath)
     if (!stats.isDirectory()) {
       // Some unknown error
-      throw 'Not a folder'
+      throw new Error('Not a folder')
     } else {
       isSystemFolderCreated = true
     }
@@ -56,13 +50,14 @@ var config = function () {
 
   // Returns current assembled config if there is one
   try {
-    var stats = fs.statSync(assembledConfigFullPath)
+    let stats = fs.statSync(assembledConfigFullPath)
     if (!stats.isFile()) {
       // Some unknown error
-      throw 'Not a file'
+      throw new Error('Not a file')
     }
 
-    return runConfig = require(assembledConfigFullPath)
+    runConfig = require(assembledConfigFullPath)
+    return runConfig
   } catch (e) {
     // No assembled config. have to be the first task.
     runConfig = require(defaultConfig)
@@ -78,7 +73,7 @@ var config = function () {
     gutil.log('No user config found!')
   }
 
-  gutil.log('Run on ' + isProductionEnv ? 'production' : 'development' + ' config.')
+  gutil.log('Run on ' + isBuild ? 'production' : 'development' + ' config.')
 
   runConfig = setPaths(runConfig)
 
@@ -86,6 +81,7 @@ var config = function () {
     runConfig.options.version = require(path.join(cwd, 'package.json')).version
   }
 
+  runConfig._isBuild = isBuild
   runConfig._path = systemPath
   runConfig._filepath = assembledConfigFullPath
   runConfig._cwd = cwd

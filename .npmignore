@@ -5,3 +5,7 @@ Makefile
 artwork/
 .jshintrc
 .editorconfig
+.craffft-config.json
+.eslintrc
+.craffft
+tsconfig.json

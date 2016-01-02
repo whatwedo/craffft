@@ -5,8 +5,19 @@ on web technologies and languages.
 
 ## Quickstart
 
+### Setup
 ```
-npm install git+ssh://git@dev.whatwedo.ch:wwd-internal/craffft.git
+$ npm install git+ssh://git@dev.whatwedo.ch:wwd-internal/craffft.git
+```
+
+### Use
+Run with:
+```
+$ npm bin/craffft
+```
+And create production ready builds with
+```
+$ npm bin/craffft --build
 ```
 
 ## Features
@@ -30,6 +41,7 @@ Processing following languages or file formats:
 * Mirror changes to the browser, live, via browserSync
 * Sync scrolling, typing and other interactions to all connected devices
 
+
 ## Why use it?
 
 With “black boxed” we mean, it should serve as an interface to whatever build
@@ -42,9 +54,6 @@ projects.
 The main goal is to make it work out of the box with precompilers or techniques
 are most popular and make it easy to upgrade without changing configs.
 
-## Getting started
-
-TBD
 
 ## Configuration
 
@@ -298,8 +307,7 @@ TBD
 
 ### Backlog
 
-#### CSS Testing
-
+* CSS Testing
 * Add CSS testing suite via [BackstopJS](https://garris.github.io/BackstopJS/).
 * Global CLI runner for project inititalization, configuration and upgrades.
 
