@@ -103,16 +103,25 @@ var config = function () {
 var setPaths = function (config) {
   config.srcAbsolute = path.join(process.env.PWD, config.src)
   config.destAbsolute = path.join(process.env.PWD, config.dest)
-  helper.recursiveFindByKeyInObj(config, 'src', function (prop, key) {
+  config.src = config.srcAbsolute
+  config.dest = config.destAbsolute
+
+  var relativeToAbsolute = function (prop, key, root) {
+    gutil.log(prop)
+    gutil.log(key)
+    gutil.log(root)
     var filePath = prop[ key ]
     if (typeof filePath === 'string') {
-      filePath = path.join(config.srcAbsolute, filePath)
+      filePath = path.join(root, filePath)
     } else {
       for (var i = 0; i < filePath.length; i++) {
-        filePath[ i ] = path.join(config.srcAbsolute, filePath[ i ])
+        filePath[ i ] = path.join(root, filePath[ i ])
       }
     }
-  })
+  }
+
+  helper.recursiveFindByKeyInObj(config, 'src', function (prop, key) { relativeToAbsolute(prop, key, config.srcAbsolute) })
+  helper.recursiveFindByKeyInObj(config, 'dest', function (prop, key) { relativeToAbsolute(prop, key, config.destAbsolute) })
   return config
 }
 
