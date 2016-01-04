@@ -1,4 +1,4 @@
-# craffft
+<img src="https://raw.githubusercontent.com/whatwedo/craffft/develop/artwork/logo_rendered.png" alt="craffft" >
 
 Craffft is a black boxed build system for creating future proof applications 
 on web technologies and languages.
