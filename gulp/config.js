@@ -28,8 +28,8 @@ var config = function () {
   // Set up build temporary folder for storing processing files
   var isSystemFolderCreated = false
   try {
-    let stats = fs.statSync(systemPath)
-    if (!stats.isDirectory()) {
+    var sysFolderStats = fs.statSync(systemPath)
+    if (!sysFolderStats.isDirectory()) {
       // Some unknown error
       throw new Error('Not a folder')
     } else {
@@ -50,8 +50,8 @@ var config = function () {
 
   // Returns current assembled config if there is one
   try {
-    let stats = fs.statSync(assembledConfigFullPath)
-    if (!stats.isFile()) {
+    var configStats = fs.statSync(assembledConfigFullPath)
+    if (!configStats.isFile()) {
       // Some unknown error
       throw new Error('Not a file')
     }
