@@ -1,6 +1,6 @@
 {
   "name": "craffft",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "description": "File processing wrapper",
   "author": "whatwedo <welove@whatwedo.ch",
   "contributors": [
@@ -17,6 +17,7 @@
     "web",
     "css",
     "es6",
+    "es2015",
     "browsersync",
     "gulp",
     "postcss",
