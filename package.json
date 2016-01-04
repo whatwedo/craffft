@@ -1,7 +1,7 @@
 {
   "name": "craffft",
-  "version": "0.13.0",
-  "description": "Black box system for building future proof web applications and sites",
+  "version": "0.14.0",
+  "description": "File processing wrapper",
   "author": "whatwedo <welove@whatwedo.ch",
   "contributors": [
     {
@@ -26,10 +26,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://dev.whatwedo.ch/wwd-internal/craffft.git"
+    "url": "https://github.com/whatwedo/craffft.git"
   },
   "bugs": {
-    "url": "https://dev.whatwedo.ch/wwd-internal/craffft/issues"
+    "url": "https://github.com/whatwedo/craffft/issues"
   },
   "license": "MIT",
   "main": "index.js",
