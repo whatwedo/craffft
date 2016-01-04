@@ -9,5 +9,5 @@ var isBuild = args.prod || args.build || args.productive
 if (!isBuild) {
   shell.exec('node_modules/gulp/bin/gulp.js watch --gulpfile ' + gulpFile)
 } else {
-  shell.exec('node_modules/gulp/bin/gulp.js --build --gulpfile ' + gulpFile)
+  shell.exec('node_modules/gulp/bin/gulp.js compile --build --gulpfile ' + gulpFile)
 }

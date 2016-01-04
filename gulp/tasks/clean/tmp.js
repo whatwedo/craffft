@@ -10,7 +10,7 @@ var cleanTmpTask = function (cb) {
   // Don't touch node_modules or source files!
   files.push(path.join(config._path, '/**/*'))
 
-  del(files).then(function (paths) {
+  del(files, { force: true }).then(function (paths) {
     cb()
   })
 }
