@@ -18,12 +18,13 @@ $ npm install craffft
 ### Use
 Run with:
 ```
-$ npm bin/craffft
+$ $(npm bin)/craffft
 ```
 And create production ready builds with
 ```
-$ npm bin/craffft --build
+$ $(npm bin)/craffft --build
 ```
+We recommend creating a make file with the corresponding commands for easier execution.
 
 ## Features
 
@@ -31,7 +32,7 @@ Processing following languages or file formats:
 
 **Javascript**
 * Transpiles JavaScript EcmaScript 2015 to ES5
-* Processes TypeScript to JavaScript *including ES6*
+* Processes TypeScript to JavaScript *including ES2015*
 * Supports multiple bundles and mixing of ES6, TypeScript and ES5
 
 **Styles**
