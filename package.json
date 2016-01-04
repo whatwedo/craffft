@@ -1,6 +1,6 @@
 {
   "name": "craffft",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "File processing wrapper",
   "author": "whatwedo <welove@whatwedo.ch",
   "contributors": [
@@ -34,19 +34,10 @@
   "license": "MIT",
   "main": "index.js",
   "bin": {
-    "craffft:compile": "bin/compile.js",
-    "craffft:build": "bin/build.js",
-    "craffft:run": "bin/watch.js",
-    "craffft:watch": "bin/watch.js",
-    "craffft:log": "bin/log.js"
+    "craffft": "bin/craffft.js"
   },
   "scripts": {
-    "compile": "bin/compile.js",
-    "build": "bin/compile.js",
-    "watch": "bin/watch.js",
-    "run": "bin/watch.js",
-    "log": "bin/log.js",
-    "debug-build": "node-debug node_modules/gulp/bin/gulp.js"
+    "craffft": "bin/craffft.js"
   },
   "dependencies": {
     "autoprefixer": "~6.2.2",
