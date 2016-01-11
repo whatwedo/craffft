@@ -107,9 +107,6 @@ var setPaths = function (config) {
   config.dest = config.destAbsolute
 
   var relativeToAbsolute = function (prop, key, root) {
-    gutil.log(prop)
-    gutil.log(key)
-    gutil.log(root)
     var filePath = prop[ key ]
     if (typeof filePath === 'string') {
       filePath = path.join(root, filePath)

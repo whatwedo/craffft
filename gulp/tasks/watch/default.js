@@ -41,7 +41,6 @@ var watchTask = function () {
 
     if (task) {
       watch(task.src, function () {
-        gutil.log('../' + taskName.replace(':', '/'))
         require('../' + taskName.replace(':', '/'))()
       })
     }
