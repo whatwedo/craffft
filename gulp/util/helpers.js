@@ -5,6 +5,8 @@ var _ = require('lodash')
 var webpack = require('webpack')
 
 function helpers () {
+  var babelSettings = 'cacheDirectory=true,presets[]=es2015'
+
   return {
     copyLiteral: copyLiteral,
     recursiveFindByKeyInObj: recursiveFindByKeyInObj,
@@ -58,23 +60,16 @@ function helpers () {
    * @param  {array} preprocessors List of preprocessors
    * @return {{extensions: Array, loaders: Array}} List of webpack loaders
    */
-  function getWebpackLoaders (preprocessors) {
-    var addons = {
-      extensions: [],
-      loaders: []
-    }
-
+  function getWebpackLoaders (preprocessors, config) {
     if (preprocessors) {
       if (preprocessors.indexOf('typescript') > -1) {
-        addons.extensions = _.union([ '.ts', '.tsx' ])
-        addons.loaders.push({
-          test: /\.ts(x?)$/,
-          loader: 'babel-loader!ts-loader'
-        })
+        config.resolve.extensions.push('.ts', '.tsx')
+        config.module.loaders[0].loader += '!ts-loader'
+        config.module.loaders[0].test = /\.ts(x?)$/
       }
     }
 
-    return addons
+    return config
   }
 
   /**
@@ -112,7 +107,6 @@ function helpers () {
    * @return {object}        webpack config
    */
   function getWebpackTaskConfig (config) {
-    var addons = getWebpackLoaders(config.javascript.preprocessors)
     var files = getJavascriptFiles(config.javascript.src, config.src)
     var webpackBundles = getWebpackBundles(files, config.javascript.options.flatten, config.srcAbsolute)
 
@@ -134,25 +128,12 @@ function helpers () {
         loaders: [ {
           test: /\.js$/,
           exclude: /(node_modules|bower_components)/,
-          loader: 'babel',
-          query: {
-            // https://github.com/babel/babel-loader#options
-            cacheDirectory: true,
-            presets: [ 'es2015' ]
-          }
+          loader: 'babel?' + babelSettings
         } ]
       }
     }
 
-    if (addons) {
-      if (addons.extensions) {
-        webpackConfig.resolve.extensions = _.union(webpackConfig.resolve.extensions, addons.extensions)
-      }
-
-      if (addons.loaders) {
-        webpackConfig.module.loaders.push(addons.loaders)
-      }
-    }
+    webpackConfig = getWebpackLoaders(config.javascript.preprocessors, webpackConfig)
 
     if (config._isBuild) {
       webpackConfig.plugins.push(
@@ -162,7 +143,7 @@ function helpers () {
           }
         }),
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({minimize: true}),
+        new webpack.optimize.UglifyJsPlugin({ minimize: true }),
         new webpack.NoErrorsPlugin()
       )
     }
