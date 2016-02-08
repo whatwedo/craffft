@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## v0.16.0 - 2016-02-08
 ### Added
 * Adds TypeScript support. Use with adding typescript as preprocessor to the craffft-config.json. **Hint**: All es2015 code 
  will also be transpiled to es5.
