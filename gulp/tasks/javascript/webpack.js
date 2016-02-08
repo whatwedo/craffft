@@ -10,6 +10,7 @@ var logger = require('../../util/compileLogger')
 
 var webpackProductionTask = function (callback) {
   var webpackConfig = helper.getWebpackTaskConfig(config)
+  gutil.log(webpackConfig)
 
   webpack(webpackConfig, function (err, stats) {
     /* if (stats.hasErrors || stats.hasWarnings) {
