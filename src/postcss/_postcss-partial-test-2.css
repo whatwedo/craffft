@@ -1,0 +1,8 @@
+:root {
+  --postcss-test-3: red;
+  --postcss-test-4: yellow;
+}
+
+.blub {
+  width: var(--postcss-test-3);
+}

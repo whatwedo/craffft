@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.18.0 - 2016-03-01
+### Fixed
+* Reimplement CSS import globbing after they were removed from postcss-import.
+
 ## v0.17.0 - 2016-03-01
 ### Added
 * `--outputLog` flag to show detailed log of the build.
