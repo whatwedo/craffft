@@ -5,7 +5,8 @@ var _ = require('lodash')
 var gutil = require('gulp-util')
 var helper = require('./util/helpers')()
 
-var isBuild = args.prod || args.build || args.productive
+var isBuild = args.build
+var outputLog = args.outputLog
 
 /**
  * Gathers informations about the current environment, generates the config out of defaults and user's
@@ -24,6 +25,10 @@ var config = function () {
   var userConfigFullPath = path.join(cwd, userConfigFile)
   var defaultConfig = './' + userConfigFile
   var assembledConfigFullPath = path.join(systemPath, userConfigFile)
+
+  if (outputLog) {
+    gutil.log('Process runs in ' + cwd)
+  }
 
   // Set up build temporary folder for storing processing files
   var isSystemFolderCreated = false
@@ -57,6 +62,10 @@ var config = function () {
     }
 
     runConfig = require(assembledConfigFullPath)
+    if (outputLog) {
+      gutil.log('Config:')
+      gutil.log(runConfig)
+    }
     return runConfig
   } catch (e) {
     // No assembled config. have to be the first task.
@@ -82,6 +91,7 @@ var config = function () {
   }
 
   runConfig._isBuild = isBuild
+  runConfig._outputLog = outputLog
   runConfig._path = systemPath
   runConfig._filepath = assembledConfigFullPath
   runConfig._cwd = cwd
@@ -91,6 +101,11 @@ var config = function () {
     fs.writeFileSync(assembledConfigFullPath, JSON.stringify(runConfig), 'utf-8')
   } catch (e) {
     gutil.log(e)
+  }
+
+  if (outputLog) {
+    gutil.log('Config:')
+    gutil.log(runConfig)
   }
 
   return runConfig

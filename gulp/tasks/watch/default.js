@@ -46,5 +46,5 @@ var watchTask = function () {
     }
   })
 }
-gulp.task('watch:default', [ 'server:browser-sync'], watchTask)
+gulp.task('watch:default', [ 'server:browser-sync' ], watchTask)
 module.exports = watchTask
