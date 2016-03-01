@@ -5,7 +5,8 @@
     "version": "package.version",
     "tmpDir": "./.craffft-tmp",                 
     "nodeModulesDir": "./node_modules",
-    "bowerComponentsDir": "./bower_components"
+    "bowerComponentsDir": "./bower_components",
+    "sourceMaps": true
   },
   "server": {
     "plugins": [

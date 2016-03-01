@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## v0.17.0 - 2016-03-01
 ### Added
 * `--outputLog` flag to show detailed log of the build.
+* `options.sourceMaps` in craffft-config.json to output sourcemaps for JavaScript, TypeScript and CSS, when `--build` flag isn't set. *Default is `true`*
 
 ### Breaking changes
 * TypeScript was updated to version 1.8.2. See [TypeScript Release Log](https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#typescript-18) for further details.

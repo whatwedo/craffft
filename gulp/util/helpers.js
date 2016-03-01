@@ -133,6 +133,10 @@ function helpers () {
       }
     }
 
+    if (config.options.sourceMaps && !config._isBuild) {
+      webpackConfig.devtool = 'source-map'
+    }
+
     webpackConfig = getWebpackLoaders(config.javascript.preprocessors, webpackConfig)
 
     if (config._isBuild) {

@@ -68,6 +68,7 @@
     "gulp-replace": "~0.5.4",
     "gulp-sass": "~2.2.0",
     "gulp-sequence": "^0.4.5",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-stylus": "~2.3.0",
     "gulp-util": "~3.0.7",
     "gulp-watch": "^4.3.5",
