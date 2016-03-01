@@ -1,3 +1,5 @@
+@import 'postcss/*';
+
 body {
   font-family: 'Helvetica Neue';
   background: #222;
@@ -7,3 +9,4 @@ body {
 .postcss {
   color: black;
 }
+ 

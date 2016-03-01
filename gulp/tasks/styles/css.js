@@ -2,6 +2,8 @@ var gulp = require('gulp')
 var config = require('../../config')
 var postcss = require('gulp-postcss')
 var sourcemaps = require('gulp-sourcemaps')
+var glob = require('glob')
+var path = require('path')
 var nano = require('gulp-cssnano')
 var handleErrors = require('../../util/handleErrors')
 var gutil = require('gulp-util')
@@ -15,11 +17,20 @@ var postcssTask = function () {
   config.styles.options.postcss.processors.forEach(function (processor) {
     if (typeof processor === 'string') {
       switch (processor) {
+        case 'postcss-import':
+          processors.push(require(processor)({
+            resolve: function (id, base) {
+              var output = glob.sync(path.join(base, id))
+              if (config._outputLog) {
+                gutil.log('Resolve CSS Imports')
+                gutil.log(output)
+              }
+              return output
+            }
+          }))
+          break
         case 'autoprefixer':
           processors.push(require('autoprefixer')(config.styles.options.autoprefixer))
-          break
-        case 'postcss-import':
-          processors.push(require(processor)({ glob: true }))
           break
         case 'cssnext' || 'postcss-cssnext':
           processors.push(require('postcss-cssnext')({

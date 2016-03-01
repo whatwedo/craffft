@@ -1,0 +1,8 @@
+:root {
+  --postcss-test-1: green;
+  --postcss-test-2: blue;
+}
+
+.asdasd {
+  width: var(--postcss-test-2);
+}
