@@ -26,6 +26,11 @@ $ $(npm bin)/craffft --build
 ```
 We recommend creating a make file with the corresponding commands for easier execution.
 
+For debugging, you can use the following command to show the used configs and additional parameters.
+```
+$ $(npm bin)/craffft --outputLog
+```
+
 ## Features
 
 Processing following languages or file formats:

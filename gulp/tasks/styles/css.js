@@ -1,9 +1,10 @@
 var gulp = require('gulp')
 var config = require('../../config')
 var postcss = require('gulp-postcss')
+var sourcemaps = require('gulp-sourcemaps')
 var nano = require('gulp-cssnano')
 var handleErrors = require('../../util/handleErrors')
-// var gutil = require('gulp-util')
+var gutil = require('gulp-util')
 
 var postcssTask = function () {
   var src = config.styles.src
@@ -41,6 +42,18 @@ var postcssTask = function () {
       .pipe(nano())
       .pipe(gulp.dest(dest))
       .on('error', handleErrors)
+  }
+
+  if (config.options.sourceMaps) {
+    if (config._outputLog) {
+      gutil.log('Write CSS Sourcemaps')
+    }
+    return gulp.src(src, { base: config.src })
+        .pipe(sourcemaps.init())
+        .pipe(postcss(processors))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(dest))
+        .on('error', handleErrors)
   }
 
   return gulp.src(src, { base: config.src })
