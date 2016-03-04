@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.19.0 - 2016-03-04
+### Fixed
+* Make asset watcher for CSS, images and markup working in vagrant environments.
+
 ## v0.18.0 - 2016-03-01
 ### Fixed
 * Reimplement CSS import globbing after they were removed from postcss-import.
