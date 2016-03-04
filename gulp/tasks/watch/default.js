@@ -40,7 +40,9 @@ var watchTask = function () {
     }
 
     if (task) {
-      watch(task.src, function () {
+      watch(task.src, {
+        usePolling: true,
+      }, function () {
         require('../' + taskName.replace(':', '/'))()
       })
     }
