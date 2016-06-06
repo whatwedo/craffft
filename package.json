@@ -40,7 +40,8 @@
   "scripts": {
     "craffft": "bin/craffft.js",
     "craffft:build": "bin/craffft.js --build",
-    "craffft:compile": "bin/craffft.js --build && bin/craffft.js"
+    "craffft:compile": "bin/craffft.js --build && bin/craffft.js",
+    "craffft:bump": "bin/craffft.js --bump"
   },
   "dependencies": {
     "autoprefixer": "6.3.6",
