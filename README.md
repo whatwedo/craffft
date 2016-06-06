@@ -68,237 +68,255 @@ are most popular and make it easy to upgrade without changing configs.
 
 ## Configuration
 
+### `src`
+*Default*: `./src` 
+
+Folder where the source files are stored.
+
+### `dest`
+*Default*: `./dist`
+
+Folder where processed files will be stored. *They will keep their original file structure.*
+
+### `options`
+Global processing options
+
+#### `options.version`
+*Default*: Version of your package.json
+
+Sets the version of your application. This will be used to show the version in several places.
+
+#### `options.tmpDir`
+*Default*: `./.craffft-tmp`
+
+Is used to store temporary files during processing.
+
+#### `options.nodeModulesDir`
+*Default*: `./node_modules
+
+Change this if you changed the location of your node_modules store.
+
+#### `options.bowerComponentsDir`
+*Default*: `./bower_components`
+
+Change this if you changed the location of your browser components store.
+
+#### `options.sourceMaps`
+*Default*: `true`
+
+Whether to use Source M`aps in development builds or not.
+
+#### `options.watchPolling`
+*Default*: `false`
+
+Use all watchers in polling mode. This is needed for some operating systems which do not have inotify built in in the OS. 
+So if your watcher doesn't work, try setting this to true. Might be a needed option for development inside **vagrant**.
+
+* `true`: use polling
+* number: use polling with specified interval
+
+### `server`
+
+Options for the servers used during development mode.
+
+#### `server.plugins`
+*Default*: `["browserSync"]`
+
+An array of servers running during development.
+
+#### `server.options`
+
+Server options.
+
+*Default*:
+
 ```json
-// Overwrite settings by placing them into your settings file.
-{
-  // Where source files are stored. Relative to root.
-  // Every processor's src is relative to this.
-  "src": "./src",
-  
-  // Where processed files should go. Relative to root.
-  // Every processor's dest is relative to this.
-  "dest": "./dist",
-  
-  //-------- Global Configuration --------
+"browserSync": {
+  "open": false,
+  "files": [
+    "dist/**",
+    "dist/!**.map"
+  ]
+}
+```
+
+### `styles`
+
+Options for processing styles.
+
+*Default*: 
+
+```json
+"styles": {
+  "src": [
+    "**/*.css",
+    "!**/*.css"
+  ],
+  "preprocessors": [
+    "postcss",
+    "stylus",
+    "sass",
+    "less"
+  ],
   "options": {
-    
-    // Your project version, default from package.json
-    "version": "",
-    
-    // Temporary folder used to process multiple files
-    "tmpDir": "./.craffft-tmp",                 
-    
-    // Node Modules Folder. Used for excludes and import references.                            
-    "nodeModulesDir": "./node_modules",
-    
-    // Bower Components Folder. Used for excludes and import references.
-    "bowerComponentsDir": "./bower_components"
-  },
-  
-  //-------- Server Configuration --------
-  "server": {
-    
-    // Server Plugins
-    "plugins": [
-      "browserSync"
-    ],
-    
-    // Server options
-    "options": {
-      
-      // BrowserSync configuration
-      "browserSync": {
-        
-        // Automatically open a new browser window on server start
-        "open": false,
-        
-        // Files to watch and serve
-        "files": [
-          "**",
-          // Exclude Map files
-          "!**.map"
-        ]
-      }
-    }
-  },
-  // -------- CSS Configuration --------
-  "styles": {
-    // Where to search for styles
-    // Create named bundles, e.g. styles, styles2,...
-    "src": [
-      "**/*.css"
-    ],
-    // Supported preprocessors
-    "preprocessors": [
-      "postcss",
-      "stylus",
-      "sass",
-      "less"
-    ],
-    // Configure compilation and preprocessors
-    "options": {
-      // postcss configuration
-      "postcss": {
-        "processors": [
-          // Allow imports
-          "postcss-import",
-          // Automatically prefix attributes
-          "autoprefixer",
-          // Use CSS Selector Level 4
-          "cssnext",
-          // Combine all media queries
-          "css-mqpacker"
-          // Minify CSS
-          // 'csswring'
-        ]
-      },
-      // Stylus configuration. Will be processed before CSS/PostCSS
-      "stylus": {
-        // Where to search for styles
-        // Create named bundles, e.g. styles, styles2,...
-        // Will be merged with equivalent bundles from SCSS, LESS, CSS
-        // TODO: Merge with styles.src
-        "src": [
-          "**/*.{styl,stylus}",
-          "!**/_*.{styl,stylus}",
-          "!**/*.craffft.styl"
-        ],
-        // Minify
-        "compress": false,
-        // Shortcut references
-        // Shortcut references possible everywhere, e.g. @import 'bower_components/bla'
-        // Shortcut references possible everywhere, e.g. @import 'node_modules/bla'
-        "include": [
-          "./node_modules/../",
-          "./bower_components/../"
-        ]
-      },
-      // Sass configuration. Will be processed before CSS/PostCSS
-      "sass": {
-        // Where to search for styles
-        // Create named bundles, e.g. styles, styles2,...
-        // Will be merged with equivalent bundles from Stylus, LESS, CSS
-        // TODO: Merge with styles.src
-        "src": [
-          "**/*.{scss,sass}",
-          "!**/_*.{scss,sass}",
-          "!**/*.craffft.scss"
-        ],
-        // How to handle comments
-        "sourceComments": "normal"
-      },
-      // LESS configuration. Will be processed before CSS/PostCSS
-      "less": {
-        // Where to search for styles
-        // Create named bundles, e.g. styles, styles2,...
-        // Will be merged with equivalent bundles from Stylus, Scss, CSS
-        // TODO: Merge with styles.src
-        "src": [
-          "**/*.less",
-          "!**/_*.less",
-          "!**/*.craffft.less"
-        ]
-      },
-      // Autoprefixing configuration.
-      // Only affects output when styles.options.postcss.processors contains 'autoprefixer'
-      "autoprefixer": {
-        // For which browsers to prefix
-        "browsers": [
-          "last 2 version",
-          "safari 5",
-          "ie 9",
-          "opera 12.1",
-          "ios 6",
-          "android "
-        ]
-      }
-    }
-  },
-  // -------- Images Configuration --------
-  // See: https://github.com/sindresorhus/gulp-imagemin
-  "images": {                                                                    
-    "src": [
-      "**/*.jpg",
-      "**/*.png",
-      "**/*.gif",
-      "**/*.svg"
-    ],
-    "options": {
-      // (png) 0 - 7 trials
-      "optimizationLevel": 3, 
-      
-      // (jpg) Lossless conversion to progressive
-      "progressive": true, 
-      
-      // (gif) Interlace gif for progressive rendering   
-      "interlaced": true,  
-      
-      // (svg) Optimize svg multiple times until it's fully optimized.   
-      "multipass": false,  
-      
-      // (svg) Plugins   
-      "svgoPlugins": [], 
-      
-      // Additional Plugins     
-      "use": [                
-        "imagemin-pngquant"
+    "postcss": {
+      "processors": [
+        "postcss-import",
+        "postcss-cssnext",
+        "autoprefixer",
+        "css-mqpacker"
+      ]
+    },
+    "stylus": {
+      "src": [
+        "**/*.styl",
+        "**/*.stylus",
+        "!**/_*.styl",
+        "!**/_*.stylus",
+        "!**/*.craffft.styl"
+      ],
+      "include": [
+        "./node_modules/../",
+        "./bower_components/../"
+      ]
+    },
+    "sass": {
+      "src": [
+        "**/*.scss",
+        "**/*.sass",
+        "!**/_*.scss",
+        "!**/_*.sass",
+        "!**/*.craffft.scss"
+      ],
+      "sourceComments": "normal"
+    },
+    "less": {
+      "src": [
+        "**/*.less",
+        "!**/_*.less",
+        "!**/*.craffft.less"
+      ]
+    },
+    "autoprefixer": {
+      "browsers": [
+        "last 2 version",
+        "safari 5",
+        "ie 9",
+        "opera 12.1",
+        "ios 6",
+        "android >= 4"
       ]
     }
-  },
-  
-  //-------- Images Configuration --------
-  "markup": {
-    "src": [
-      "**/*.{php,html}"
+  }
+},
+```
+
+### `images`
+
+Options for processing images.
+
+*Default*:
+
+```json
+"images": {                                                                   
+  "src": [
+    "**/*.jpg",
+    "**/*.png",
+    "**/*.gif",
+    "**/*.svg"
+  ],
+  "options": {
+    "optimizationLevel": 3, 
+    "progressive": true, 
+    "interlaced": true,  
+    "multipass": false,  
+    "svgoPlugins": [], 
+    "use": [                
+      "imagemin-pngquant"
     ]
-  },
-  
-  //-------- Copy Configuration --------
-  "copy": {
-    "src": []
-  },
-  
-  //-------- Versioning Configuration --------
-  "bump": {
-    
-    // Placeholder to replace with current version number
-    "unreleasedPlaceholder": "/## unreleased/ig", 
-    
-    // If true, changelog update with prerelease bump
-    "prereleaseChangelogs": false, 
-    
-    "options": {
-      // What to add for prereleases, e.g. "beta" is going to be v1.0.0-beta.1
-      "preid" : "beta" 
-    }
-  },
-  
-  //-------- Changelog Configuration --------
-  // TODO: Migrate with bump
-  "changelog": {
-    "src": "./CHANGELOG.md"
-  },
-  
-  //-------- JavaScript Configuration --------
-  "javascript": {
-    
-    // Source files. Process all JavaScript files except partials prefixed with a dash.
-    "src": [
-      "**/*.js",
-      "!**/_*.js"
-    ],
-    "preprocessors": [
-      "typescript"
-    ],
-    "options": {
-      
-      // If true, all files will be written to root folder. Default is to keep
-      // file structure from src folder.
-      "flatten": false                                                              
-    }
   }
 }
 ```
+
+### `markup`
+
+Options for processing markup files. At this moment, it only copies the specified files.
+
+*Default*:
+
+```json
+"markup": {
+  "src": [
+    "**/*.php",
+    "**/*.html"
+  ]
+}
+```
+
+### `copy`
+
+Options for copying processes. This can be used for other files that don't need any processing e.g. .txt
+
+*Default*:
+
+```json
+"copy": {
+  "src": []
+}
+```
+
+### `bump`
+
+The bump command is for easy version bumping based on semver. It replaces all version numbers in the `package.json` and 
+other config files and updates the placeholder in `CHANGELOG.MD`.
+
+*See [Keep a Changelog](http://keepachangelog.com/) for an example changelog, [semver.org](http://semver.org) for 
+versioning guidelines.*
+
+*Default*:
+```json
+"bump": {
+  "unreleasedPlaceholder": "/## Unreleased/ig",
+  "prereleaseChangelogs": false, 
+  "options": {
+    "preid" : "beta" 
+  }
+}
+```
+
+### `changelog`
+
+Changelog options.
+
+*Default*:
+```json
+"changelog": {
+  "src": "CHANGELOG.md"
+}
+```
+
+### `javascript`
+
+Options for processing JavaScript.
+
+*Default*:
+```json
+"javascript": {
+  "src": [
+    "**/*.js",
+    "**/*.ts",
+    "!**/_*.js",
+    "!**/_*.ts"
+  ],
+  "preprocessors": [
+    "typescript"
+  ],
+  "options": {
+    "flatten": false                                                              
+  }
+}
+```
+
 
 ## Roadmap
 
