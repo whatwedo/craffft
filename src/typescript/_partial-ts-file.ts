@@ -1,5 +1,3 @@
-module Craffft {
-    export default function bye(name:string): void {
-        console.log('helloha ' + name)
-    }
+export default function greet(name:string): void {
+  console.log('Hallo dear ' + name)
 }
