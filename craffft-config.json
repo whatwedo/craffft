@@ -1,4 +1,7 @@
 {
+  "options": {
+    "watchPolling": 500
+  },
   "copy": {
     "src": ["copy-this-file.md"]
   }
