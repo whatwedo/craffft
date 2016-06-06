@@ -16,9 +16,7 @@ var webpackProductionTask = function (callback) {
   }
 
   webpack(webpackConfig, function (err, stats) {
-    /* if (stats.hasErrors || stats.hasWarnings) {
-      logger(err, stats)
-    } */
+    logger(err, stats)
     // stats.toString({ chunks: false })
     callback()
   })
