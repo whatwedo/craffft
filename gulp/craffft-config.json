@@ -6,7 +6,8 @@
     "tmpDir": "./.craffft-tmp",                 
     "nodeModulesDir": "./node_modules",
     "bowerComponentsDir": "./bower_components",
-    "sourceMaps": true
+    "sourceMaps": true,
+    "watchPolling": false
   },
   "server": {
     "plugins": [

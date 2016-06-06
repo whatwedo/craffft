@@ -9,10 +9,8 @@ var javascriptWatchTask = function (callback) {
   var initialCompile = false
   var webpackConfig = helper.getWebpackTaskConfig(config)
 
-  webpack(webpackConfig).watch(200, function (err, stats) {
-    /* if (stats.hasErrors || stats.hasWarnings) {
-      logger(err, stats)
-    } */
+  webpack(webpackConfig).watch({ aggregateTimeout: 200, poll: config.options.watchPolling }, function (err, stats) {
+    logger(err, stats)
     browserSync.reload()
     // On the initial compile, let gulp know the task is done
     if (!initialCompile) {

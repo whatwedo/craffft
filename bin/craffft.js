@@ -7,10 +7,13 @@ var gulpPath = 'node_modules/gulp/bin/gulp.js'
 var gulpFileParameter = '--gulpfile ' + gulpFile
 
 var isBuild = args.prod || args.build || args.productive
+var isBumpCommand = args.bump
 var outputLog = args.log || args.outputLog
 var command = ''
 
-if (!isBuild) {
+if (isBumpCommand) {
+  command += gulpPath + ' bump'
+} else if (!isBuild) {
   shell.exec('node_modules/gulp/bin/gulp.js watch --gulpfile ' + gulpFile)
   command += gulpPath + ' watch'
 } else {

@@ -39,10 +39,14 @@ var watchTask = function () {
       task = config[ taskName.replace(':css', '') ]
     }
 
+    var watchOptions = {
+      usePolling: config.options.watchPolling ? true : false
+    };
+
+    watchOptions.interval = watchOptions.usePolling && config.options.watchPolling === 'number' ? config.options.watchPolling : 400;
+
     if (task) {
-      watch(task.src, {
-        usePolling: true,
-      }, function () {
+      watch(task.src, watchOptions, function () {
         require('../' + taskName.replace(':', '/'))()
       })
     }
