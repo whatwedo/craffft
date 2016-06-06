@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.20.0 - 2016-06-06
+### Added
+* **`options.watchPolling`**: You can now activate polling to fix watching issues in virtual machines.
+* **Bump:** Bump your project version with `--bump` command line parameter.
+
+### Fixed
+* Console now logs all compilation information.
+* JavaScript watcher now works inside vagrant virtual machines when polling option activated.
+
+### Changed
+* Removed native system and growl notifications for compatibility in vagrant environment.
+
 ## v0.19.0 - 2016-03-04
 ### Fixed
 * Make asset watcher for CSS, images and markup working in vagrant environments.
