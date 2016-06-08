@@ -317,6 +317,12 @@ Options for processing JavaScript.
 }
 ```
 
+#### `options.preprocessors`
+
+Available options:
+
+* `typescript`
+
 
 ## Roadmap
 

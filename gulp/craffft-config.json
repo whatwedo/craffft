@@ -125,13 +125,9 @@
   "javascript": {
     "src": [
       "**/*.js",
-      "**/*.ts",
-      "!**/_*.js",
-      "!**/_*.ts"
+      "!**/_*.js"
     ],
-    "preprocessors": [
-      "typescript"
-    ],
+    "preprocessors": [],
     "options": {
       "flatten": false                                                              
     }
