@@ -35,13 +35,11 @@
   "license": "MIT",
   "main": "index.js",
   "bin": {
-    "craffft": "bin/craffft.js"
-  },
-  "scripts": {
     "craffft": "bin/craffft.js",
-    "craffft:build": "bin/craffft.js --build",
-    "craffft:compile": "bin/craffft.js --build && bin/craffft.js",
-    "craffft:bump": "bin/craffft.js --bump"
+    "craffft-compile": "bin/default.js",
+    "craffft-watch": "bin/watch.js",
+    "craffft-build": "bin/build.js",
+    "craffft-bump": "bin/bump.js"
   },
   "dependencies": {
     "autoprefixer": "6.3.6",

@@ -11,20 +11,18 @@ var isBumpCommand = args.bump
 var outputLog = args.log || args.outputLog
 var command = ''
 
+console.log('Running bin/craffft with flags is deprecated since v0.21 and will be removed.')
+
 if (isBumpCommand) {
-  command += gulpPath + ' bump'
+  command += 'npm run craffft:bump'
 } else if (!isBuild) {
-  shell.exec('node_modules/gulp/bin/gulp.js watch --gulpfile ' + gulpFile)
-  command += gulpPath + ' watch'
+  command += 'npm run craffft:watch'
 } else {
-  shell.exec('node_modules/gulp/bin/gulp.js compile --build --gulpfile ' + gulpFile)
-  command += gulpPath + ' compile --build'
+  command += 'npm run craffft:build'
 }
 
 if (outputLog) {
-  command += ' --outputLog'
+  command += ' -- --outputLog'
 }
-
-command += ' ' + gulpFileParameter
 
 shell.exec(command)

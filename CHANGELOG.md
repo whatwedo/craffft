@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Added
+* New scripts to run directly without flags
+  * `craffft-compile`: Single compilation
+  * `craffft-watch`: Watch for changes and compile
+  * `craffft-build`: Build for production
+  * `craffft-bump`: Change version of your project
+* Easier to implement. See README.
+
+### Changed
+* `bin/craffft` and running commands with flags instead is deprecated.
+
 ## v0.20.0 - 2016-06-06
 ### Added
 * **`options.watchPolling`**: You can now activate polling to fix watching issues in virtual machines.

@@ -1,1 +1,1 @@
-require('./gulpfile')
+require('./src/index')
