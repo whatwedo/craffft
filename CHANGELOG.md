@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.20.1 - 2016-06-13
+### Changed
+* Remove TypeScript as default JavaScript preprocessor.
+
 ## v0.20.0 - 2016-06-06
 ### Added
 * **`options.watchPolling`**: You can now activate polling to fix watching issues in virtual machines.
