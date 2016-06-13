@@ -3,7 +3,7 @@
   "dest": "./dist",
   "options": {
     "version": "package.version",
-    "tmpDir": "./.craffft-tmp",                 
+    "tmpDir": "./.craffft-tmp",
     "nodeModulesDir": "./node_modules",
     "bowerComponentsDir": "./bower_components",
     "sourceMaps": true,
@@ -85,7 +85,7 @@
       }
     }
   },
-  "images": {                                                                    
+  "images": {
     "src": [
       "**/*.jpg",
       "**/*.png",
@@ -93,12 +93,12 @@
       "**/*.svg"
     ],
     "options": {
-      "optimizationLevel": 3, 
-      "progressive": true, 
-      "interlaced": true,  
-      "multipass": false,  
-      "svgoPlugins": [], 
-      "use": [                
+      "optimizationLevel": 3,
+      "progressive": true,
+      "interlaced": true,
+      "multipass": false,
+      "svgoPlugins": [],
+      "use": [
         "imagemin-pngquant"
       ]
     }
@@ -114,9 +114,9 @@
   },
   "bump": {
     "unreleasedPlaceholder": "/## Unreleased/ig",
-    "prereleaseChangelogs": false, 
+    "prereleaseChangelogs": false,
     "options": {
-      "preid" : "beta" 
+      "preid": "beta"
     }
   },
   "changelog": {
@@ -129,7 +129,7 @@
     ],
     "preprocessors": [],
     "options": {
-      "flatten": false                                                              
+      "flatten": false
     }
   }
 }
