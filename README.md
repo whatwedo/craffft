@@ -89,7 +89,7 @@ Here's how a config can look like:
     "src": ["copy-this-file.md"]
   }
 }
-``
+```
 
 ### `src`
 *Default*: `./src` 
@@ -361,7 +361,6 @@ Available options:
   * [x] TypeScript
   * [x] ES6 - *using babel*
 * [x] Configurable copy tasks for markup files
-* [ ] Bundle all dependencies
 
 
 ### Backlog
