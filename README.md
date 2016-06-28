@@ -20,11 +20,11 @@ in your projects.
 2. Add craffft commands to your package.json's scripts.
   ```json
   "scripts": {
-      "compile": "craffft-default",
+      "compile": "craffft-compile",
       "watch": "craffft-watch",
       "build": "craffft-build",
       "bump": "craffft-bump"
-    },`
+    }
   ```
 
 3. Run those commands as you defined them. For example, the compile script
@@ -331,9 +331,7 @@ Options for processing JavaScript.
     "!**/_*.js",
     "!**/_*.ts"
   ],
-  "preprocessors": [
-    "typescript"
-  ],
+  "preprocessors": [],
   "options": {
     "flatten": false                                                              
   }
@@ -341,6 +339,8 @@ Options for processing JavaScript.
 ```
 
 #### `options.preprocessors`
+
+Array of strings.
 
 Available options:
 
