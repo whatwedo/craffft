@@ -247,7 +247,7 @@ function helpers () {
     }
 
     patterns.forEach(function (pattern) {
-      _.merge(fileList, glob.sync(pattern, globOptions))
+      fileList = fileList.concat(glob.sync(pattern, globOptions))
     })
 
     return fileList
