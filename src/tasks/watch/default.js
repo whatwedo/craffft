@@ -30,7 +30,7 @@ var watchTask = function () {
     // TODO: Look for a better solution than filtering this particular one
     var tree = taskName.split(':')
     if (tree.length > 1 && taskName.indexOf(':css') === -1) {
-      task = config[ tree[0] ]
+      task = config[ tree[0]]
       tree.shift() // Delete first. We already have it in the task variable
       tree.forEach(function (branch) {
         task = task.options[ branch ]
@@ -40,10 +40,10 @@ var watchTask = function () {
     }
 
     var watchOptions = {
-      usePolling: config.options.watchPolling ? true : false
-    };
+      usePolling: config.options.watchPolling
+    }
 
-    watchOptions.interval = watchOptions.usePolling && config.options.watchPolling === 'number' ? config.options.watchPolling : 400;
+    watchOptions.interval = watchOptions.usePolling && config.options.watchPolling === 'number' ? config.options.watchPolling : 400
 
     if (task) {
       watch(task.src, watchOptions, function () {
