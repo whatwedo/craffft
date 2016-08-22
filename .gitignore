@@ -4,7 +4,7 @@ Desktop.ini
 
 **/node_modules
 **/bower_components
-dist/
+test/dist/
 .craffft-tmp/
 
 # Ignore automatically generated cruft

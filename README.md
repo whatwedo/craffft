@@ -11,24 +11,30 @@ in your projects.
 ## Quickstart
 
 ### Setup
-```
-$ npm install craffft
-```
 
-### Use
-Run with:
-```
-$ $(npm bin)/craffft
-```
-And create production ready builds with
-```
-$ $(npm bin)/craffft --build
-```
-We recommend creating a make file with the corresponding commands for easier execution.
+1. Install craffft via npm
+  ```
+  $ npm install craffft
+  ```
 
-For debugging, you can use the following command to show the used configs and additional parameters.
+2. Add craffft commands to your package.json's scripts.
+  ```json
+  "scripts": {
+      "compile": "craffft-compile",
+      "watch": "craffft-watch",
+      "build": "craffft-build",
+      "bump": "craffft-bump"
+    }
+  ```
+
+3. Run those commands as you defined them. For example, the compile script
+  ```
+  $ npm run compile
+  ```
+
+If you need additional logs, run a command like this:
 ```
-$ $(npm bin)/craffft --outputLog
+$ npm run compile -- --outputLog
 ```
 
 ## Features
@@ -67,6 +73,23 @@ are most popular and make it easy to upgrade without changing configs.
 
 
 ## Configuration
+
+To change default configuration, add a craffft-config.json to your root directory.
+
+Here's how a config can look like:
+
+```json
+{
+  "src": "./test/src",
+  "dest": "./test/dist",
+  "options": {
+    "watchPolling": 500
+  },
+  "copy": {
+    "src": ["copy-this-file.md"]
+  }
+}
+```
 
 ### `src`
 *Default*: `./src` 
@@ -308,14 +331,20 @@ Options for processing JavaScript.
     "!**/_*.js",
     "!**/_*.ts"
   ],
-  "preprocessors": [
-    "typescript"
-  ],
+  "preprocessors": [],
   "options": {
     "flatten": false                                                              
   }
 }
 ```
+
+#### `options.preprocessors`
+
+Array of strings.
+
+Available options:
+
+* `typescript`
 
 
 ## Roadmap

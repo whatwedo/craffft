@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.21.0 - 2016-08-22
+### Added
+* New scripts to run directly without flags
+  * `craffft-compile`: Single compilation
+  * `craffft-watch`: Watch for changes and compile
+  * `craffft-build`: Build for production
+  * `craffft-bump`: Change version of your project
+* Easier to implement. See README.
+
+### Changed
+* `bin/craffft` and running commands with flags instead is deprecated.
+
 ## v0.20.1 - 2016-06-13
 ### Changed
 * Remove TypeScript as default JavaScript preprocessor.

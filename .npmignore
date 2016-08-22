@@ -1,6 +1,6 @@
 example/
 dist/
-src/
+test/
 Makefile
 artwork/
 .jshintrc
