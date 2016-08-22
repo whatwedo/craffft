@@ -6,6 +6,7 @@ var nano = require('gulp-cssnano')
 var browserSync = require('browser-sync').create()
 var handleErrors = require('../../util/handleErrors')
 var helper = require('../../util/helpers')()
+var autoprefixer = require('gulp-autoprefixer')
 
 var sassTask = function () {
   var src, dest, options
@@ -20,6 +21,7 @@ var sassTask = function () {
     return gulp.src(src, { base: config.src })
       .pipe(plumber())
       .pipe(sass(options))
+      .pipe(autoprefixer(config.styles.options.autoprefixer))
       .pipe(nano())
       .pipe(gulp.dest(dest))
       .pipe(browserSync.stream())
@@ -29,6 +31,7 @@ var sassTask = function () {
   return gulp.src(src, { base: config.src })
     .pipe(plumber())
     .pipe(sass(options))
+    .pipe(autoprefixer(config.styles.options.autoprefixer))
     .pipe(gulp.dest(dest))
     .pipe(browserSync.stream())
     .on('error', handleErrors)
