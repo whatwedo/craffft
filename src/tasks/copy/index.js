@@ -10,4 +10,4 @@ var copyTaskList = function () {
 }
 
 gulp.task('copy', copyTaskList())
-module.exports = copyTaskList()
+module.exports = copyTaskList
