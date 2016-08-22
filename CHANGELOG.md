@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## v0.21.0-beta.1 - 2016-06-28
+## v0.21.0 - 2016-08-22
 ### Added
 * New scripts to run directly without flags
   * `craffft-compile`: Single compilation
