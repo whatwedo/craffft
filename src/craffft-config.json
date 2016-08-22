@@ -39,7 +39,6 @@
         "processors": [
           "postcss-import",
           "postcss-cssnext",
-          "autoprefixer",
           "css-mqpacker"
         ]
       },

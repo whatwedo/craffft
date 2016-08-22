@@ -7,6 +7,7 @@ var path = require('path')
 var nano = require('gulp-cssnano')
 var handleErrors = require('../../util/handleErrors')
 var gutil = require('gulp-util')
+var autoprefixer = require('gulp-autoprefixer')
 
 var postcssTask = function () {
   var src = config.styles.src
@@ -29,9 +30,6 @@ var postcssTask = function () {
             }
           }))
           break
-        case 'autoprefixer':
-          processors.push(require('autoprefixer')(config.styles.options.autoprefixer))
-          break
         case 'cssnext' || 'postcss-cssnext':
           processors.push(require('postcss-cssnext')({
             // Do not rewrite url() values
@@ -50,6 +48,7 @@ var postcssTask = function () {
   if (config._isBuild) {
     return gulp.src(src, { base: config.src })
       .pipe(postcss(processors))
+      .pipe(autoprefixer(config.styles.options.autoprefixer))
       .pipe(nano())
       .pipe(gulp.dest(dest))
       .on('error', handleErrors)
@@ -62,6 +61,7 @@ var postcssTask = function () {
     return gulp.src(src, { base: config.src })
         .pipe(sourcemaps.init())
         .pipe(postcss(processors))
+        .pipe(autoprefixer(config.styles.options.autoprefixer))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(dest))
         .on('error', handleErrors)
@@ -69,6 +69,7 @@ var postcssTask = function () {
 
   return gulp.src(src, { base: config.src })
     .pipe(postcss(processors))
+    .pipe(autoprefixer(config.styles.options.autoprefixer))
     .pipe(gulp.dest(dest))
     .on('error', handleErrors)
 }
