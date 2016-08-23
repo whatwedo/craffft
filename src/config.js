@@ -84,7 +84,7 @@ var config = function (opts) {
     runConfig = _.merge(runConfig, userConfig)
     gutil.log('User config loaded!')
   } catch (e) {
-    gutil.log('No user config found!')
+    gutil.log('Error parsing user config: ', e.message)
   }
 
   gutil.log('Run on ' + isBuild ? 'production' : 'development' + ' config.')
