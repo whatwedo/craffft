@@ -14,7 +14,7 @@ var postcssTask = function () {
   var compress = config._isBuild
   var processors = []
 
-  config.styles.options.postcss.processors.forEach(function (processor) {
+  config.styles.options.postcss.processors.forEach(function (processor, index, configList) {
     if (typeof processor === 'string') {
       switch (processor) {
         case 'postcss-import':
@@ -30,14 +30,24 @@ var postcssTask = function () {
           }))
           break
         case 'autoprefixer':
-          processors.push(require('autoprefixer')(config.styles.options.autoprefixer))
+          // if CSSnext isn't used, use standalone autoprefixer package
+          if (configList.indexOf('cssnext') === -1 && configList.indexOf('postcss-cssnext') === -1) {
+            processors.push(require('autoprefixer')(config.styles.options.autoprefixer))
+          }
           break
         case 'cssnext' || 'postcss-cssnext':
-          processors.push(require('postcss-cssnext')({
+          var opts = {
             // Do not rewrite url() values
             url: false,
             compress: compress
-          }))
+          }
+
+          // If CSSnext is used, run autoprefixer package of CSSnext instead of standalone          
+          if (configList.indexOf('autoprefixer') > -1) {
+            opts.browser = config.styles.options.autoprefixer.browser
+          }
+
+          processors.push(require('postcss-cssnext')(opts))
           break
         default:
           processors.push(require(processor))
