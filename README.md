@@ -378,3 +378,12 @@ craffft currently uses following dependencies:
 * Gulp with several addons for running tasks
 * PostCSS and Autoprefixer
 * Node-Sass, gulp-stylus and gulp-less for processing Sass and Stylus
+
+## Contribution
+
+### Run and test
+
+```
+$ npm link
+$ craffft-build
+```
