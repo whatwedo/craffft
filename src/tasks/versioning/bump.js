@@ -18,12 +18,12 @@ var bumpTask = function (cb) {
     choices: [ 'patch', 'minor', 'major', 'prerelease' ]
   }, function (res) {
     var selectedChoice = res.gbump
-    var newVer = semver.inc(config.options.version, selectedChoice)
+    var newVer = semver.inc(config.versioning.base, selectedChoice)
 
     if (selectedChoice === 'prerelease') {
       // Prerelease was chosen
       // Semver increment current
-      var recommendedVersion = semver.inc(config.options.version, 'pre', config.bump.options.preid)
+      var recommendedVersion = semver.inc(config.versioning.base, 'pre', config.versioning.prereleaseIdentifier)
       var prereleaseChoices = [
         'Set a new version'
       ]
@@ -44,9 +44,9 @@ var bumpTask = function (cb) {
           gulp.src(target).pipe(prompt.prompt({
             type: 'input',
             name: 'version',
-            message: 'Set a new version e.g. 1.0.0 (will be automatically suffixed with ' + config.bump.options.preid + ')'
+            message: 'Set a new version e.g. 1.0.0 (will be automatically suffixed with ' + config.versioning.prereleaseIdentifier + ')'
           }, function (res) {
-            newVer = res.version + '-' + config.bump.options.preid + '.0'
+            newVer = res.version + '-' + config.versioning.prereleaseIdentifier + '.0'
             gbumpFiles(newVer, cb, true)
           }))
         } else {
@@ -70,9 +70,9 @@ var gbumpFiles = function (newVer, callback, prerelease) {
   var dateHumanReadable = yyyy + '-' + (mm[ 1 ] ? mm : '0' + mm[ 0 ]) + '-' + (dd[ 1 ] ? dd : '0' + dd[ 0 ])
 
   gulp.src([
-      path.join(config._cwd, 'bower.json'),
-      path.join(config._cwd, 'package.json')
-    ])
+    path.join(config._cwd, 'bower.json'),
+    path.join(config._cwd, 'package.json')
+  ])
     .pipe(gbump({
       version: newVer
     }))
@@ -82,18 +82,17 @@ var gbumpFiles = function (newVer, callback, prerelease) {
       aftergbump(waitCounter)
     })
 
-  if (!prerelease || (prerelease && config.bump.prereleaseChangelogs)) {
+  if (!prerelease || (prerelease && config.versioning.prereleaseChangelogs)) {
     // replace version in CHANGELOG
-    gulp.src([ config.changelog.src ])
-      .pipe(replace(config.bump.unreleasedPlaceholder, '## v' + newVer + ' - ' + dateHumanReadable))
+    gulp.src([ config.versioning.changelog.src ])
+      .pipe(replace(config.versioning.unreleasedPlaceholder, '## v' + newVer + ' - ' + dateHumanReadable))
       .pipe(gulp.dest(config._cwd))
       .on('error', handleErrors)
       .on('end', function () {
+        callback()
         aftergbump(waitCounter)
       })
   }
-
-  callback()
 }
 
 var aftergbump = function (waitCounter) {
@@ -103,5 +102,5 @@ var aftergbump = function (waitCounter) {
   }
 }
 
-gulp.task('bump:version', bumpTask)
+gulp.task('versioning:bump', bumpTask)
 module.exports = bumpTask

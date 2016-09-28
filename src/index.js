@@ -13,8 +13,6 @@
  */
 
 var gulp = require('gulp')
-var gutil = require('gulp-util')
-var args = require('yargs').argv
 var requireDir = require('require-dir')
 
 // ...

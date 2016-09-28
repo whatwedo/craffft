@@ -2,6 +2,68 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Breaking changes
+* Bump and changelog configuration has been merged.
+  **Before**
+  ```
+  "bump": {
+    "unreleasedPlaceholder": "/## Unreleased/ig",
+    "prereleaseChangelogs": false,
+    "options": {
+      "preid": "beta"
+    }
+  },
+  "changelog": {
+    "src": "CHANGELOG.md"
+  }
+  ```
+
+  **New**
+  ```
+  "versioning": {
+    "base": "[package.version]",
+    "prereleaseIdentifier": "beta",
+    "changelog": {
+      "src": "./CHANGELOG.md",
+      "output": {
+        "path": "/",
+        "filename": "changelog"
+      },
+      "unreleasedPlaceholder": "/## Unreleased/ig",
+      "prereleaseChangelogs": false
+    }
+  }
+  ```
+
+### Added
+* Changelog: Name and output destination of the changelog can now be changed.
+  ```
+  "versioning": {
+    "changelog": {
+      "output": {
+        "path": "/",
+        "filename": "changelog"
+      }
+    }
+  }
+  ```
+* New commands: `craffft-changelog` and `craffft-version`. You can change your package.json:
+    ```json
+    "scripts": {
+      "compile": "craffft-compile",
+      "watch": "craffft-watch",
+      "build": "craffft-build",
+      "version": "craffft-version",
+      "changelog": "craffft-changelog"
+    }
+  ```
+
+  *craffft-bump* still works but will be gone in future.*
+
+### Fixed
+* Message about duplicate autoprefixer is gone
+
 ## v0.21.0 - 2016-08-22
 ### Added
 * New scripts to run directly without flags

@@ -6,7 +6,7 @@ var replace = require('gulp-replace')
 var markupTask = function () {
   var src = config.markup.src
   return gulp.src(src, {base: config.src})
-    .pipe(replace(/{PKG_VERSION}/g, config.options.version))
+    .pipe(replace(/{PKG_VERSION}/g, config.versioning.base))
     .pipe(gulp.dest(config.dest))
     .pipe(browserSync.stream())
 }
