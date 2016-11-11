@@ -1,1 +1,2 @@
 // A module
+import '../index';
