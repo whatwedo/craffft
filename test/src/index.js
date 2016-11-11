@@ -1,2 +1,9 @@
 console.log('Javascript is running.')
-console.log('changr')
+
+class Test {
+  constructor(){
+    console.log('class loaded');
+  }
+}
+
+export default Test;

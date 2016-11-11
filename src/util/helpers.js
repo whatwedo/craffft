@@ -115,7 +115,7 @@ function helpers () {
       var fileSrc = file
       var fileDest = fileInfo.dir && !flat ? path.join(path.relative(base, fileInfo.dir), fileInfo.name) : fileInfo.name
 
-      webpackEntries[ fileDest ] = './' + path.relative(base, fileSrc)
+      webpackEntries[ fileDest ] = ['./' + path.relative(base, fileSrc)]
     })
 
     return webpackEntries
