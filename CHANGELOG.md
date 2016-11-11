@@ -2,39 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
-### Breaking changes
-* Bump and changelog configuration has been merged.
-  **Before**
-  ```
-  "bump": {
-    "unreleasedPlaceholder": "/## Unreleased/ig",
-    "prereleaseChangelogs": false,
-    "options": {
-      "preid": "beta"
-    }
-  },
-  "changelog": {
-    "src": "CHANGELOG.md"
-  }
-  ```
-
-  **New**
-  ```
-  "versioning": {
-    "base": "[package.version]",
-    "prereleaseIdentifier": "beta",
-    "changelog": {
-      "src": "./CHANGELOG.md",
-      "output": {
-        "path": "/",
-        "filename": "changelog"
-      },
-      "unreleasedPlaceholder": "/## Unreleased/ig",
-      "prereleaseChangelogs": false
-    }
-  }
-  ```
+## v0.22.0 - 2016-11-11
 
 ### Added
 * Changelog: Name and output destination of the changelog can now be changed.
@@ -61,8 +29,48 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
   *craffft-bump* still works but will be gone in future.*
 
+### Changes
+* Dependencies updated to latest version
+* The changelog `unreleasedPlaceholder` no longer takes regex patterns.
+
+### Breaking changes
+* Typescript was updated to version 2.0. See [Microsoft Wiki](https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#typescript-20) for more details.
+* Bump and changelog configuration has been merged.
+  **Before**
+  ```
+  "bump": {
+    "unreleasedPlaceholder": "## v0.28.1 - 2016-11-11",
+    "prereleaseChangelogs": false,
+    "options": {
+      "preid": "beta"
+    }
+  },
+  "changelog": {
+    "src": "CHANGELOG.md"
+  }
+  ```
+
+  **New**
+  ```
+  "versioning": {
+    "base": "[package.version]",
+    "prereleaseIdentifier": "beta",
+    "changelog": {
+      "src": "./CHANGELOG.md",
+      "output": {
+        "path": "/",
+        "filename": "changelog"
+      },
+      "unreleasedPlaceholder": "## v0.28.1 - 2016-11-11",
+      "prereleaseChangelogs": false
+    }
+  }
+  ```
+
 ### Fixed
-* Message about duplicate autoprefixer is gone
+* Message about duplicate autoprefixer is gone.
+* The changelog unreleasedPlaceholder will now correctly be updated.
+* Build and Compile show the correct user config mode in terminal.
 
 ## v0.21.0 - 2016-08-22
 ### Added

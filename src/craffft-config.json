@@ -120,7 +120,7 @@
         "path": "/",
         "filename": "changelog"
       },
-      "unreleasedPlaceholder": "/## Unreleased/ig",
+      "unreleasedPlaceholder": "## Unreleased",
       "prereleaseChangelogs": false
     }
   },
