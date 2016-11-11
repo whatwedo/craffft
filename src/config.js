@@ -87,7 +87,7 @@ var config = function (opts) {
     gutil.log('Error parsing user config: ', e.message)
   }
 
-  gutil.log('Run on ' + isBuild ? 'production' : 'development' + ' config.')
+  gutil.log(isBuild ? 'Run in production mode' : 'Run in development mode')
 
   runConfig = setPaths(runConfig)
 

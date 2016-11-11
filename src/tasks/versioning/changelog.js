@@ -1,6 +1,7 @@
 'use strict'
 
 var gulp = require('gulp')
+var gutil = require('gulp-util')
 var config = require('../../config')()
 var markdown = require('gulp-markdown')
 var rename = require('gulp-rename')
