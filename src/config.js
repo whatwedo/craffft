@@ -84,22 +84,21 @@ var config = function (opts) {
     runConfig = _.merge(runConfig, userConfig)
     gutil.log('User config loaded!')
   } catch (e) {
-    gutil.log('No user config found!')
+    gutil.log('Error parsing user config: ', e.message)
   }
 
-  gutil.log('Run on ' + isBuild ? 'production' : 'development' + ' config.')
+  gutil.log(isBuild ? 'Run in production mode' : 'Run in development mode')
 
   runConfig = setPaths(runConfig)
 
-  if (runConfig.options.version && runConfig.options.version === 'package.version') {
-    runConfig.options.version = require(path.join(cwd, 'package.json')).version
+  if (runConfig.versioning.base && runConfig.versioning.base === '[package.version]') {
+    runConfig.versioning.base = require(path.join(cwd, 'package.json')).version
   }
 
   runConfig._isBuild = isBuild
   runConfig._outputLog = outputLog
   runConfig._path = systemPath
   runConfig._filepath = assembledConfigFullPath
-  runConfig._cwd = cwd
   runConfig._tasks = getTasks()
 
   try {
@@ -121,24 +120,29 @@ var config = function (opts) {
  * @param {object} config craffft config
  */
 var setPaths = function (config) {
-  config.srcAbsolute = path.join(process.env.PWD, config.src)
-  config.destAbsolute = path.join(process.env.PWD, config.dest)
-  config.src = config.srcAbsolute
-  config.dest = config.destAbsolute
+  config._cwd = process.env.PWD
+  config._srcAbsolute = path.join(config._cwd, config.src)
+  config._destAbsolute = path.join(config._cwd, config.dest)
 
-  var relativeToAbsolute = function (prop, key, root) {
-    var filePath = prop[ key ]
-    if (typeof filePath === 'string') {
-      filePath = path.join(root, filePath)
+  var relativeToAbsolute = function (prop, key, target, config) {
+    var filePath = prop[key]
+
+    // If path starts with ./, the user may want to grab the project root
+    if (typeof filePath === 'string' && filePath.substring(0, 2) === './') {
+      filePath = path.join(config._cwd, filePath)
+    } else if (typeof filePath === 'string') {
+      filePath = path.join(target, filePath)
     } else {
       for (var i = 0; i < filePath.length; i++) {
-        filePath[ i ] = path.join(root, filePath[ i ])
+        filePath[i] = path.join(target, filePath[i])
       }
     }
+    return filePath
   }
 
-  helper.recursiveFindByKeyInObj(config, 'src', function (prop, key) { relativeToAbsolute(prop, key, config.srcAbsolute) })
-  helper.recursiveFindByKeyInObj(config, 'dest', function (prop, key) { relativeToAbsolute(prop, key, config.destAbsolute) })
+  config = helper.searchReplaceInObjByKey(config, 'src', function (prop, key) { return relativeToAbsolute(prop, key, config._srcAbsolute, config) })
+  config = helper.searchReplaceInObjByKey(config, 'dest', function (prop, key) { return relativeToAbsolute(prop, key, config._destAbsolute, config) })
+  config = helper.searchReplaceInObjByKey(config, 'path', function (prop, key) { return relativeToAbsolute(prop, key, config._destAbsolute, config) })
   return config
 }
 

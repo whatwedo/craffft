@@ -10,6 +10,7 @@ function helpers () {
   return {
     copyLiteral: copyLiteral,
     recursiveFindByKeyInObj: recursiveFindByKeyInObj,
+    searchReplaceInObjByKey: searchReplaceInObjByKey,
     getDestPath: getDestPath,
     getSrcPath: getSrcPath,
     getWebpackLoaders: getWebpackLoaders,
@@ -45,6 +46,25 @@ function helpers () {
         }
       }
     }
+  }
+
+  function searchReplaceInObjByKey (obj, key, cb) {
+    for (var property in obj) {
+      if (property === key) {
+        if (cb) {
+          obj[key] = cb(obj, key)
+        }
+      }
+      if (obj.hasOwnProperty(property)) {
+        if (typeof obj[property] === 'object') {
+          obj[property] = searchReplaceInObjByKey(obj[property], key, cb)
+        } else {
+          // console.log(property + "   " + obj[ property ])
+        }
+      }
+    }
+
+    return obj
   }
 
   function getDestPath (config, dest) {
@@ -108,10 +128,10 @@ function helpers () {
    */
   function getWebpackTaskConfig (config) {
     var files = getJavascriptFiles(config.javascript.src, config.src)
-    var webpackBundles = getWebpackBundles(files, config.javascript.options.flatten, config.srcAbsolute)
+    var webpackBundles = getWebpackBundles(files, config.javascript.options.flatten, config._srcAbsolute)
 
     var webpackConfig = {
-      context: config.srcAbsolute,
+      context: config._srcAbsolute,
       entry: webpackBundles,
       output: {
         path: config.dest,
@@ -243,7 +263,7 @@ function helpers () {
         globOptions.ignore[ i ] = globOptions.ignore[ i ].replace('!', '')
       }
     } else if (isObjSrc) {
-      gutil.error('There\'s an error in the JavaScript \'src\' configuration. Object is not a valid file.')
+      gutil.error("There's an error in the JavaScript 'src' configuration. Object is not a valid file.")
     }
 
     patterns.forEach(function (pattern) {
