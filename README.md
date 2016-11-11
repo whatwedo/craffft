@@ -23,7 +23,8 @@ in your projects.
       "compile": "craffft-compile",
       "watch": "craffft-watch",
       "build": "craffft-build",
-      "bump": "craffft-bump"
+      "version": "craffft-version",
+      "changelog": "craffft-changelog"
     }
   ```
 
@@ -288,33 +289,28 @@ Options for copying processes. This can be used for other files that don't need 
 }
 ```
 
-### `bump`
+### `versioning`
 
-The bump command is for easy version bumping based on semver. It replaces all version numbers in the `package.json` and 
-other config files and updates the placeholder in `CHANGELOG.MD`.
+This configuration controls how your project's versioning works. These settings are used to automatically 
+bump your project's version number and create changelogs.
 
 *See [Keep a Changelog](http://keepachangelog.com/) for an example changelog, [semver.org](http://semver.org) for 
 versioning guidelines.*
 
 *Default*:
 ```json
-"bump": {
-  "unreleasedPlaceholder": "/## Unreleased/ig",
-  "prereleaseChangelogs": false, 
-  "options": {
-    "preid" : "beta" 
+"versioning": {
+  "base": "[package.version]",
+  "prereleaseIdentifier": "beta",
+  "changelog": {
+    "src": "./CHANGELOG.md",
+    "output": {
+      "path": "/",
+      "filename": "changelog"
+    },
+    "unreleasedPlaceholder": "/## Unreleased/ig",
+    "prereleaseChangelogs": false
   }
-}
-```
-
-### `changelog`
-
-Changelog options.
-
-*Default*:
-```json
-"changelog": {
-  "src": "CHANGELOG.md"
 }
 ```
 

@@ -2,7 +2,6 @@
   "src": "./src",
   "dest": "./dist",
   "options": {
-    "version": "package.version",
     "tmpDir": "./.craffft-tmp",
     "nodeModulesDir": "./node_modules",
     "bowerComponentsDir": "./bower_components",
@@ -112,15 +111,18 @@
   "copy": {
     "src": []
   },
-  "bump": {
-    "unreleasedPlaceholder": "/## Unreleased/ig",
-    "prereleaseChangelogs": false,
-    "options": {
-      "preid": "beta"
+  "versioning": {
+    "base": "[package.version]",
+    "prereleaseIdentifier": "beta",
+    "changelog": {
+      "src": "./CHANGELOG.md",
+      "output": {
+        "path": "/",
+        "filename": "changelog"
+      },
+      "unreleasedPlaceholder": "/## Unreleased/ig",
+      "prereleaseChangelogs": false
     }
-  },
-  "changelog": {
-    "src": "CHANGELOG.md"
   },
   "javascript": {
     "src": [
