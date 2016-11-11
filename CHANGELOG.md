@@ -39,7 +39,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   **Before**
   ```
   "bump": {
-    "unreleasedPlaceholder": "## v0.28.1 - 2016-11-11",
+    "unreleasedPlaceholder": "## your placeolder",
     "prereleaseChangelogs": false,
     "options": {
       "preid": "beta"
@@ -61,7 +61,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
         "path": "/",
         "filename": "changelog"
       },
-      "unreleasedPlaceholder": "## v0.28.1 - 2016-11-11",
+      "unreleasedPlaceholder": "## your placeholder",
       "prereleaseChangelogs": false
     }
   }
