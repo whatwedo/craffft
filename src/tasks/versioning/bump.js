@@ -86,7 +86,7 @@ var gbumpFiles = function (newVer, callback, prerelease) {
     // replace version in CHANGELOG
     gutil.log(config._cwd)
     gulp.src([ config.versioning.changelog.src ])
-      .pipe(replace(new RegExp(config.versioning.changelog.unreleasedPlaceholder, 'ig'), '## v' + newVer + ' - ' + dateHumanReadable))
+      .pipe(replace(new RegExp(config.versioning.changelog.unreleasedPlaceholder, 'i'), '## v' + newVer + ' - ' + dateHumanReadable))
       .pipe(gulp.dest(config._cwd))
       .on('error', handleErrors)
       .on('end', function () {

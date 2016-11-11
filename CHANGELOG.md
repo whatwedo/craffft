@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.23.0 - 2016-11-11
+### Changed
+* Allow a dependency to an entry point in ES6/7 module imports.
+
+### Fixed
+* Only replace first instance of `unreleasedPlaceholder` in your changelog.
+
 ## v0.22.0 - 2016-11-11
 
 ### Added
