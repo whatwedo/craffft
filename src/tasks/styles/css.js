@@ -5,6 +5,7 @@ var sourcemaps = require('gulp-sourcemaps')
 var glob = require('glob')
 var path = require('path')
 var nano = require('gulp-cssnano')
+var replace = require('gulp-replace')
 var handleErrors = require('../../util/handleErrors')
 var gutil = require('gulp-util')
 
@@ -13,6 +14,9 @@ var postcssTask = function () {
   var dest = config.dest
   var compress = config._isBuild
   var processors = []
+
+  var versionPlaceholder = config.versioning.placeholder
+  var hasStylesReplacement = config.versioning.replaceInStyles
 
   config.styles.options.postcss.processors.forEach(function (processor, index, configList) {
     if (typeof processor === 'string') {
@@ -57,7 +61,17 @@ var postcssTask = function () {
     }
   })
 
+  // Build Tasks
   if (config._isBuild) {
+    if (hasStylesReplacement && versionPlaceholder) {
+      return gulp.src(src, { base: config.src })
+        .pipe(postcss(processors))
+        .pipe(nano())
+        .pipe(replace(new RegExp(versionPlaceholder, 'ig'), config.versioning.base))
+        .pipe(gulp.dest(dest))
+        .on('error', handleErrors)
+    }
+
     return gulp.src(src, { base: config.src })
       .pipe(postcss(processors))
       .pipe(nano())
@@ -65,9 +79,20 @@ var postcssTask = function () {
       .on('error', handleErrors)
   }
 
+  // Source Maps
   if (config.options.sourceMaps) {
     if (config._outputLog) {
       gutil.log('Write CSS Sourcemaps')
+    }
+
+    if (hasStylesReplacement && versionPlaceholder) {
+      return gulp.src(src, { base: config.src })
+        .pipe(sourcemaps.init())
+        .pipe(postcss(processors))
+        .pipe(replace(new RegExp(versionPlaceholder, 'ig'), config.versioning.base))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(dest))
+        .on('error', handleErrors)
     }
     return gulp.src(src, { base: config.src })
         .pipe(sourcemaps.init())
@@ -75,6 +100,15 @@ var postcssTask = function () {
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(dest))
         .on('error', handleErrors)
+  }
+
+  // Compile tasks
+  if (hasStylesReplacement && versionPlaceholder) {
+    return gulp.src(src, { base: config.src })
+      .pipe(postcss(processors))
+      .pipe(replace(new RegExp(versionPlaceholder, 'ig'), config.versioning.base))
+      .pipe(gulp.dest(dest))
+      .on('error', handleErrors)
   }
 
   return gulp.src(src, { base: config.src })

@@ -87,7 +87,9 @@ var config = function (opts) {
     gutil.log('Error parsing user config: ', e.message)
   }
 
-  gutil.log(isBuild ? 'Run in production mode' : 'Run in development mode')
+  var message = isBuild ? 'Run in production mode' : 'Run in development mode';
+  message += ' with craffft v' + require('../package.json').version
+  gutil.log(message)
 
   runConfig = setPaths(runConfig)
 

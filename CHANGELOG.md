@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0 - 2016-12-06
+### Added
+* Version Task: You can now automatically replace version numbers of your project in your files. Use 
+  {CRAFFFT_PROJECT_VERSION} in HTML, PHP and CSS. If you want to change the placeholder or want to disable this task
+  use the options `replaceInMarkup`, `replaceInStyles` and `placeholder` under `version`.`
+
+### Fixed
+* `craffft-version` should now work as described in the readme.
+
 ## v0.23.0 - 2016-11-11
 ### Changed
 * Allow a dependency to an entry point in ES6/7 module imports.
