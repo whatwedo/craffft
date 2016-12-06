@@ -302,6 +302,9 @@ versioning guidelines.*
 "versioning": {
   "base": "[package.version]",
   "prereleaseIdentifier": "beta",
+  "replaceInMarkup": true,
+  "replaceInStyles": true,
+  "placeholder": "{CRAFFFT_PROJECT_VERSION}",
   "changelog": {
     "src": "./CHANGELOG.md",
     "output": {
