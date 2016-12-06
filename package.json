@@ -42,7 +42,8 @@
     "craffft-compile": "bin/default.js",
     "craffft-watch": "bin/watch.js",
     "craffft-build": "bin/build.js",
-    "craffft-bump": "bin/bump.js"
+    "craffft-bump": "bin/bump.js",
+    "craffft-version": "bin/version.js"
   },
   "dependencies": {
     "babel": "6.5.2",
