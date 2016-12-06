@@ -1,8 +1,5 @@
 <img width="200" src="https://raw.githubusercontent.com/whatwedo/craffft/develop/artwork/logo_rendered.png" alt="craffft" >
 
-**This project currently is under heavy maintenance. If you are using it by now, be prepared for breaking changes until 
-it reaches version 1.0.**
-
 **craffft** is a api wrapper for the most popular file processing systems e.g. webpack, gulp, grunt. It was built to 
 serve as build system with a low level api, making it possible to replace the technologies and frameworks in the 
 background without affecting projects using it e.g. moving from grunt to gulp without the need to replace all configurations 
