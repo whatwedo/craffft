@@ -1,3 +1,8 @@
+/*!
+* craffft - Main CSS Testfile
+* Here should be a numbered version after compilation/build: v{CRAFFFT_PROJECT_VERSION}
+*/
+
 @import 'postcss/*';
 
 body {
@@ -14,3 +19,7 @@ body {
  .prefixes-text {
    display: flex;
  }
+
+/*!
+* Here also should be a numbered version after compilation/build: v{CRAFFFT_PROJECT_VERSION}
+*/
