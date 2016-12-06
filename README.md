@@ -377,9 +377,9 @@ craffft currently uses following dependencies:
 
 ## Contribution
 
-### Run and test
+### Tests
 
+Run npm test task to link the binaries and make a test build.
 ```
-$ npm link
-$ craffft-build
+$ npm test
 ```

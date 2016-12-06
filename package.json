@@ -34,6 +34,9 @@
   },
   "license": "MIT",
   "main": "index.js",
+  "scripts": {
+    "test": "npm link && craffft-build"
+  },
   "bin": {
     "craffft": "bin/craffft.js",
     "craffft-compile": "bin/default.js",
