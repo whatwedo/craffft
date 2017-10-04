@@ -1,3 +1,9 @@
+![unmaintained](http://img.shields.io/badge/status-unmaintained-red.png)
+
+Currently unmaintained because we're not doing less frontend work than before.
+
+---
+
 <img width="200" src="https://raw.githubusercontent.com/whatwedo/craffft/develop/artwork/logo_rendered.png" alt="craffft" >
 
 **craffft** is a api wrapper for the most popular file processing systems e.g. webpack, gulp, grunt. It was built to 
